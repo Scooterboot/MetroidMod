@@ -6,7 +6,7 @@ using Terraria.Localization;
 
 namespace MetroidMod.Content.SuitAddons
 {
-	public class VariaSuitAddon : ModSuitAddon
+	public class VariaSuitAddon : ModSuitUpgrade
 	{
 		public override string ItemTexture => $"{Mod.Name}/Assets/Textures/SuitAddons/VariaSuit/VariaSuitItem";
 
@@ -19,8 +19,6 @@ namespace MetroidMod.Content.SuitAddons
 		public override string ArmorTextureArmsGlow => $"{Mod.Name}/Assets/Textures/SuitAddons/VariaSuit/VariaSuitBreastplate_Arms_Glow";
 
 		public override string ArmorTextureLegs => $"{Mod.Name}/Assets/Textures/SuitAddons/VariaSuit/VariaSuitGreaves_Legs";
-
-		public override bool AddOnlyAddonItem => false;
 
 		public override bool CanGenerateOnChozoStatue() => NPC.downedBoss2;//Main.UnderworldLayer;
 
@@ -41,32 +39,19 @@ namespace MetroidMod.Content.SuitAddons
 		public static float speedUp = 10f; //%Increased movement speed
 		public static float extraBreath = 55f; //%Increased breath meter
 
-		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(suitDef, energyCap, energyEff, energyRes, overheatCap, overheatCost, comboCost, huntDamage, huntCrit, speedUp, extraBreath);
+		public override LocalizedText ItemTooltip => base.ItemTooltip.WithFormatArgs(suitDef, energyCap, energyEff, energyRes, overheatCap, overheatCost, comboCost, huntDamage, huntCrit, speedUp, extraBreath);
 
-		public override void SetStaticDefaults()
+		public override BreastplateAddonSlot AddonSlot => BreastplateAddonSlot.Barrier;
+
+
+		public override void ItemSetDefaults(Items.GeneratedModItem generatedModItem)
 		{
-			// DisplayName.SetDefault("Varia Suit");
-			/* Tooltip.SetDefault("+6 defense\n" +
-				"+15 overheat capacity\n" +
-				"5% decreased overheat use\n" +
-				"5% decreased Missile Charge Combo cost\n" +
-				"5% increased hunter damage\n" +
-				"5% increased hunter critical strike chance\n" +
-				"55% increased underwater breathing\n" +
-				"10% increased movement speed\n" +
-				"10% increased energy barrier efficiency\n" + // Provisional name
-				"20% increased energy barrier resilience\n" + // Provisional name
-				"Immunity to fire blocks" + "\n" + 
-				"Immunity to chill and freeze effects"); */
-			AddonSlot = SuitAddonSlotID.Suit_Barrier;
-			ItemNameLiteral = false;
-		}
-		public override void SetItemDefaults(Item item)
-		{
-			item.width = 16;
-			item.height = 16;
-			item.value = Item.buyPrice(0, 2, 10, 0);
-			item.rare = ItemRarityID.Orange;
+			base.ItemSetDefaults(generatedModItem);
+
+			GeneratedModItem.Item.width = 16;
+			GeneratedModItem.Item.height = 16;
+			GeneratedModItem.Item.value = Item.buyPrice(0, 2, 10, 0);
+			GeneratedModItem.Item.rare = ItemRarityID.Orange;
 		}
 		public override void OnUpdateArmorSet(Player player, int stack)
 		{
@@ -89,9 +74,9 @@ namespace MetroidMod.Content.SuitAddons
 			mp.EnergyExpenseEfficiency += energyRes / 100;
 			mp.UACost -= 0.05f;
 		}
-		public override void AddRecipes()
+		public override void ItemAddRecipes(Items.GeneratedModItem generatedModItem)
 		{
-			CreateRecipe(1)
+			generatedModItem.CreateRecipe(1)
 				.AddIngredient(ItemID.HellstoneBar, 45)
 				.AddTile(TileID.Anvils)
 				.Register();

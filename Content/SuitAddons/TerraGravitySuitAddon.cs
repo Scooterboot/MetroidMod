@@ -8,7 +8,7 @@ using Terraria.Localization;
 
 namespace MetroidMod.Content.SuitAddons
 {
-	public class TerraGravitySuitAddon : ModSuitAddon
+	public class TerraGravitySuitAddon : ModSuitUpgrade
 	{
 		public override string ItemTexture => $"{Mod.Name}/Assets/Textures/SuitAddons/TerraGravitySuit/TerraGravitySuitItem";
 
@@ -23,8 +23,6 @@ namespace MetroidMod.Content.SuitAddons
 		public override string ArmorTextureLegs => $"{Mod.Name}/Assets/Textures/SuitAddons/TerraGravitySuit/TerraGravitySuitGreaves_Legs";
 
 		public override string ArmorTextureShouldersGlow => $"{Mod.Name}/Assets/Textures/SuitAddons/TerraGravitySuit/TerraGravitySuitBreastplate_Shoulders_Glow";
-
-		public override bool AddOnlyAddonItem => false;
 
 		public override bool CanGenerateOnChozoStatue() => Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues || MSystem.bossesDown.HasFlag(MetroidBossDown.downedNightmare);
 
@@ -44,9 +42,12 @@ namespace MetroidMod.Content.SuitAddons
 		public static int huntCrit = 8; //Increased hunter crit
 		public static float speedUp = 10f; //%Increased movement speed
 
-		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(suitDef, energyCap, energyEff, energyRes, overheatCap, overheatCost, comboCost, huntDamage, huntCrit, speedUp);
+		public override LocalizedText ItemTooltip => base.ItemTooltip.WithFormatArgs(suitDef, energyCap, energyEff, energyRes, overheatCap, overheatCost, comboCost, huntDamage, huntCrit, speedUp);
 
-		public override void SetStaticDefaults()
+		public override BreastplateAddonSlot AddonSlot => BreastplateAddonSlot.Primary;
+
+
+		public override void ItemSetStaticDefaults(Items.GeneratedModItem generatedModItem)
 		{
 			// DisplayName.SetDefault("Terra Gravity Suit");
 			/* Tooltip.SetDefault("+19 defense\n" +
@@ -65,15 +66,15 @@ namespace MetroidMod.Content.SuitAddons
 				"Default gravity in space\n" +
 				"Immune to Distorted and Amplified Gravity effects"); */
 			ItemID.Sets.ShimmerTransformToItem[ItemType] = SuitAddonLoader.GetAddon<PhazonSuitAddon>().ItemType;
-			AddonSlot = SuitAddonSlotID.Suit_Primary;
-			ItemNameLiteral = false;
 		}
-		public override void SetItemDefaults(Item item)
+		public override void ItemSetDefaults(Items.GeneratedModItem generatedModItem)
 		{
-			item.width = 16;
-			item.height = 16;
-			item.value = Item.buyPrice(0, 11, 70, 0);
-			item.rare = ItemRarityID.Lime;
+			base.ItemSetDefaults(generatedModItem);
+
+			generatedModItem.Item.width = 16;
+			generatedModItem.Item.height = 16;
+			generatedModItem.Item.value = Item.buyPrice(0, 11, 70, 0);
+			generatedModItem.Item.rare = ItemRarityID.Lime;
 		}
 		public override void OnUpdateArmorSet(Player player, int stack)
 		{
@@ -109,9 +110,9 @@ namespace MetroidMod.Content.SuitAddons
 		{
 			player.armorEffectDrawShadowLokis = true;
 		}
-		public override void AddRecipes()
+		public override void ItemAddRecipes(Items.GeneratedModItem generatedModItem)
 		{
-			CreateRecipe(1)
+			generatedModItem.CreateRecipe(1)
 				.AddIngredient(ItemID.ChlorophyteBar, 60)
 				.AddIngredient<Items.Miscellaneous.NightmareCoreX>(1)
 				.AddSuitAddon<GravitySuitAddon>(1)

@@ -138,23 +138,6 @@ Mods: {
 			BoostBall: Mods.MetroidMod.SuitAddonName.BoostBall
 			SpiderBall: Mods.MetroidMod.SuitAddonName.SpiderBall
 			Drill: Mods.MetroidMod.SuitAddonName.Drill
-			#Suit Addons
-			VariaSuitAddon: Mods.MetroidMod.SuitAddonName.VariaSuitAddon
-			VariaSuitV2Addon: Mods.MetroidMod.SuitAddonName.VariaSuitV2Addon
-			HazardShieldAddon: Mods.MetroidMod.SuitAddonName.HazardShieldAddon
-			GravitySuitAddon: Mods.MetroidMod.SuitAddonName.GravitySuitAddon
-			TerraGravitySuitAddon: Mods.MetroidMod.SuitAddonName.TerraGravitySuitAddon
-			PhazonSuitAddon: Mods.MetroidMod.SuitAddonName.PhazonSuitAddon
-			DarkSuitAddon: Mods.MetroidMod.SuitAddonName.DarkSuitAddon
-			LightSuitAddon: Mods.MetroidMod.SuitAddonName.LightSuitAddon
-			PEDSuitAddon: Mods.MetroidMod.SuitAddonName.PEDSuitAddon
-			VortexAugment: Mods.MetroidMod.SuitAddonName.VortexAugment
-			NebulaAugment: Mods.MetroidMod.SuitAddonName.NebulaAugment
-			SolarAugment: Mods.MetroidMod.SuitAddonName.SolarAugment
-			EnergyTank: Mods.MetroidMod.SuitAddonName.EnergyTank
-			ReserveTank: Mods.MetroidMod.SuitAddonName.ReserveTank
-			ScanVisor: Mods.MetroidMod.SuitAddonName.ScanVisor
-			XRayScope: Mods.MetroidMod.SuitAddonName.XRayScope
 			#Deprecated
 			PowerGrip: Mods.MetroidMod.SuitAddonName.PowerGrip
 			HiJumpBoots: Mods.MetroidMod.SuitAddonName.HiJumpBoots
@@ -185,23 +168,6 @@ Mods: {
 			BoostBall: Mods.MetroidMod.SuitAddonTooltip.BoostBall
 			SpiderBall: Mods.MetroidMod.SuitAddonTooltip.SpiderBall
 			Drill: Mods.MetroidMod.SuitAddonTooltip.Drill
-			#Suit Addons
-			VariaSuitAddon: Mods.MetroidMod.SuitAddonTooltip.VariaSuitAddon
-			VariaSuitV2Addon: Mods.MetroidMod.SuitAddonTooltip.VariaSuitV2Addon
-			HazardShieldAddon: Mods.MetroidMod.SuitAddonTooltip.HazardShieldAddon
-			GravitySuitAddon: Mods.MetroidMod.SuitAddonTooltip.GravitySuitAddon
-			TerraGravitySuitAddon: Mods.MetroidMod.SuitAddonTooltip.TerraGravitySuitAddon
-			PhazonSuitAddon: Mods.MetroidMod.SuitAddonTooltip.PhazonSuitAddon
-			DarkSuitAddon: Mods.MetroidMod.SuitAddonTooltip.DarkSuitAddon
-			LightSuitAddon: Mods.MetroidMod.SuitAddonTooltip.LightSuitAddon
-			PEDSuitAddon: Mods.MetroidMod.SuitAddonTooltip.PEDSuitAddon
-			VortexAugment: Mods.MetroidMod.SuitAddonTooltip.VortexAugment
-			NebulaAugment: Mods.MetroidMod.SuitAddonTooltip.NebulaAugment
-			SolarAugment: Mods.MetroidMod.SuitAddonTooltip.SolarAugment
-			EnergyTank: Mods.MetroidMod.SuitAddonTooltip.EnergyTank
-			ReserveTank: Mods.MetroidMod.SuitAddonTooltip.ReserveTank
-			ScanVisor: Mods.MetroidMod.SuitAddonTooltip.ScanVisor
-			XRayScope: Mods.MetroidMod.SuitAddonTooltip.XRayScope
 			#Deprecated
 			PowerGrip: Mods.MetroidMod.SuitAddonTooltip.PowerGrip
 			HiJumpBoots: Mods.MetroidMod.SuitAddonTooltip.HiJumpBoots
@@ -1111,335 +1077,6 @@ Mods: {
 					Hold Click to charge 
 					Fires a continuous laser beam of Solar energy at full charge 
 					Costs 10 missiles to activate and 5 missiles per second to maintain
-					'''
-			}
-
-			###################################
-			# -----[[Power Suit Addons]]----- #
-			###################################
-			
-			EnergyTankAddon: {
-				DisplayName: Energy Tank
-				Tooltip:
-					'''
-					{$CommonItemTooltip.IsSuitAddon}Energy
-					Grants the user an extra tank of energy, stacks up to 14
-					'''
-			}
-
-			ReserveTankAddon: {
-				DisplayName: Reserve Tank
-				Tooltip:
-					'''
-					{$CommonItemTooltip.IsSuitAddon}Reserve
-					Can store a spare tank of energy
-					Set to "auto" in the suit UI to automatically use when energy is depleted
-					Left click the bar to fill reserves with suit energy, right click to draw from reserves
-					Stacks up to 4
-					'''
-			}
-
-			# Visors
-			
-			ScanVisorAddon: {
-				DisplayName: Scan Visor
-				Tooltip:
-					'''
-					{$CommonItemTooltip.IsSuitAddon}Scan
-					Fills in the Bestiary entries of NPCs you look at
-					'''
-			}
-
-			XRayScopeAddon: {
-				DisplayName: X Ray Scope
-				Slot: Alt
-				Tooltip: Projects a wide ray of light if you are standing still
-			}
-
-			# Suits
-			
-			VariaSuitAddonAddon: {
-				DisplayName: Varia Suit
-				Tooltip:
-					'''
-					{$CommonItemTooltip.IsSuitAddon}Barrier
-					{$CommonItemTooltip.IncreasedSuitDefense}
-					{$CommonItemTooltip.IncreasedTankCapacity@1}
-					{$CommonItemTooltip.PercentIncreasedEnergyEfficiency@2}
-					{$CommonItemTooltip.PercentIncreasedEnergyResilience@3}
-					{$CommonItemTooltip.IncreasedOverheatMax@4}
-					{$CommonItemTooltip.PercentDecreasedOverheatCost@5}
-					{$CommonItemTooltip.PercentDecreasedComboCost@6}
-					{$CommonItemTooltip.PercentIncreasedHunterDamage@7}
-					{$CommonItemTooltip.PercentIncreasedHunterCrit@8}
-					{$CommonItemTooltip.PercentIncreasedMovementSpeed@9}
-					{$CommonItemTooltip.IncreasedBreathMeter@10}
-					Immunity to fire blocks
-					Immunity to chill and freeze effects
-					Reduced damage from touching lava
-					'''
-			}
-
-			VariaSuitV2AddonAddon: {
-				DisplayName: True Varia Suit
-				Tooltip:
-					'''
-					{$CommonItemTooltip.IsSuitAddon}Barrier
-					{$CommonItemTooltip.IncreasedSuitDefense}
-					{$CommonItemTooltip.IncreasedTankCapacity@1}
-					{$CommonItemTooltip.PercentIncreasedEnergyEfficiency@2}
-					{$CommonItemTooltip.PercentIncreasedEnergyResilience@3}
-					{$CommonItemTooltip.IncreasedOverheatMax@4}
-					{$CommonItemTooltip.PercentDecreasedOverheatCost@5}
-					{$CommonItemTooltip.PercentDecreasedComboCost@6}
-					{$CommonItemTooltip.PercentIncreasedHunterDamage@7}
-					{$CommonItemTooltip.PercentIncreasedHunterCrit@8}
-					{$CommonItemTooltip.PercentIncreasedMovementSpeed@9}
-					{$CommonItemTooltip.IncreasedBreathMeter@10}
-					Immunity to fire blocks
-					Immunity to chill and freeze effects
-					Reduced damage from touching lava
-					Enables the use of the Prime Hunter ability
-					Hold the Hypermode keybind to activate
-					'''
-			}
-
-			GravitySuitAddonAddon: {
-				DisplayName: Gravity Suit
-				Tooltip:
-					'''
-					{$CommonItemTooltip.IsSuitAddon}Primary
-					{$CommonItemTooltip.IncreasedSuitDefense}
-					{$CommonItemTooltip.IncreasedTankCapacity@1}
-					{$CommonItemTooltip.PercentIncreasedEnergyEfficiency@2}
-					{$CommonItemTooltip.PercentIncreasedEnergyResilience@3}
-					{$CommonItemTooltip.IncreasedOverheatMax@4}
-					{$CommonItemTooltip.PercentDecreasedOverheatCost@5}
-					{$CommonItemTooltip.PercentDecreasedComboCost@6}
-					{$CommonItemTooltip.PercentIncreasedHunterDamage@7}
-					{$CommonItemTooltip.PercentIncreasedHunterCrit@8}
-					{$CommonItemTooltip.IncreasedBreathMeter@9}
-					Free movement in liquid
-					Grants 7 seconds of lava immunity
-					'''
-			}
-
-			TerraGravitySuitAddonAddon: {
-				DisplayName: True Gravity Suit
-				Tooltip:
-					'''
-					{$CommonItemTooltip.IsSuitAddon}Primary
-					{$CommonItemTooltip.IncreasedSuitDefense}
-					{$CommonItemTooltip.IncreasedTankCapacity@1}
-					{$CommonItemTooltip.PercentIncreasedEnergyEfficiency@2}
-					{$CommonItemTooltip.PercentIncreasedEnergyResilience@3}
-					{$CommonItemTooltip.IncreasedOverheatMax@4}
-					{$CommonItemTooltip.PercentDecreasedOverheatCost@5}
-					{$CommonItemTooltip.PercentDecreasedComboCost@6}
-					{$CommonItemTooltip.PercentIncreasedHunterDamage@7}
-					{$CommonItemTooltip.PercentIncreasedHunterCrit@8}
-					{$CommonItemTooltip.PercentIncreasedMovementSpeed@9}
-					Infinite breath underwater
-					Free movement in liquid
-					Grants 14 seconds of lava immunity
-					Default gravity in space
-					Immune to Distorted and Amplified Gravity effects
-					Enables Hyper Beam use
-					'''
-			}
-
-			VortexAugmentAddon: {
-				DisplayName: Vortex Augment
-				Tooltip:
-					'''
-					{$CommonItemTooltip.IsSuitAddon}Primary
-					{$CommonItemTooltip.IncreasedSuitDefense}
-					{$CommonItemTooltip.IncreasedTankCapacity@1}
-					{$CommonItemTooltip.PercentIncreasedEnergyEfficiency@2}
-					{$CommonItemTooltip.PercentIncreasedEnergyResilience@3}
-					{$CommonItemTooltip.IncreasedOverheatMax@4}
-					{$CommonItemTooltip.PercentDecreasedOverheatCost@5}
-					{$CommonItemTooltip.PercentDecreasedComboCost@6}
-					{$CommonItemTooltip.PercentIncreasedHunterDamage@7}
-					{$CommonItemTooltip.PercentIncreasedHunterCrit@8}
-					{$CommonItemTooltip.PercentIncreasedMovementSpeed@9}
-					Infinite breath underwater
-					Free movement in liquids including shimmer
-					Immunity to Shimmer Phasing
-					Hold Down to Phase while submerged in Shimmer
-					Grants 14 seconds of lava immunity
-					Default gravity in space
-					Immune to Distorted and Amplified Gravity effects
-					{$CommonItemTooltip.HyperBeamEnabled}
-					'''
-			}
-
-			PhazonSuitAddonAddon: {
-				DisplayName: Phazon Suit
-				Tooltip:
-					'''
-					{$CommonItemTooltip.IsSuitAddon}Primary
-					{$CommonItemTooltip.IncreasedSuitDefense}
-					{$CommonItemTooltip.IncreasedTankCapacity@1}
-					{$CommonItemTooltip.PercentIncreasedEnergyEfficiency@2}
-					{$CommonItemTooltip.PercentIncreasedEnergyResilience@3}
-					{$CommonItemTooltip.IncreasedOverheatMax@4}
-					{$CommonItemTooltip.PercentDecreasedOverheatCost@5}
-					{$CommonItemTooltip.PercentDecreasedComboCost@6}
-					{$CommonItemTooltip.PercentIncreasedHunterDamage@7}
-					{$CommonItemTooltip.PercentIncreasedHunterCrit@8}
-					{$CommonItemTooltip.PercentIncreasedMovementSpeed@9}
-					Infinite breath underwater
-					Free movement in liquid
-					Grants 7 seconds of lava immunity
-					Immune to damage caused by blue Phazon blocks
-					Enables Phazon Beam use
-					'''
-			}
-
-			NebulaAugmentAddon: {
-				DisplayName: Nebula Augment
-				Tooltip:
-					'''
-					{$CommonItemTooltip.IsSuitAddon}Primary
-					{$CommonItemTooltip.IncreasedSuitDefense}
-					{$CommonItemTooltip.IncreasedTankCapacity@1}
-					{$CommonItemTooltip.PercentIncreasedEnergyEfficiency@2}
-					{$CommonItemTooltip.PercentIncreasedEnergyResilience@3}
-					{$CommonItemTooltip.IncreasedOverheatMax@4}
-					{$CommonItemTooltip.PercentDecreasedOverheatCost@5}
-					{$CommonItemTooltip.PercentDecreasedComboCost@6}
-					{$CommonItemTooltip.PercentIncreasedHunterDamage@7}
-					{$CommonItemTooltip.PercentIncreasedHunterCrit@8}
-					{$CommonItemTooltip.PercentIncreasedMovementSpeed@9}
-					Infinite breath underwater
-					Free movement in liquid
-					Grants 7 seconds of lava immunity
-					Immune to damage caused by blue Phazon blocks
-					Enables Phazon Beam use
-					'''
-			}
-
-			DarkSuitAddonAddon: {
-				DisplayName: Dark Suit
-				Tooltip:
-					'''
-					You shouldn't have this.
-					{$CommonItemTooltip.IsSuitAddon}Primary
-					{$CommonItemTooltip.IncreasedSuitDefense}
-					{$CommonItemTooltip.PercentIncreasedEnergyEfficiency@1}
-					{$CommonItemTooltip.PercentIncreasedEnergyResilience@2}
-					{$CommonItemTooltip.IncreasedOverheatMax@3}
-					{$CommonItemTooltip.PercentDecreasedOverheatCost@4}
-					{$CommonItemTooltip.PercentDecreasedComboCost@5}
-					{$CommonItemTooltip.PercentIncreasedHunterDamage@6}
-					{$CommonItemTooltip.PercentIncreasedHunterCrit@7}
-					Reduces damage from the Dark World
-					'''
-			}
-
-			LightSuitAddonAddon: {
-				DisplayName: Light Suit
-				Tooltip:
-					'''
-					You shouldn't have this.
-					{$CommonItemTooltip.IsSuitAddon}Primary
-					{$CommonItemTooltip.IncreasedSuitDefense}
-					{$CommonItemTooltip.PercentIncreasedEnergyEfficiency@1}
-					{$CommonItemTooltip.PercentIncreasedEnergyResilience@2}
-					{$CommonItemTooltip.IncreasedOverheatMax@3}
-					{$CommonItemTooltip.PercentDecreasedOverheatCost@4}
-					{$CommonItemTooltip.PercentDecreasedComboCost@5}
-					{$CommonItemTooltip.PercentIncreasedHunterDamage@6}
-					{$CommonItemTooltip.PercentIncreasedHunterCrit@7}
-					{$CommonItemTooltip.PercentIncreasedMovementSpeed@8}
-					Immune to damage from the Dark World
-					Immune to damage from Dark Water
-					'''
-			}
-
-			SolarAugmentAddon: {
-				DisplayName: Solar Augment
-				Tooltip:
-					'''
-					You shouldn't have this.
-					{$CommonItemTooltip.IsSuitAddon}Primary
-					{$CommonItemTooltip.IncreasedSuitDefense}
-					{$CommonItemTooltip.PercentIncreasedEnergyEfficiency@1}
-					{$CommonItemTooltip.PercentIncreasedEnergyResilience@2}
-					{$CommonItemTooltip.IncreasedOverheatMax@3}
-					{$CommonItemTooltip.PercentDecreasedOverheatCost@4}
-					{$CommonItemTooltip.PercentDecreasedComboCost@5}
-					{$CommonItemTooltip.PercentIncreasedHunterDamage@6}
-					{$CommonItemTooltip.PercentIncreasedHunterCrit@7}
-					Immune to damage from the Dark World
-					Immune to damage from Dark Water
-					'''
-			}
-
-			PEDSuitAddonAddon: {
-				DisplayName: P.E.D. Suit
-				Tooltip:
-					'''
-					You shouldn't have this.
-					{$CommonItemTooltip.IsSuitAddon}Primary
-					{$CommonItemTooltip.IncreasedSuitDefense}
-					{$CommonItemTooltip.PercentIncreasedEnergyEfficiency@1}
-					{$CommonItemTooltip.PercentIncreasedEnergyResilience@2}
-					{$CommonItemTooltip.IncreasedOverheatMax@3}
-					{$CommonItemTooltip.PercentDecreasedOverheatCost@4}
-					{$CommonItemTooltip.PercentDecreasedComboCost@5}
-					{$CommonItemTooltip.PercentIncreasedHunterDamage@6}
-					{$CommonItemTooltip.PercentIncreasedHunterCrit@7}
-					Enables the use of Hypermode
-					Press the Hypermode key to activate Hypermode (take 100 damage to gain50% damage for 20 seconds, 120 s cooldown)
-					Slightly increased health regen when standing on Phazon
-					'''
-			}
-
-			HazardShieldAddonAddon: {
-				DisplayName: Hazard Shield
-				Tooltip:
-					'''
-					{$CommonItemTooltip.IsSuitAddon}Barrier
-					{$CommonItemTooltip.IncreasedSuitDefense}
-					{$CommonItemTooltip.PercentIncreasedEnergyEfficiency@1}
-					{$CommonItemTooltip.PercentIncreasedEnergyResilience@2}
-					{$CommonItemTooltip.IncreasedOverheatMax@3}
-					{$CommonItemTooltip.PercentDecreasedOverheatCost@4}
-					{$CommonItemTooltip.PercentDecreasedComboCost@5}
-					{$CommonItemTooltip.PercentIncreasedHunterDamage@6}
-					{$CommonItemTooltip.PercentIncreasedHunterCrit@7}
-					{$CommonItemTooltip.PercentIncreasedMovementSpeed@8}
-					{$CommonItemTooltip.IncreasedBreathMeter@9}
-					Immunity to fire blocks
-					Immunity to chill and freeze effects
-					Debuffs tick down twice as fast
-					'''
-			}
-
-			FusionOmegaAddonAddon: {
-				DisplayName: Varia Suit Omega
-				Tooltip:
-					'''
-					{$CommonItemTooltip.IsSuitAddon}Barrier
-					{$CommonItemTooltip.IncreasedSuitDefense}
-					{$CommonItemTooltip.IncreasedTankCapacity@1}
-					{$CommonItemTooltip.PercentIncreasedEnergyEfficiency@2}
-					{$CommonItemTooltip.PercentIncreasedEnergyResilience@3}
-					{$CommonItemTooltip.IncreasedOverheatMax@4}
-					{$CommonItemTooltip.PercentDecreasedOverheatCost@5}
-					{$CommonItemTooltip.PercentDecreasedComboCost@6}
-					{$CommonItemTooltip.PercentIncreasedHunterDamage@7}
-					{$CommonItemTooltip.PercentIncreasedHunterCrit@8}
-					{$CommonItemTooltip.PercentIncreasedMovementSpeed@9}
-					{$CommonItemTooltip.IncreasedBreathMeter@10}
-					Immunity to fire blocks
-					Immunity to chill and freeze effects
-					Reduced damage from touching lava
-					Provides 6 additonal Life Reserve Tanks
-					Enables the use of the Prime Hunter ability
-					Hold the Hypermode keybind to activate
 					'''
 			}
 
@@ -5539,6 +5176,333 @@ Mods: {
 			RedHatch.DisplayName: Red Hatch
 			GreenHatch.DisplayName: Green Hatch
 			BlueHatch.DisplayName: Blue Hatch
+		}
+
+		SuitAddons: {
+			VariaSuitAddon: {
+				DisplayName: Varia Suit
+				Tooltip:
+					'''
+					{$CommonItemTooltip.IsSuitAddon}Barrier
+					{$CommonItemTooltip.IncreasedSuitDefense}
+					{$CommonItemTooltip.IncreasedTankCapacity@1}
+					{$CommonItemTooltip.PercentIncreasedEnergyEfficiency@2}
+					{$CommonItemTooltip.PercentIncreasedEnergyResilience@3}
+					{$CommonItemTooltip.IncreasedOverheatMax@4}
+					{$CommonItemTooltip.PercentDecreasedOverheatCost@5}
+					{$CommonItemTooltip.PercentDecreasedComboCost@6}
+					{$CommonItemTooltip.PercentIncreasedHunterDamage@7}
+					{$CommonItemTooltip.PercentIncreasedHunterCrit@8}
+					{$CommonItemTooltip.PercentIncreasedMovementSpeed@9}
+					{$CommonItemTooltip.IncreasedBreathMeter@10}
+					Immunity to fire blocks
+					Immunity to chill and freeze effects
+					Reduced damage from touching lava
+					'''
+			}
+
+			EnergyTank: {
+				DisplayName: Energy Tank
+				Tooltip:
+					'''
+					{$CommonItemTooltip.IsSuitAddon}Energy
+					Grants the user an extra tank of energy, stacks up to 14
+					'''
+			}
+
+			ReserveTank: {
+				DisplayName: Reserve Tank
+				Tooltip:
+					'''
+					{$CommonItemTooltip.IsSuitAddon}Reserve
+					Can store a spare tank of energy
+					Set to "auto" in the suit UI to automatically use when energy is depleted
+					Left click the bar to fill reserves with suit energy, right click to draw from reserves
+					Stacks up to 4
+					'''
+			}
+
+			# Visors
+			
+			ScanVisor: {
+				DisplayName: Scan Visor
+				Tooltip:
+					'''
+					{$CommonItemTooltip.IsSuitAddon}Scan
+					Fills in the Bestiary entries of NPCs you look at
+					'''
+			}
+
+			XRayScope: {
+				DisplayName: X Ray Scope
+				Slot: Alt
+				Tooltip: Projects a wide ray of light if you are standing still
+			}
+
+			# Suits
+			
+			VariaSuitV2Addon: {
+				DisplayName: True Varia Suit
+				Tooltip:
+					'''
+					{$CommonItemTooltip.IsSuitAddon}Barrier
+					{$CommonItemTooltip.IncreasedSuitDefense}
+					{$CommonItemTooltip.IncreasedTankCapacity@1}
+					{$CommonItemTooltip.PercentIncreasedEnergyEfficiency@2}
+					{$CommonItemTooltip.PercentIncreasedEnergyResilience@3}
+					{$CommonItemTooltip.IncreasedOverheatMax@4}
+					{$CommonItemTooltip.PercentDecreasedOverheatCost@5}
+					{$CommonItemTooltip.PercentDecreasedComboCost@6}
+					{$CommonItemTooltip.PercentIncreasedHunterDamage@7}
+					{$CommonItemTooltip.PercentIncreasedHunterCrit@8}
+					{$CommonItemTooltip.PercentIncreasedMovementSpeed@9}
+					{$CommonItemTooltip.IncreasedBreathMeter@10}
+					Immunity to fire blocks
+					Immunity to chill and freeze effects
+					Reduced damage from touching lava
+					Enables the use of the Prime Hunter ability
+					Hold the Hypermode keybind to activate
+					'''
+			}
+
+			GravitySuitAddon: {
+				DisplayName: Gravity Suit
+				Tooltip:
+					'''
+					{$CommonItemTooltip.IsSuitAddon}Primary
+					{$CommonItemTooltip.IncreasedSuitDefense}
+					{$CommonItemTooltip.IncreasedTankCapacity@1}
+					{$CommonItemTooltip.PercentIncreasedEnergyEfficiency@2}
+					{$CommonItemTooltip.PercentIncreasedEnergyResilience@3}
+					{$CommonItemTooltip.IncreasedOverheatMax@4}
+					{$CommonItemTooltip.PercentDecreasedOverheatCost@5}
+					{$CommonItemTooltip.PercentDecreasedComboCost@6}
+					{$CommonItemTooltip.PercentIncreasedHunterDamage@7}
+					{$CommonItemTooltip.PercentIncreasedHunterCrit@8}
+					{$CommonItemTooltip.IncreasedBreathMeter@9}
+					Free movement in liquid
+					Grants 7 seconds of lava immunity
+					'''
+			}
+
+			TerraGravitySuitAddon: {
+				DisplayName: True Gravity Suit
+				Tooltip:
+					'''
+					{$CommonItemTooltip.IsSuitAddon}Primary
+					{$CommonItemTooltip.IncreasedSuitDefense}
+					{$CommonItemTooltip.IncreasedTankCapacity@1}
+					{$CommonItemTooltip.PercentIncreasedEnergyEfficiency@2}
+					{$CommonItemTooltip.PercentIncreasedEnergyResilience@3}
+					{$CommonItemTooltip.IncreasedOverheatMax@4}
+					{$CommonItemTooltip.PercentDecreasedOverheatCost@5}
+					{$CommonItemTooltip.PercentDecreasedComboCost@6}
+					{$CommonItemTooltip.PercentIncreasedHunterDamage@7}
+					{$CommonItemTooltip.PercentIncreasedHunterCrit@8}
+					{$CommonItemTooltip.PercentIncreasedMovementSpeed@9}
+					Infinite breath underwater
+					Free movement in liquid
+					Grants 14 seconds of lava immunity
+					Default gravity in space
+					Immune to Distorted and Amplified Gravity effects
+					Enables Hyper Beam use
+					'''
+			}
+
+			VortexAugment: {
+				DisplayName: Vortex Augment
+				Tooltip:
+					'''
+					{$CommonItemTooltip.IsSuitAddon}Primary
+					{$CommonItemTooltip.IncreasedSuitDefense}
+					{$CommonItemTooltip.IncreasedTankCapacity@1}
+					{$CommonItemTooltip.PercentIncreasedEnergyEfficiency@2}
+					{$CommonItemTooltip.PercentIncreasedEnergyResilience@3}
+					{$CommonItemTooltip.IncreasedOverheatMax@4}
+					{$CommonItemTooltip.PercentDecreasedOverheatCost@5}
+					{$CommonItemTooltip.PercentDecreasedComboCost@6}
+					{$CommonItemTooltip.PercentIncreasedHunterDamage@7}
+					{$CommonItemTooltip.PercentIncreasedHunterCrit@8}
+					{$CommonItemTooltip.PercentIncreasedMovementSpeed@9}
+					Infinite breath underwater
+					Free movement in liquids including shimmer
+					Immunity to Shimmer Phasing
+					Hold Down to Phase while submerged in Shimmer
+					Grants 14 seconds of lava immunity
+					Default gravity in space
+					Immune to Distorted and Amplified Gravity effects
+					{$CommonItemTooltip.HyperBeamEnabled}
+					'''
+			}
+
+			PhazonSuitAddon: {
+				DisplayName: Phazon Suit
+				Tooltip:
+					'''
+					{$CommonItemTooltip.IsSuitAddon}Primary
+					{$CommonItemTooltip.IncreasedSuitDefense}
+					{$CommonItemTooltip.IncreasedTankCapacity@1}
+					{$CommonItemTooltip.PercentIncreasedEnergyEfficiency@2}
+					{$CommonItemTooltip.PercentIncreasedEnergyResilience@3}
+					{$CommonItemTooltip.IncreasedOverheatMax@4}
+					{$CommonItemTooltip.PercentDecreasedOverheatCost@5}
+					{$CommonItemTooltip.PercentDecreasedComboCost@6}
+					{$CommonItemTooltip.PercentIncreasedHunterDamage@7}
+					{$CommonItemTooltip.PercentIncreasedHunterCrit@8}
+					{$CommonItemTooltip.PercentIncreasedMovementSpeed@9}
+					Infinite breath underwater
+					Free movement in liquid
+					Grants 7 seconds of lava immunity
+					Immune to damage caused by blue Phazon blocks
+					Enables Phazon Beam use
+					'''
+			}
+
+			NebulaAugment: {
+				DisplayName: Nebula Augment
+				Tooltip:
+					'''
+					{$CommonItemTooltip.IsSuitAddon}Primary
+					{$CommonItemTooltip.IncreasedSuitDefense}
+					{$CommonItemTooltip.IncreasedTankCapacity@1}
+					{$CommonItemTooltip.PercentIncreasedEnergyEfficiency@2}
+					{$CommonItemTooltip.PercentIncreasedEnergyResilience@3}
+					{$CommonItemTooltip.IncreasedOverheatMax@4}
+					{$CommonItemTooltip.PercentDecreasedOverheatCost@5}
+					{$CommonItemTooltip.PercentDecreasedComboCost@6}
+					{$CommonItemTooltip.PercentIncreasedHunterDamage@7}
+					{$CommonItemTooltip.PercentIncreasedHunterCrit@8}
+					{$CommonItemTooltip.PercentIncreasedMovementSpeed@9}
+					Infinite breath underwater
+					Free movement in liquid
+					Grants 7 seconds of lava immunity
+					Immune to damage caused by blue Phazon blocks
+					Enables Phazon Beam use
+					'''
+			}
+
+			DarkSuitAddon: {
+				DisplayName: Dark Suit
+				Tooltip:
+					'''
+					You shouldn't have this.
+					{$CommonItemTooltip.IsSuitAddon}Primary
+					{$CommonItemTooltip.IncreasedSuitDefense}
+					{$CommonItemTooltip.PercentIncreasedEnergyEfficiency@1}
+					{$CommonItemTooltip.PercentIncreasedEnergyResilience@2}
+					{$CommonItemTooltip.IncreasedOverheatMax@3}
+					{$CommonItemTooltip.PercentDecreasedOverheatCost@4}
+					{$CommonItemTooltip.PercentDecreasedComboCost@5}
+					{$CommonItemTooltip.PercentIncreasedHunterDamage@6}
+					{$CommonItemTooltip.PercentIncreasedHunterCrit@7}
+					Reduces damage from the Dark World
+					'''
+			}
+
+			LightSuitAddon: {
+				DisplayName: Light Suit
+				Tooltip:
+					'''
+					You shouldn't have this.
+					{$CommonItemTooltip.IsSuitAddon}Primary
+					{$CommonItemTooltip.IncreasedSuitDefense}
+					{$CommonItemTooltip.PercentIncreasedEnergyEfficiency@1}
+					{$CommonItemTooltip.PercentIncreasedEnergyResilience@2}
+					{$CommonItemTooltip.IncreasedOverheatMax@3}
+					{$CommonItemTooltip.PercentDecreasedOverheatCost@4}
+					{$CommonItemTooltip.PercentDecreasedComboCost@5}
+					{$CommonItemTooltip.PercentIncreasedHunterDamage@6}
+					{$CommonItemTooltip.PercentIncreasedHunterCrit@7}
+					{$CommonItemTooltip.PercentIncreasedMovementSpeed@8}
+					Immune to damage from the Dark World
+					Immune to damage from Dark Water
+					'''
+			}
+
+			SolarAugment: {
+				DisplayName: Solar Augment
+				Tooltip:
+					'''
+					You shouldn't have this.
+					{$CommonItemTooltip.IsSuitAddon}Primary
+					{$CommonItemTooltip.IncreasedSuitDefense}
+					{$CommonItemTooltip.PercentIncreasedEnergyEfficiency@1}
+					{$CommonItemTooltip.PercentIncreasedEnergyResilience@2}
+					{$CommonItemTooltip.IncreasedOverheatMax@3}
+					{$CommonItemTooltip.PercentDecreasedOverheatCost@4}
+					{$CommonItemTooltip.PercentDecreasedComboCost@5}
+					{$CommonItemTooltip.PercentIncreasedHunterDamage@6}
+					{$CommonItemTooltip.PercentIncreasedHunterCrit@7}
+					Immune to damage from the Dark World
+					Immune to damage from Dark Water
+					'''
+			}
+
+			PEDSuitAddon: {
+				DisplayName: P.E.D. Suit
+				Tooltip:
+					'''
+					You shouldn't have this.
+					{$CommonItemTooltip.IsSuitAddon}Primary
+					{$CommonItemTooltip.IncreasedSuitDefense}
+					{$CommonItemTooltip.PercentIncreasedEnergyEfficiency@1}
+					{$CommonItemTooltip.PercentIncreasedEnergyResilience@2}
+					{$CommonItemTooltip.IncreasedOverheatMax@3}
+					{$CommonItemTooltip.PercentDecreasedOverheatCost@4}
+					{$CommonItemTooltip.PercentDecreasedComboCost@5}
+					{$CommonItemTooltip.PercentIncreasedHunterDamage@6}
+					{$CommonItemTooltip.PercentIncreasedHunterCrit@7}
+					Enables the use of Hypermode
+					Press the Hypermode key to activate Hypermode (take 100 damage to gain50% damage for 20 seconds, 120 s cooldown)
+					Slightly increased health regen when standing on Phazon
+					'''
+			}
+
+			HazardShieldAddon: {
+				DisplayName: Hazard Shield
+				Tooltip:
+					'''
+					{$CommonItemTooltip.IsSuitAddon}Barrier
+					{$CommonItemTooltip.IncreasedSuitDefense}
+					{$CommonItemTooltip.PercentIncreasedEnergyEfficiency@1}
+					{$CommonItemTooltip.PercentIncreasedEnergyResilience@2}
+					{$CommonItemTooltip.IncreasedOverheatMax@3}
+					{$CommonItemTooltip.PercentDecreasedOverheatCost@4}
+					{$CommonItemTooltip.PercentDecreasedComboCost@5}
+					{$CommonItemTooltip.PercentIncreasedHunterDamage@6}
+					{$CommonItemTooltip.PercentIncreasedHunterCrit@7}
+					{$CommonItemTooltip.PercentIncreasedMovementSpeed@8}
+					{$CommonItemTooltip.IncreasedBreathMeter@9}
+					Immunity to fire blocks
+					Immunity to chill and freeze effects
+					Debuffs tick down twice as fast
+					'''
+			}
+
+			FusionOmegaAddon: {
+				DisplayName: Varia Suit Omega
+				Tooltip:
+					'''
+					{$CommonItemTooltip.IsSuitAddon}Barrier
+					{$CommonItemTooltip.IncreasedSuitDefense}
+					{$CommonItemTooltip.IncreasedTankCapacity@1}
+					{$CommonItemTooltip.PercentIncreasedEnergyEfficiency@2}
+					{$CommonItemTooltip.PercentIncreasedEnergyResilience@3}
+					{$CommonItemTooltip.IncreasedOverheatMax@4}
+					{$CommonItemTooltip.PercentDecreasedOverheatCost@5}
+					{$CommonItemTooltip.PercentDecreasedComboCost@6}
+					{$CommonItemTooltip.PercentIncreasedHunterDamage@7}
+					{$CommonItemTooltip.PercentIncreasedHunterCrit@8}
+					{$CommonItemTooltip.PercentIncreasedMovementSpeed@9}
+					{$CommonItemTooltip.IncreasedBreathMeter@10}
+					Immunity to fire blocks
+					Immunity to chill and freeze effects
+					Reduced damage from touching lava
+					Provides 6 additonal Life Reserve Tanks
+					Enables the use of the Prime Hunter ability
+					Hold the Hypermode keybind to activate
+					'''
+			}
 		}
 	}
 }

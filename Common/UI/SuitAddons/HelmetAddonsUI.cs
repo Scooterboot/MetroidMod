@@ -2,6 +2,7 @@
 using MetroidMod.Common.Configs;
 using MetroidMod.Common.Players;
 using MetroidMod.Content.Items.Armors;
+using MetroidMod.Content.SuitAddons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -64,7 +65,7 @@ namespace MetroidMod.Common.UI.SuitAddons
 				addonSlots[i] = new HelmetUIItemBox();
 				addonSlots[i].Top.Pixels = itemBoxPositionValues[i].Y;
 				addonSlots[i].Left.Pixels = itemBoxPositionValues[i].X;
-				addonSlots[i].addonSlotType = i + 4;
+				addonSlots[i].addonSlotType = i;
 				addonSlots[i].SetCondition();
 
 				Append(addonSlots[i]);
@@ -131,8 +132,8 @@ namespace MetroidMod.Common.UI.SuitAddons
 				if (addonItem.ModItem != null)// && addonItem.ModItem.Mod == MetroidMod.Instance)
 				{
 					//MGlobalItem mItem = addonItem.GetGlobalItem<MGlobalItem>();
-					if (addonItem == null || !SuitAddonLoader.TryGetAddon(addonItem, out ModSuitAddon mSuitAddon)) { return false; }
-					return addonItem.type <= ItemID.None || mSuitAddon.AddonSlot == addonSlotType;
+					if (addonItem == null || !SuitAddonLoader.TryGetAddon(addonItem, out ModSuitAddon mSuitAddon) || mSuitAddon is not IVisorAddon visorAddon) { return false; }
+					return addonItem.type <= ItemID.None || visorAddon.AddonSlot == (HelmetAddonSlot)addonSlotType;
 					//return (addonItem.type <= 0 || mItem.addonSlotType == this.addonSlotType);
 				}
 				return addonItem.type <= ItemID.None;// || (addonItem.ModItem != null && addonItem.ModItem.Mod == MetroidMod.Instance);
@@ -148,23 +149,23 @@ namespace MetroidMod.Common.UI.SuitAddons
 			if (Main.LocalPlayer.armor[0].type != ModContent.ItemType<PowerSuitHelmet>()) { return; }
 			PowerSuitHelmet target = Main.LocalPlayer.armor[0].ModItem as PowerSuitHelmet;
 
-			if (target.SuitAddons[addonSlotType - 4] != null && !target.SuitAddons[addonSlotType - 4].IsAir)
+			if (target.SuitAddons[addonSlotType] != null && !target.SuitAddons[addonSlotType].IsAir)
 			{
 				if (Main.mouseItem.IsAir)
 				{
 					SoundEngine.PlaySound(SoundID.Grab);
-					Main.mouseItem = target.SuitAddons[addonSlotType - 4].Clone();
+					Main.mouseItem = target.SuitAddons[addonSlotType].Clone();
 
-					target.SuitAddons[addonSlotType - 4].TurnToAir();
+					target.SuitAddons[addonSlotType].TurnToAir();
 				}
 				else if (condition == null || (condition != null && condition(Main.mouseItem)))
 				{
 					SoundEngine.PlaySound(SoundID.Grab);
 
-					Item tempBoxItem = target.SuitAddons[addonSlotType - 4].Clone();
+					Item tempBoxItem = target.SuitAddons[addonSlotType].Clone();
 					Item tempMouseItem = Main.mouseItem.Clone();
 
-					target.SuitAddons[addonSlotType - 4] = tempMouseItem;
+					target.SuitAddons[addonSlotType] = tempMouseItem;
 					Main.mouseItem = tempBoxItem;
 				}
 			}
@@ -173,7 +174,7 @@ namespace MetroidMod.Common.UI.SuitAddons
 				if (condition == null || (condition != null && condition(Main.mouseItem)))
 				{
 					SoundEngine.PlaySound(SoundID.Grab);
-					target.SuitAddons[addonSlotType - 4] = Main.mouseItem.Clone();
+					target.SuitAddons[addonSlotType] = Main.mouseItem.Clone();
 					Main.mouseItem.TurnToAir();
 				}
 			}
@@ -190,18 +191,18 @@ namespace MetroidMod.Common.UI.SuitAddons
 			PowerSuitHelmet helmet = Main.LocalPlayer.armor[0].ModItem as PowerSuitHelmet;
 			if (helmet is null) return;
 
-			Color itemColor = helmet.SuitAddons[addonSlotType - 4].GetAlpha(Color.White);
-			Texture2D itemTexture = TextureAssets.Item[helmet.SuitAddons[addonSlotType - 4].type].Value;
+			Color itemColor = helmet.SuitAddons[addonSlotType].GetAlpha(Color.White);
+			Texture2D itemTexture = TextureAssets.Item[helmet.SuitAddons[addonSlotType].type].Value;
 			CalculatedStyle innerDimensions = GetDimensions();
 
 			if (IsMouseHovering)
 			{
-				Main.hoverItemName = helmet.SuitAddons[addonSlotType - 4].Name;
-				Main.HoverItem = helmet.SuitAddons[addonSlotType - 4].Clone();
+				Main.hoverItemName = helmet.SuitAddons[addonSlotType].Name;
+				Main.HoverItem = helmet.SuitAddons[addonSlotType].Clone();
 			}
 
-			Rectangle frame = Main.itemAnimations[helmet.SuitAddons[addonSlotType - 4].type] != null
-						? Main.itemAnimations[helmet.SuitAddons[addonSlotType - 4].type].GetFrame(itemTexture)
+			Rectangle frame = Main.itemAnimations[helmet.SuitAddons[addonSlotType].type] != null
+						? Main.itemAnimations[helmet.SuitAddons[addonSlotType].type].GetFrame(itemTexture)
 						: itemTexture.Frame(1, 1, 0, 0);
 
 			float drawScale = 1f;
@@ -220,7 +221,7 @@ namespace MetroidMod.Common.UI.SuitAddons
 			//float unreflectedScale = drawScale;
 			Color tmpcolor = Color.White;
 
-			ItemSlot.GetItemLight(ref tmpcolor, ref drawScale, helmet.SuitAddons[addonSlotType - 4].type);
+			ItemSlot.GetItemLight(ref tmpcolor, ref drawScale, helmet.SuitAddons[addonSlotType].type);
 
 			Vector2 drawPosition = new(innerDimensions.X, innerDimensions.Y);
 
@@ -230,7 +231,7 @@ namespace MetroidMod.Common.UI.SuitAddons
 			spriteBatch.Draw(itemTexture, drawPosition, new Rectangle?(frame), itemColor, 0f,
 				Vector2.Zero, drawScale, SpriteEffects.None, 0f);
 
-			if (helmet.SuitAddons[addonSlotType - 4].color != default(Color))
+			if (helmet.SuitAddons[addonSlotType].color != default(Color))
 			{
 				spriteBatch.Draw(itemTexture, drawPosition, itemColor);//, 0f,
 																	   //Vector2.Zero, drawScale, SpriteEffects.None, 0f);

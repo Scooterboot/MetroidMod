@@ -7,7 +7,7 @@ using Terraria.Localization;
 
 namespace MetroidMod.Content.SuitAddons
 {
-	public class HazardShieldAddon : ModSuitAddon
+	public class HazardShieldAddon : ModSuitUpgrade
 	{
 		public override string ItemTexture => $"{Mod.Name}/Assets/Textures/SuitAddons/HazardShieldSuit/HazardShieldSuitItem";
 
@@ -26,8 +26,6 @@ namespace MetroidMod.Content.SuitAddons
 		public override string OnShoulderTexture => $"{Mod.Name}/Assets/Textures/SuitAddons/HazardShieldSuit/HazardShieldSuitBreastplate_OnShoulder";
 
 		public override string OffShoulderTexture => $"{Mod.Name}/Assets/Textures/SuitAddons/HazardShieldSuit/HazardShieldSuitBreastplate_OffShoulder";
-
-		public override bool AddOnlyAddonItem => false;
 
 		public override bool CanGenerateOnChozoStatue() => false;//WorldGen.drunkWorldGen;
 
@@ -48,33 +46,18 @@ namespace MetroidMod.Content.SuitAddons
 		public static float speedUp = 20f; //%Increased movement speed
 		public static float extraBreath = 80f; //%Increased breath meter
 
-		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(suitDef, energyEff, energyRes, overheatCap, overheatCost, comboCost, huntDamage, huntCrit, speedUp, extraBreath);
+		public override LocalizedText ItemTooltip => base.ItemTooltip.WithFormatArgs(suitDef, energyEff, energyRes, overheatCap, overheatCost, comboCost, huntDamage, huntCrit, speedUp, extraBreath);
 
-		public override void SetStaticDefaults()
+		public override BreastplateAddonSlot AddonSlot => BreastplateAddonSlot.Barrier;
+
+		public override void ItemSetDefaults(Items.GeneratedModItem generatedModItem)
 		{
-			// DisplayName.SetDefault("Hazard Shield");
-			/* Tooltip.SetDefault("You shouldn't have this."/*"+25 defense\n" +
-				"+45 overheat capacity\n" +
-				"20% decreased overheat use\n" +
-				"15% decreased Missile Charge Combo cost\n" +
-				"15% increased hunter damage\n" +
-				"12% increased hunter critical strike chance\n" +
-				"80% increased underwater breathing\n" +
-				"20% increased movement speed\n" +
-				"45% increased energy barrier efficiency\n" + // Provisional name
-				"47.5% increased energy barrier resilience\n" + // Provisional name
-				"Immunity to fire blocks" + "\n" +
-				"Immunity to chill and freeze effects"
-				"Debuffs tick down twice as fast");*/
-			AddonSlot = SuitAddonSlotID.Suit_Barrier;
-			ItemNameLiteral = false;
-		}
-		public override void SetItemDefaults(Item item)
-		{
-			item.width = 16;
-			item.height = 16;
-			item.value = Item.buyPrice(0, 11, 70, 0);
-			item.rare = ItemRarityID.Lime;
+			base.ItemSetDefaults(generatedModItem);
+
+			generatedModItem.Item.width = 16;
+			generatedModItem.Item.height = 16;
+			generatedModItem.Item.value = Item.buyPrice(0, 11, 70, 0);
+			generatedModItem.Item.rare = ItemRarityID.Lime;
 		}
 		public override void OnUpdateArmorSet(Player player, int stack)
 		{
@@ -113,9 +96,9 @@ namespace MetroidMod.Content.SuitAddons
 			}
 		}
 		/* Implement a recipe?
-		public override void AddRecipes()
+		public override void ItemAddRecipes(Items.GeneratedModItem generatedModItem)
 		{
-			CreateRecipe(1)
+			generatedModItem.CreateRecipe(1)
 				.AddSuitAddon<VariaSuitV2Addon>(1)
 				.AddRecipeGroup(ItemID.ShroomiteBar, 60)
 				.AddTile<NovaWorkTableTile>()

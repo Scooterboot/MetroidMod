@@ -30,7 +30,7 @@ namespace MetroidMod.Content.Items.Tiles
 		public override void AddRecipes()
 		{
 			CreateRecipe(1)
-				.AddIngredient(SuitAddonLoader.GetAddon<SuitAddons.EnergyTank>().ItemType, 1)
+				.AddIngredient(SuitAddons.SuitAddonLoader.GetAddon<SuitAddons.EnergyTank>().ItemType, 1)
 				.AddRecipeGroup("IronBar", 5)
 				.AddTile(TileID.Anvils)
 				.Register();

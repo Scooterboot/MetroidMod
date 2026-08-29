@@ -1,4 +1,5 @@
 ﻿using MetroidMod.Common.Players;
+using MetroidMod.Content.SuitAddons;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;

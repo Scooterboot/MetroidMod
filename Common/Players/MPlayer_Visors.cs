@@ -1,4 +1,5 @@
 ﻿using MetroidMod.Content.Items.Armors;
+using MetroidMod.Content.SuitAddons;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.GameInput;
@@ -41,7 +42,7 @@ namespace MetroidMod.Common.Players
 		{
 			if (VisorInUse >= 0)
 			{
-				HUDColor = SuitAddonLoader.GetAddon(VisorInUse).VisorColor;
+				HUDColor = (SuitAddonLoader.GetAddon(VisorInUse) as IVisorAddon).VisorColor;
 			}
 		}
 

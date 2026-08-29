@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace MetroidMod.Content.SuitAddons
 {
-	public class VortexAugment : ModSuitAddon
+	public class VortexAugment : ModSuitUpgrade
 	{
 		public override string ItemTexture => $"{Mod.Name}/Assets/Textures/SuitAddons/VortexAugment/VortexAugmentItem";
 
@@ -21,8 +21,6 @@ namespace MetroidMod.Content.SuitAddons
 		public override string ArmorTextureArmsGlow => $"{Mod.Name}/Assets/Textures/SuitAddons/VortexAugment/VortexAugmentBreastplate_Arms_Glow";
 
 		public override string ArmorTextureLegs => $"{Mod.Name}/Assets/Textures/SuitAddons/VortexAugment/VortexAugmentGreaves_Legs";
-
-		public override bool AddOnlyAddonItem => false;
 
 		public override bool CanGenerateOnChozoStatue() => Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues || NPC.downedMoonlord;
 		public override double GenerationChance() => 1;
@@ -41,20 +39,22 @@ namespace MetroidMod.Content.SuitAddons
 		public static int huntCrit = 13; //Increased hunter crit
 		public static float speedUp = 10f; //%Increased movement speed
 
-		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(suitDef, energyCap, energyEff, energyRes, overheatCap, overheatCost, comboCost, huntDamage, huntCrit, speedUp);
+		public override LocalizedText ItemTooltip => base.ItemTooltip.WithFormatArgs(suitDef, energyCap, energyEff, energyRes, overheatCap, overheatCost, comboCost, huntDamage, huntCrit, speedUp);
 
-		public override void SetStaticDefaults()
+		public override BreastplateAddonSlot AddonSlot => BreastplateAddonSlot.Primary;
+
+		public override void ItemSetStaticDefaults(Items.GeneratedModItem generatedModItem)
 		{
 			ItemID.Sets.ShimmerTransformToItem[ItemType] = SuitAddonLoader.GetAddon<NebulaAugment>().ItemType;
-			AddonSlot = SuitAddonSlotID.Suit_Primary;
-			ItemNameLiteral = true;
 		}
-		public override void SetItemDefaults(Item item)
+		public override void ItemSetDefaults(Items.GeneratedModItem generatedModItem)
 		{
-			item.width = 16;
-			item.height = 16;
-			item.value = Item.buyPrice(0, 15, 60, 0);
-			item.rare = ItemRarityID.Red;
+			base.ItemSetDefaults(generatedModItem);
+
+			generatedModItem.Item.width = 16;
+			generatedModItem.Item.height = 16;
+			generatedModItem.Item.value = Item.buyPrice(0, 15, 60, 0);
+			generatedModItem.Item.rare = ItemRarityID.Red;
 		}
 		public override void OnUpdateArmorSet(Player player, int stack)
 		{
@@ -102,9 +102,9 @@ namespace MetroidMod.Content.SuitAddons
 		{
 			player.armorEffectDrawShadow = true;
 		}
-		public override void AddRecipes()
+		public override void ItemAddRecipes(Items.GeneratedModItem generatedModItem)
 		{
-			CreateRecipe(1)
+			generatedModItem.CreateRecipe(1)
 				.AddIngredient(ItemID.LunarBar, 36)
 				.AddIngredient(ItemID.FragmentVortex, 45)
 				.AddSuitAddon<TerraGravitySuitAddon>(1)

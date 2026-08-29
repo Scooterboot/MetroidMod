@@ -1,5 +1,6 @@
 using System.IO;
 using MetroidMod.Common.Players;
+using MetroidMod.Content.SuitAddons;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -21,7 +22,7 @@ namespace MetroidMod.Content.Items.Armors
 			get {
 				if (_suitAddons == null)
 				{
-					_suitAddons = new Item[SuitAddonSlotID.Suit_Primary + 1];
+					_suitAddons = new Item[4];
 					for (int i = 0; i < _suitAddons.Length; i++)
 					{
 						_suitAddons[i] = new Item();
@@ -381,7 +382,7 @@ namespace MetroidMod.Content.Items.Armors
 					_suitAddons[i] = new Item();
 					_suitAddons[i].TurnToAir();
 				}
-				_suitAddons[0] = SuitAddonLoader.GetAddon<SuitAddons.ScanVisor>().ModItem.Item.Clone();
+				_suitAddons[0] = SuitAddonLoader.GetAddon<SuitAddons.ScanVisor>().GeneratedModItem.Item.Clone();
 				//Mod.Logger.Debug(_suitAddons[0].ModItem.DisplayName.GetDefault());
 			}
 		}

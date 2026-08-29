@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using MetroidMod.Common.Players;
+using MetroidMod.Content.Items;
 using MetroidMod.Content.Items.Armors;
 using MetroidMod.Default;
 using MetroidMod.ID;
@@ -9,7 +10,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
-namespace MetroidMod
+namespace MetroidMod.Content.SuitAddons
 {
 	public static class SuitAddonLoader
 	{
@@ -71,21 +72,6 @@ namespace MetroidMod
 			}
 		}*/
 
-		public static string GetAddonSlotName(int AddonSlot)
-		{
-			return AddonSlot switch
-			{
-				SuitAddonSlotID.Tanks_Energy => "Energy Tank",
-				SuitAddonSlotID.Tanks_Reserve => "Reserve Tank",
-				SuitAddonSlotID.Suit_Barrier => "Barrier",
-				SuitAddonSlotID.Suit_Primary => "Primary",
-				SuitAddonSlotID.Visor_Scan => "Scan Visor",
-				SuitAddonSlotID.Visor_Utility => "Utility Visor",
-				SuitAddonSlotID.Visor_AltVision => "Alt Visor",
-				_ => "Unknown"
-			};
-		}
-
 		public static string GetSetBonusText(Player player)
 		{
 			string returnVal = "\n";
@@ -102,9 +88,9 @@ namespace MetroidMod
 			foreach (Item item in items)
 			{
 				if (item.type == ItemID.None) { continue; }
-				SuitAddonItem addonItem = (SuitAddonItem)item.ModItem;
-				ModSuitAddon addon = addonItem?.modSuitAddon;
-				string temp = addon.GetSetBonusText();
+				GeneratedModItem addonItem = (GeneratedModItem)item.ModItem;
+				ModSuitAddon addon = (ModSuitAddon)(addonItem?.producer);
+				string temp = "";
 				if (temp != null && temp != "")
 				{
 					returnVal += temp + "\n";

@@ -9,6 +9,8 @@ namespace MetroidMod.Content.Items
 	/// </summary>
 	public interface IGeneratesModItem
 	{
+		string Name { get; }
+
 		GeneratedModItem GeneratedModItem { get; }
 
 		int ItemType { get; }
@@ -37,6 +39,8 @@ namespace MetroidMod.Content.Items
 	{
 		public IGeneratesModItem producer;
 
+
+		public override string Name => producer.Name + "Tile";
 
 		public override LocalizedText DisplayName => producer.ItemDisplayName;
 

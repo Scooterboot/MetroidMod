@@ -2,6 +2,7 @@
 using MetroidMod.Common.Configs;
 using MetroidMod.Common.Players;
 using MetroidMod.Content.Items.Armors;
+using MetroidMod.Content.SuitAddons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -38,10 +39,10 @@ namespace MetroidMod.Common.UI.SuitAddons
 
 		public Vector2[] breastItemBoxPositionValues = new Vector2[4]
 		{
-			new Vector2(36, 160), // Reserve
-			new Vector2(186, 160), // Energy
 			new Vector2(196, 88), // Barrier
-			new Vector2(26, 88) // Primary
+			new Vector2(26, 88), // Primary
+			new Vector2(36, 160), // Reserve
+			new Vector2(186, 160) // Energy
 		};
 		public Vector2[] helmItemBoxPositionValues = new Vector2[3]
 		{
@@ -83,7 +84,7 @@ namespace MetroidMod.Common.UI.SuitAddons
 				helmAddonSlots[i] = new HelmetUIItemBox();
 				helmAddonSlots[i].Top.Pixels = helmItemBoxPositionValues[i].Y;
 				helmAddonSlots[i].Left.Pixels = helmItemBoxPositionValues[i].X;
-				helmAddonSlots[i].addonSlotType = i + 4;
+				helmAddonSlots[i].addonSlotType = i;
 				helmAddonSlots[i].SetCondition();
 
 				Append(helmAddonSlots[i]);
@@ -150,8 +151,8 @@ namespace MetroidMod.Common.UI.SuitAddons
 				if (addonItem.ModItem != null)// && addonItem.ModItem.Mod == MetroidMod.Instance)
 				{
 					//MGlobalItem mItem = addonItem.GetGlobalItem<MGlobalItem>();
-					if (addonItem == null || !SuitAddonLoader.TryGetAddon(addonItem, out ModSuitAddon mSuitAddon)) { return false; }
-					return addonItem.type <= ItemID.None || mSuitAddon.AddonSlot == addonSlotType;
+					if (addonItem == null || !SuitAddonLoader.TryGetAddon(addonItem, out ModSuitAddon mSuitAddon) || mSuitAddon is not IBreastplateAddon breastplateAddon) { return false; }
+					return addonItem.type <= ItemID.None || breastplateAddon.AddonSlot == (BreastplateAddonSlot)addonSlotType;
 					//return (addonItem.type <= 0 || mItem.addonSlotType == this.addonSlotType);
 				}
 				return addonItem.type <= ItemID.None;// || (addonItem.ModItem != null && addonItem.ModItem.Mod == MetroidMod.Instance);

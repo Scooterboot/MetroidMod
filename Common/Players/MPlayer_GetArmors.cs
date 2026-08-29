@@ -1,4 +1,5 @@
 ﻿using MetroidMod.Content.Items.Armors;
+using MetroidMod.Content.SuitAddons;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -106,8 +107,8 @@ namespace MetroidMod.Common.Players
 				ModSuitAddon[] msa = GetPowerSuit(info.drawPlayer);
 				for (int i = 0; i < msa.Length; i++)
 				{
-					if (msa[i] == null) { continue; }
-					string temp = msa[i].ArmorTextureHead;
+					if (msa[i] == null || msa[i] is not ISuitUpgrade) { continue; }
+					string temp = (msa[i] as ISuitUpgrade).ArmorTextureHead;
 					if (temp != "" && temp != null)
 					{
 						tex = temp + "_Glow";
@@ -155,8 +156,8 @@ namespace MetroidMod.Common.Players
 				ModSuitAddon[] msa = GetPowerSuit(info.drawPlayer);
 				for (int i = 0; i < msa.Length; i++)
 				{
-					if (msa[i] == null) { continue; }
-					string temp = msa[i].ArmorTextureTorso;
+					if (msa[i] == null || msa[i] is not ISuitUpgrade) { continue; }
+					string temp = (msa[i] as ISuitUpgrade).ArmorTextureTorso;
 					if (temp != "" && temp != null)
 					{
 						tex = temp + "_Glow";
@@ -253,8 +254,8 @@ namespace MetroidMod.Common.Players
 				ModSuitAddon[] msa = GetPowerSuit(info.drawPlayer);
 				for (int i = 0; i < msa.Length; i++)
 				{
-					if (msa[i] == null) { continue; }
-					string temp = msa[i].ArmorTextureLegs;
+					if (msa[i] == null || msa[i] is not ISuitUpgrade) { continue; }
+					string temp = (msa[i] as ISuitUpgrade).ArmorTextureLegs;
 					if (temp != "" && temp != null)
 					{
 						tex = temp + "_Glow";
@@ -283,10 +284,10 @@ namespace MetroidMod.Common.Players
 			else { return new ModSuitAddon[2] { null, null }; }
 			Item[] sa = armor.SuitAddons;
 			ModSuitAddon[] msa = new ModSuitAddon[2];
-			for (int i = SuitAddonSlotID.Suit_Barrier; i <= SuitAddonSlotID.Suit_Primary; i++)
+			for (int i = 0; i <= 1; i++)
 			{
-				if (sa[i].type == ItemID.None) { msa[i - SuitAddonSlotID.Suit_Barrier] = null; continue; }
-				msa[i - SuitAddonSlotID.Suit_Barrier] = SuitAddonLoader.GetAddon(sa[i]);
+				if (sa[i].type == ItemID.None) { msa[i] = null; continue; }
+				msa[i] = SuitAddonLoader.GetAddon(sa[i]);
 			}
 			//if (msa[0].Name == "FusionOmegaAddon")
 			//{

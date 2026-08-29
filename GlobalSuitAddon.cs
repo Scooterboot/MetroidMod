@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using MetroidMod.Content.SuitAddons;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace MetroidMod

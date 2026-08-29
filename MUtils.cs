@@ -4,6 +4,7 @@ using MetroidMod.Common.GlobalProjectiles;
 using MetroidMod.Common.Players;
 using MetroidMod.Content.NPCs.GoldenTorizo;
 using MetroidMod.Content.NPCs.Torizo;
+using MetroidMod.Content.SuitAddons;
 using Terraria;
 using Terraria.ModLoader;
 

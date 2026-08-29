@@ -7,7 +7,7 @@ using Terraria.Localization;
 
 namespace MetroidMod.Content.SuitAddons
 {
-	public class DarkSuitAddon : ModSuitAddon
+	public class DarkSuitAddon : ModSuitUpgrade
 	{
 		public override string ItemTexture => $"{Mod.Name}/Assets/Textures/SuitAddons/DarkSuit/DarkSuitItem";
 
@@ -23,8 +23,6 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override string ArmorTextureLegs => $"{Mod.Name}/Assets/Textures/SuitAddons/DarkSuit/DarkSuitGreaves_Legs";
 
-		public override bool AddOnlyAddonItem => false;
-
 		//This is where all of the suit addon's stats are stored.
 		//They're outside a method so it can be directly accessed by the localization.
 		//Put in the numbers like they'd be seen on the tooltip. The values are automatically adjusted for the actual stats.
@@ -37,29 +35,18 @@ namespace MetroidMod.Content.SuitAddons
 		public static float huntDamage = 5f; //%Increased hunter damage
 		public static int huntCrit = 3; //Increased hunter crit
 
-		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(suitDef, energyEff, energyRes, overheatCap, overheatCost, comboCost, huntDamage, huntCrit);
+		public override LocalizedText ItemTooltip => base.ItemTooltip.WithFormatArgs(suitDef, energyEff, energyRes, overheatCap, overheatCost, comboCost, huntDamage, huntCrit);
 
-		public override void SetStaticDefaults()
+		public override BreastplateAddonSlot AddonSlot => BreastplateAddonSlot.Primary;
+
+		public override void ItemSetDefaults(Items.GeneratedModItem generatedModItem)
 		{
-			/*DisplayName.SetDefault("Dark Suit");
-			Tooltip.SetDefault("You shouldn't have this."/*"+9 defense\n" +
-				"+15 overheat capacity\n" +
-				"5% decreased overheat use\n" +
-				"5% decreased Missile Charge Combo cost\n" +
-				"5% increased hunter damage\n" +
-				"3% increased hunter critical strike chance\n" +
-				"15% increased energy barrier efficiency\n" + // Provisional name
-				"7.5% increased energy barrier resilience\n" + // Provisional name
-				"Reduces damage from the Dark World");*/
-			AddonSlot = SuitAddonSlotID.Suit_Primary;
-			ItemNameLiteral = false;
-		}
-		public override void SetItemDefaults(Item item)
-		{
-			item.width = 20;
-			item.height = 20;
-			item.value = Item.buyPrice(0, 7, 80, 0);
-			item.rare = ItemRarityID.Pink;
+            base.ItemSetDefaults(generatedModItem);
+
+			generatedModItem.Item.width = 20;
+			generatedModItem.Item.height = 20;
+			generatedModItem.Item.value = Item.buyPrice(0, 7, 80, 0);
+			generatedModItem.Item.rare = ItemRarityID.Pink;
 		}
 		public override void OnUpdateArmorSet(Player player, int stack)
 		{

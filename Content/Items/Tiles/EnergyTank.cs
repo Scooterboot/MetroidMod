@@ -33,7 +33,7 @@ namespace MetroidMod.Content.Items.Tiles
 		{
 			var entitySource = player.GetSource_OpenItem(Type);
 
-			player.QuickSpawnItem(entitySource, SuitAddonLoader.GetAddon<SuitAddons.EnergyTank>().ItemType);
+			player.QuickSpawnItem(entitySource, SuitAddons.SuitAddonLoader.GetAddon<SuitAddons.EnergyTank>().ItemType);
 		}
 	}
 }

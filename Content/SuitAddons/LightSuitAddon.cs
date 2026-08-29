@@ -7,7 +7,7 @@ using Terraria.Localization;
 
 namespace MetroidMod.Content.SuitAddons
 {
-	public class LightSuitAddon : ModSuitAddon
+	public class LightSuitAddon : ModSuitUpgrade
 	{
 		public override string ItemTexture => $"{Mod.Name}/Assets/Textures/SuitAddons/LightSuit/LightSuitItem";
 
@@ -20,8 +20,6 @@ namespace MetroidMod.Content.SuitAddons
 		public override string ArmorTextureArmsGlow => $"{Mod.Name}/Assets/Textures/SuitAddons/LightSuit/LightSuitBreastplate_Arms_Glow";
 
 		public override string ArmorTextureLegs => $"{Mod.Name}/Assets/Textures/SuitAddons/LightSuit/LightSuitGreaves_Legs";
-
-		public override bool AddOnlyAddonItem => false;
 
 		//This is where all of the suit addon's stats are stored.
 		//They're outside a method so it can be directly accessed by the localization.
@@ -36,31 +34,18 @@ namespace MetroidMod.Content.SuitAddons
 		public static int huntCrit = 8; //Increased hunter crit
 		public static float speedUp = 10f; //%Increased movement speed
 
-		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(suitDef, energyEff, energyRes, overheatCap, overheatCost, comboCost, huntDamage, huntCrit, speedUp);
+		public override LocalizedText ItemTooltip => base.ItemTooltip.WithFormatArgs(suitDef, energyEff, energyRes, overheatCap, overheatCost, comboCost, huntDamage, huntCrit, speedUp);
 
-		public override void SetStaticDefaults()
+		public override BreastplateAddonSlot AddonSlot => BreastplateAddonSlot.Primary;
+
+		public override void ItemSetDefaults(Items.GeneratedModItem generatedModItem)
 		{
-			// DisplayName.SetDefault("Light Suit");
-			/* Tooltip.SetDefault("You shouldn't have this."/*"+19 defense\n" +
-				"+30 overheat capacity\n" +
-				"10% decreased overheat use\n" +
-				"10% decreased Missile Charge Combo cost\n" +
-				"10% increased hunter damage\n" +
-				"8% increased hunter critical strike chance\n" +
-				"10% increased movement speed\n" +
-				"40% increased energy barrier efficiency\n" + // Provisional name
-				"17.5% increased energy barrier resilience\n" + // Provisional name
-				"Immune to damage from the Dark World\n" +
-				"Immune to damage from Dark Water"); */
-			AddonSlot = SuitAddonSlotID.Suit_Primary;
-			ItemNameLiteral = false;
-		}
-		public override void SetItemDefaults(Item item)
-		{
-			item.width = 16;
-			item.height = 16;
-			item.value = Item.buyPrice(0, 11, 70, 0);
-			item.rare = ItemRarityID.Lime;
+			base.ItemSetDefaults(generatedModItem);
+
+			generatedModItem.Item.width = 16;
+			generatedModItem.Item.height = 16;
+			generatedModItem.Item.value = Item.buyPrice(0, 11, 70, 0);
+			generatedModItem.Item.rare = ItemRarityID.Lime;
 		}
 		public override void OnUpdateArmorSet(Player player, int stack)
 		{

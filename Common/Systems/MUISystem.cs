@@ -4,6 +4,7 @@ using MetroidMod.Common.GlobalItems;
 using MetroidMod.Common.Players;
 using MetroidMod.Common.UI;
 using MetroidMod.Content.Items.Weapons;
+using MetroidMod.Content.SuitAddons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
@@ -291,17 +292,17 @@ namespace MetroidMod.Common.Systems
 			}
 			if (Main.netMode != NetmodeID.Server)
 			{
-				if (SuitAddonLoader.TryGetAddon(mp.VisorInUse, out ModSuitAddon addon))
+				if (SuitAddonLoader.TryGetAddon(mp.VisorInUse, out ModSuitAddon addon) && addon is IVisorAddon visor)
 				{
-					addon.DrawVisor(P);
+					visor.DrawVisor(P);
 					if (addon.Type != oldVisorID && isVisorBGAudioPlaying)
 					{
 						VisorBGAudio.Sound.Stop(true);
 						isVisorBGAudioPlaying = false;
 					}
-					if (addon.VisorBackgroundNoise != null && !isVisorBGAudioPlaying)
+					if (visor.VisorBackgroundNoise != null && !isVisorBGAudioPlaying)
 					{
-						SoundEngine.TryGetActiveSound(SoundEngine.PlaySound((SoundStyle)addon.VisorBackgroundNoise), out VisorBGAudio);
+						SoundEngine.TryGetActiveSound(SoundEngine.PlaySound((SoundStyle)visor.VisorBackgroundNoise), out VisorBGAudio);
 						isVisorBGAudioPlaying = true;
 					}
 					oldVisorID = addon.Type;

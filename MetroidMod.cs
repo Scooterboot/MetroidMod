@@ -5,6 +5,7 @@ using MetroidMod.Common.Players;
 using MetroidMod.Common.Systems;
 using MetroidMod.Content.Hatches;
 using MetroidMod.Content.Items;
+using MetroidMod.Content.SuitAddons;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

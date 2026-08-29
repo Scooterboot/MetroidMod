@@ -7,7 +7,7 @@ using Terraria.Localization;
 
 namespace MetroidMod.Content.SuitAddons
 {
-	public class VariaSuitV2Addon : ModSuitAddon
+	public class VariaSuitV2Addon : ModSuitUpgrade
 	{
 		public override string ItemTexture => $"{Mod.Name}/Assets/Textures/SuitAddons/VariaSuitV2/VariaSuitV2Item";
 
@@ -21,7 +21,6 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override string ArmorTextureLegs => $"{Mod.Name}/Assets/Textures/SuitAddons/VariaSuitV2/VariaSuitV2Greaves_Legs";
 
-		public override bool AddOnlyAddonItem => false;
 
 		public override bool CanGenerateOnChozoStatue() => Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues || MSystem.bossesDown.HasFlag(MetroidBossDown.downedKraid);
 
@@ -42,32 +41,18 @@ namespace MetroidMod.Content.SuitAddons
 		public static float speedUp = 10f; //%Increased movement speed
 		public static float extraBreath = 80f; //%Increased breath meter
 
-		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(suitDef, energyCap, energyEff, energyRes, overheatCap, overheatCost, comboCost, huntDamage, huntCrit, speedUp, extraBreath);
+		public override LocalizedText ItemTooltip => base.ItemTooltip.WithFormatArgs(suitDef, energyCap, energyEff, energyRes, overheatCap, overheatCost, comboCost, huntDamage, huntCrit, speedUp, extraBreath);
 
-		public override void SetStaticDefaults()
+		public override BreastplateAddonSlot AddonSlot => BreastplateAddonSlot.Barrier;
+
+		public override void ItemSetDefaults(Items.GeneratedModItem generatedModItem)
 		{
-			// DisplayName.SetDefault("Varia Suit V2");
-			/* Tooltip.SetDefault("+15 defense\n" +
-				"+30 overheat capacity\n" +
-				"15% decreased overheat use\n" +
-				"10% decreased Missile Charge Combo cost\n" +
-				"10% increased hunter damage\n" +
-				"7% increased hunter critical strike chance\n" +
-				"80% increased underwater breathing\n" +
-				"10% increased movement speed\n" +
-				"20% increased energy barrier efficiency\n" + // Provisional name
-				"37.5% increased energy barrier resilience\n" + // Provisional name
-				"Immunity to fire blocks" + "\n" +
-				"Immunity to chill and freeze effects"); */
-			AddonSlot = SuitAddonSlotID.Suit_Barrier;
-			ItemNameLiteral = false;
-		}
-		public override void SetItemDefaults(Item item)
-		{
-			item.width = 16;
-			item.height = 16;
-			item.value = Item.buyPrice(0, 2, 10, 0);
-			item.rare = ItemRarityID.Orange;
+			base.ItemSetDefaults(generatedModItem);
+			
+			generatedModItem.Item.width = 16;
+			generatedModItem.Item.height = 16;
+			generatedModItem.Item.value = Item.buyPrice(0, 2, 10, 0);
+			generatedModItem.Item.rare = ItemRarityID.Orange;
 		}
 		public override void OnUpdateArmorSet(Player player, int stack)
 		{
@@ -93,9 +78,9 @@ namespace MetroidMod.Content.SuitAddons
 			mp.canHyper = true;
 			mp.UACost -= 0.10f;
 		}
-		public override void AddRecipes()
+		public override void ItemAddRecipes(Items.GeneratedModItem generatedModItem)
 		{
-			CreateRecipe(1)
+			generatedModItem.CreateRecipe(1)
 				.AddSuitAddon<VariaSuitAddon>(1)
 				.AddRecipeGroup(MUtils.CalamityActive() ? MetroidMod.T1HMBarRecipeGroupID : MetroidMod.T3HMBarRecipeGroupID, 5)
 				.AddIngredient<Items.Miscellaneous.KraidTissue>(1)

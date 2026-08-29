@@ -12,7 +12,7 @@ using Terraria.ModLoader;
 
 namespace MetroidMod.Content.SuitAddons
 {
-	public class ScanVisor : ModSuitAddon
+	public class ScanVisor : ModVisorAddon
 	{
 		public override string ItemTexture => $"{Mod.Name}/Assets/Textures/SuitAddons/ScanVisor/ScanVisorItem";
 
@@ -22,7 +22,8 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override SoundStyle? VisorBackgroundNoise => Sounds.Suit.Visors.ScanVisorBackgroundNoise;
 
-		public override bool AddOnlyAddonItem => false;
+		public override HelmetAddonSlot AddonSlot => HelmetAddonSlot.Scan;
+
 
 		private Asset<Texture2D> scanTex;
 
@@ -38,28 +39,24 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Scan Visor");
-			// Tooltip.SetDefault("Fills in the Bestiary entries of npcs you look at.");
-
-			AddonSlot = SuitAddonSlotID.Visor_Scan;
-			ItemNameLiteral = true;
-
 			ModContent.RequestIfExists($"{Mod.Name}/Assets/Textures/PrimeScan", out scanTex, AssetRequestMode.ImmediateLoad);
 			ModContent.RequestIfExists($"{Mod.Name}/Assets/Textures/SpaceJumpBar", out barTex, AssetRequestMode.ImmediateLoad);
 			ModContent.RequestIfExists($"{Mod.Name}/Assets/Textures/SpaceJumpBarBorder", out barBorderTex, AssetRequestMode.ImmediateLoad);
 		}
 
-		public override void SetItemDefaults(Item item)
+		public override void ItemSetDefaults(Items.GeneratedModItem generatedModItem)
 		{
-			item.width = 16;
-			item.height = 16;
-			item.value = Item.buyPrice(0, 2, 0, 0);
-			item.rare = ItemRarityID.Green;
+            base.ItemSetDefaults(generatedModItem);
+
+			generatedModItem.Item.width = 16;
+			generatedModItem.Item.height = 16;
+			generatedModItem.Item.value = Item.buyPrice(0, 2, 0, 0);
+			generatedModItem.Item.rare = ItemRarityID.Green;
 		}
 
-		public override void AddRecipes()
+		public override void ItemAddRecipes(Items.GeneratedModItem generatedModItem)
 		{
-			CreateRecipe(1)
+			generatedModItem.CreateRecipe(1)
 				.AddRecipeGroup(MetroidMod.EvilBarRecipeGroupID, 10)
 				.AddIngredient(ItemID.SpelunkerPotion)
 				.AddIngredient(ItemID.GlowingMushroom, 10)

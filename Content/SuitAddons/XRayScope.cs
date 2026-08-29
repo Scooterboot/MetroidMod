@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace MetroidMod.Content.SuitAddons
 {
-	public class XRayScope : ModSuitAddon
+	public class XRayScope : ModVisorAddon
 	{
 		public override string ItemTexture => $"{Mod.Name}/Assets/Textures/SuitAddons/XRayScope/XRayScopeItem";
 
@@ -17,36 +17,29 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override string VisorSelectIcon => $"{Mod.Name}/Assets/Textures/SuitAddons/XRayScope/XRayScopeIcon";
 
-		public override bool AddOnlyAddonItem => false;
+		public override HelmetAddonSlot AddonSlot => HelmetAddonSlot.AltVision;
+
 
 		public override bool CanGenerateOnChozoStatue() => true;
 
 		public override double GenerationChance() => Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues ? 4 : 5;
 
-		public override void SetStaticDefaults()
+		public override void ItemSetDefaults(Items.GeneratedModItem generatedModItem)
 		{
-			// DisplayName.SetDefault("X-Ray Scope");
-			// Tooltip.SetDefault("Projects a wide ray of light if you are standing still");
+			base.ItemSetDefaults(generatedModItem);
 
-			AddonSlot = SuitAddonSlotID.Visor_AltVision;
-			ItemNameLiteral = true;
+			generatedModItem.Item.width = 16;
+			generatedModItem.Item.height = 16;
+			generatedModItem.Item.value = Item.buyPrice(0, 40, 0, 0);
+			generatedModItem.Item.rare = ItemRarityID.Pink;
+			generatedModItem.Item.mech = true;
+
+			ItemID.Sets.Torches[ItemType] = true;
 		}
 
-		public override void SetItemDefaults(Item item)
+		public override void ItemAddRecipes(Items.GeneratedModItem generatedModItem)
 		{
-			item.width = 16;
-			item.height = 16;
-			item.value = Item.buyPrice(0, 40, 0, 0);
-			item.rare = ItemRarityID.Pink;
-			item.mech = true;
-			ItemID.Sets.Torches[item.type] = true;
-			//item.holdStyle = ItemHoldStyleID.HoldLamp;
-			//item.scale = 0.75f;
-		}
-
-		public override void AddRecipes()
-		{
-			CreateRecipe(1)
+			generatedModItem.CreateRecipe(1)
 				//.AddRecipeGroup(MetroidMod.T1HMBarRecipeGroupID, 10)
 				//.AddIngredient(ItemID.SpelunkerPotion, 30)
 				.AddRecipeGroup(RecipeGroupID.IronBar, 10)

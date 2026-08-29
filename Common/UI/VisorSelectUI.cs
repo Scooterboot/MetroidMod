@@ -1,5 +1,6 @@
 ﻿using System;
 using MetroidMod.Common.Players;
+using MetroidMod.Content.SuitAddons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -98,10 +99,15 @@ namespace MetroidMod.Common.UI
 			Top.Pixels = Main.mouseY - (Height.Pixels / 2);
 			if (!Main.LocalPlayer.TryGetModPlayer(out MPlayer mp)) { return; }
 			ModSuitAddon[] msa = MPlayer.GetVisorAddons(Main.LocalPlayer);
+			IVisorAddon[] visorAddons = new IVisorAddon[msa.Length];
+			for (int i = 0; i < msa.Length; i++)
+			{
+				visorAddons[i] = msa[i] is IVisorAddon visorAddon ? visorAddon : null;
+			}
 			Asset<Texture2D> tex;
-			if (msa[0] != null && ModContent.RequestIfExists(msa[0].VisorSelectIcon, out tex, AssetRequestMode.ImmediateLoad)) { ScanIcon = tex.Value; } else { ScanIcon = null; }
-			if (msa[1] != null && ModContent.RequestIfExists(msa[1].VisorSelectIcon, out tex, AssetRequestMode.ImmediateLoad)) { UtilityIcon = tex.Value; } else { UtilityIcon = null; }
-			if (msa[2] != null && ModContent.RequestIfExists(msa[2].VisorSelectIcon, out tex, AssetRequestMode.ImmediateLoad)) { AltVisorIcon = tex.Value; } else { AltVisorIcon = null; }
+			if (visorAddons[0] != null && ModContent.RequestIfExists(visorAddons[0].VisorSelectIcon, out tex, AssetRequestMode.ImmediateLoad)) { ScanIcon = tex.Value; } else { ScanIcon = null; }
+			if (visorAddons[1] != null && ModContent.RequestIfExists(visorAddons[1].VisorSelectIcon, out tex, AssetRequestMode.ImmediateLoad)) { UtilityIcon = tex.Value; } else { UtilityIcon = null; }
+			if (visorAddons[2] != null && ModContent.RequestIfExists(visorAddons[2].VisorSelectIcon, out tex, AssetRequestMode.ImmediateLoad)) { AltVisorIcon = tex.Value; } else { AltVisorIcon = null; }
 		}
 
 		public override void OnDeactivate()

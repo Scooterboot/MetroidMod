@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using MetroidMod.Common.Players;
+using MetroidMod.Content.SuitAddons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;

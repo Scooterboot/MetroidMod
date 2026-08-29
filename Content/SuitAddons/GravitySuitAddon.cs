@@ -8,7 +8,7 @@ using Terraria.Localization;
 
 namespace MetroidMod.Content.SuitAddons
 {
-	public class GravitySuitAddon : ModSuitAddon
+	public class GravitySuitAddon : ModSuitUpgrade
 	{
 		public override string ItemTexture => $"{Mod.Name}/Assets/Textures/SuitAddons/GravitySuit/GravitySuitItem";
 
@@ -21,8 +21,6 @@ namespace MetroidMod.Content.SuitAddons
 		public override string ArmorTextureArmsGlow => $"{Mod.Name}/Assets/Textures/SuitAddons/GravitySuit/GravitySuitBreastplate_Arms_Glow";
 
 		public override string ArmorTextureLegs => $"{Mod.Name}/Assets/Textures/SuitAddons/GravitySuit/GravitySuitGreaves_Legs";
-
-		public override bool AddOnlyAddonItem => false;
 
 		public override bool CanGenerateOnChozoStatue() => Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues || (MSystem.bossesDown.HasFlag(MetroidBossDown.downedPhantoon) && NPC.downedMechBossAny);
 
@@ -42,32 +40,18 @@ namespace MetroidMod.Content.SuitAddons
 		public static int huntCrit = 3; //Increased hunter crit
 		public static float extraBreath = 100f; //%Increased breath meter
 
-		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(suitDef, energyCap, energyEff, energyRes, overheatCap, overheatCost, comboCost, huntDamage, huntCrit, extraBreath);
+		public override LocalizedText ItemTooltip => base.ItemTooltip.WithFormatArgs(suitDef, energyCap, energyEff, energyRes, overheatCap, overheatCost, comboCost, huntDamage, huntCrit, extraBreath);
 
-		public override void SetStaticDefaults()
+		public override BreastplateAddonSlot AddonSlot => BreastplateAddonSlot.Primary;
+
+		public override void ItemSetDefaults(Items.GeneratedModItem generatedModItem)
 		{
-			// DisplayName.SetDefault("Gravity Suit");
-			/* Tooltip.SetDefault("+9 defense\n" +
-				"+15 overheat capacity\n" +
-				"5% decreased overheat use\n" +
-				"5% decreased Missile Charge Combo cost\n" +
-				"5% increased hunter damage\n" +
-				"3% increased hunter critical strike chance\n" +
-				"15% increased energy barrier efficiency\n" + // Provisional name
-				"7.5% increased energy barrier resilience\n" + // Provisional name
-				"Infinite breath underwater\n" +
-				"Immune to knockback\n" +
-				"Free movement in liquid\n" +
-				"Grants 7 seconds of lava immunity"); */
-			AddonSlot = SuitAddonSlotID.Suit_Primary;
-			ItemNameLiteral = false;
-		}
-		public override void SetItemDefaults(Item item)
-		{
-			item.width = 16;
-			item.height = 16;
-			item.value = Item.buyPrice(0, 7, 80, 0);
-			item.rare = ItemRarityID.Pink;
+			base.ItemSetDefaults(generatedModItem);
+			
+			generatedModItem.Item.width = 16;
+			generatedModItem.Item.height = 16;
+			generatedModItem.Item.value = Item.buyPrice(0, 7, 80, 0);
+			generatedModItem.Item.rare = ItemRarityID.Pink;
 		}
 		public override void OnUpdateArmorSet(Player player, int stack)
 		{
@@ -95,9 +79,9 @@ namespace MetroidMod.Content.SuitAddons
 		{
 			player.GetModPlayer<MPlayer>().visorGlowColor = new Color(0, 248, 112);
 		}
-		public override void AddRecipes()
+		public override void ItemAddRecipes(Items.GeneratedModItem generatedModItem)
 		{
-			CreateRecipe(1)
+			generatedModItem.CreateRecipe(1)
 				.AddIngredient(ItemID.HallowedBar, 54)
 				.AddIngredient<Items.Miscellaneous.GravityFlare>(1)
 				.AddTile(TileID.MythrilAnvil)

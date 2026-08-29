@@ -46,7 +46,7 @@ namespace MetroidMod.Content.Items.Accessories
 		public override void AddRecipes()
 		{
 			CreateRecipe(1)
-				.AddIngredient(SuitAddonLoader.GetAddon<SuitAddons.ReserveTank>().ItemType, 1)
+				.AddIngredient(SuitAddons.SuitAddonLoader.GetAddon<SuitAddons.ReserveTank>().ItemType, 1)
 				.Register();
 		}
 	}

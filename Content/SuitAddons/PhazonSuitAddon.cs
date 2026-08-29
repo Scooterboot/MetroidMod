@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace MetroidMod.Content.SuitAddons
 {
-	public class PhazonSuitAddon : ModSuitAddon
+	public class PhazonSuitAddon : ModSuitUpgrade
 	{
 		public override string ItemTexture => $"{Mod.Name}/Assets/Textures/SuitAddons/PhazonSuit/PhazonSuitItem";
 
@@ -24,8 +24,6 @@ namespace MetroidMod.Content.SuitAddons
 		public override string ArmorTextureShouldersGlow => $"{Mod.Name}/Assets/Textures/SuitAddons/PhazonSuit/PhazonSuitBreastplate_Shoulders_Glow";
 
 		public override string ArmorTextureLegs => $"{Mod.Name}/Assets/Textures/SuitAddons/PhazonSuit/PhazonSuitGreaves_Legs";
-
-		public override bool AddOnlyAddonItem => false;
 
 		public override bool CanGenerateOnChozoStatue() => Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues || MSystem.bossesDown.HasFlag(MetroidBossDown.downedOmegaPirate);
 
@@ -45,36 +43,22 @@ namespace MetroidMod.Content.SuitAddons
 		public static int huntCrit = 12; //Increased hunter crit
 		public static float speedUp = 10f; //%Increased movement speed
 
-		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(suitDef, energyCap, energyEff, energyRes, overheatCap, overheatCost, comboCost, huntDamage, huntCrit, speedUp);
+		public override LocalizedText ItemTooltip => base.ItemTooltip.WithFormatArgs(suitDef, energyCap, energyEff, energyRes, overheatCap, overheatCost, comboCost, huntDamage, huntCrit, speedUp);
 
-		public override void SetStaticDefaults()
+		public override BreastplateAddonSlot AddonSlot => BreastplateAddonSlot.Primary;
+
+		public override void ItemSetStaticDefaults(Items.GeneratedModItem generatedModItem)
 		{
-			// DisplayName.SetDefault("Phazon Suit");
-			/* Tooltip.SetDefault("+19 defense\n" +
-				"+30 overheat capacity\n" +
-				"10% decreased overheat use\n" +
-				"10% decreased Missile Charge Combo cost\n" +
-				"10% increased hunter damage\n" +
-				"8% increased hunter critical strike chance\n" +
-				"10% increased movement speed\n" +
-				"30% increased energy barrier efficiency\n" + // Provisional name
-				"17.5% increased energy barrier resilience\n" + // Provisional name
-				"Infinite breath underwater\n" +
-				"Immune to knockback\n" +
-				"Free movement in liquid\n" +
-				"Grants 7 seconds of lava immunity\n" +
-				"Immune to damage caused by blue Phazon blocks\n" +
-				"Enables Phazon Beam use"); */
 			ItemID.Sets.ShimmerTransformToItem[ItemType] = SuitAddonLoader.GetAddon<TerraGravitySuitAddon>().ItemType;
-			AddonSlot = SuitAddonSlotID.Suit_Primary;
-			ItemNameLiteral = false;
 		}
-		public override void SetItemDefaults(Item item)
+		public override void ItemSetDefaults(Items.GeneratedModItem generatedModItem)
 		{
-			item.width = 16;
-			item.height = 16;
-			item.value = Item.buyPrice(0, 11, 70, 0);
-			item.rare = ItemRarityID.Cyan;
+			base.ItemSetDefaults(generatedModItem);
+
+			generatedModItem.Item.width = 16;
+			generatedModItem.Item.height = 16;
+			generatedModItem.Item.value = Item.buyPrice(0, 11, 70, 0);
+			generatedModItem.Item.rare = ItemRarityID.Cyan;
 		}
 		public override void OnUpdateArmorSet(Player player, int stack)
 		{
@@ -108,9 +92,9 @@ namespace MetroidMod.Content.SuitAddons
 		{
 			player.armorEffectDrawOutlines = true;
 		}
-		public override void AddRecipes()
+		public override void ItemAddRecipes(Items.GeneratedModItem generatedModItem)
 		{
-			CreateRecipe(1)
+			generatedModItem.CreateRecipe(1)
 				.AddIngredient<Items.Miscellaneous.PhazonBar>(60)
 				.AddIngredient<Items.Miscellaneous.PurePhazon>(1)
 				.AddSuitAddon<GravitySuitAddon>(1)
