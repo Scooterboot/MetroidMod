@@ -9,6 +9,9 @@ namespace MetroidMod.Content.SuitAddons
 		HelmetAddonSlot AddonSlot { get; }
 	}
 
+	/// <summary>
+	/// An interface that describes how a Visor Upgrade will work.
+	/// </summary>
 	public interface IVisorAddon : IHelmetAddon
 	{
 		/// <summary>

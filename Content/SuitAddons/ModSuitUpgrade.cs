@@ -4,11 +4,20 @@ using Terraria.ModLoader;
 
 namespace MetroidMod.Content.SuitAddons
 {
+	/// <summary>
+	/// An interface that would apply to an Addon that belongs in the breastplate.
+	/// </summary>
 	public interface IBreastplateAddon : ISuitAddon
 	{
 		BreastplateAddonSlot AddonSlot { get; }
 	}
 
+	// We're extending IBreastplateAddon because we don't expect a suit appearance-changing addon
+	// anywhere other than the breastplate. If we wanted to, we could change this. But,
+	// unfortunately, I'm lazy and don't see any use cases for that. - Armipotent
+	/// <summary>
+	/// An interface that describes how a Suit Upgrade will work.
+	/// </summary>
 	public interface ISuitUpgrade : IBreastplateAddon
 	{
 		string ArmorTextureHead { get; }

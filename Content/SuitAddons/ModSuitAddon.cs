@@ -22,7 +22,7 @@ namespace MetroidMod.Content.SuitAddons
 	}
 	/// <summary>
 	/// Base class for Suit Addons. Don't use, use <see cref="ModSuitUpgrade"> and <see cref="ModVisorAddon"> instead. 
-	/// For more advanced usecases, extend this class and implement <see cref="IHelmetAddon"> or <see cref="IBreastplateAddon">.
+	/// For more advanced use-cases, extend this class and implement <see cref="IHelmetAddon"> or <see cref="IBreastplateAddon">.
 	/// </summary>
 	public abstract class ModSuitAddon : ModType, ISuitAddon
 	{
@@ -34,9 +34,6 @@ namespace MetroidMod.Content.SuitAddons
 		/// </summary>
 		public GeneratedModItem GeneratedModItem { get; internal set; }
 
-		/// <summary>
-		/// Currently buggy, refer to instance variables instead.
-		/// </summary>
 		public GeneratedModTile GeneratedModTile { get; internal set; }
 		public int ItemType { get; internal set; }
 		public int TileType { get; internal set; }
