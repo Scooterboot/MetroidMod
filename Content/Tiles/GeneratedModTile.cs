@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 namespace MetroidMod.Content.Tiles
 {
 	/// <summary>
-	/// A standard for generating and interacting with <see cref="Terraria.ModLoader.ModItem">s.
+	/// A standard for generating and interacting with <see cref="Terraria.ModLoader.ModTile">s.
 	/// </summary>
 	public interface IGeneratesModTile
 	{
@@ -17,7 +17,7 @@ namespace MetroidMod.Content.Tiles
 
 		string TileTexture { get; }
 
-		void TileSetStaticDefaults() { }
+		void TileSetStaticDefaults();
 
 		void TileAnimateTile(ref int frame, ref int frameCounter);
 		

@@ -24,12 +24,14 @@ namespace MetroidMod.Content.SuitAddons
 		public override void ItemSetStaticDefaults(Items.GeneratedModItem generatedModItem)
 		{
 			base.ItemSetStaticDefaults(generatedModItem);
+
 			generatedModItem.Item.ResearchUnlockCount = 14;
 			ItemID.Sets.ShimmerTransformToItem[ItemType] = ModContent.ItemType<MissileExpansion>();
 		}
-		public override void TileSetStaticDefaults(GeneratedModTile generatedModTile)
+		public override void TileSetStaticDefaults()
 		{
-			base.TileSetStaticDefaults(generatedModTile);
+			base.TileSetStaticDefaults();
+
 			TileID.Sets.FriendlyFairyCanLureTo[TileType] = true;
 		}
 

@@ -133,15 +133,15 @@ namespace MetroidMod.Content.SuitAddons
 			generatedModItem.Item.ResearchUnlockCount = 1;
 		}
 
-		public virtual void TileSetStaticDefaults(GeneratedModTile generatedModTile)
+		public virtual void TileSetStaticDefaults()
 		{
 			Main.tileFrameImportant[TileType] = true;
 			Main.tileBlockLight[TileType] = true;
 			Main.tileSpelunker[TileType] = true;
 			Main.tileOreFinderPriority[TileType] = 807;
 			Main.tileNoAttach[TileType] = true;
-			LocalizedText name = generatedModTile.CreateMapEntryName();
-			generatedModTile.AddMapEntry(new Color(255, 126, 255), name);
+			LocalizedText name = GeneratedModTile.CreateMapEntryName();
+			GeneratedModTile.AddMapEntry(new Color(255, 126, 255), name);
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
 			TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.Table | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
 			TileObjectData.addTile(TileType);
