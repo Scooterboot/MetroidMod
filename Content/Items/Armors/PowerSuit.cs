@@ -88,9 +88,11 @@ namespace MetroidMod.Content.Items.Armors
 		}
 		public override void UpdateArmorSet(Player player)
 		{
+			MPlayer mp = player.GetModPlayer<MPlayer>();
+			if (mp.Energy <= 0)
+				return;
 			player.setBonus = SetBonus.Value;// 
 											 //SuitAddonLoader.GetSetBonusText(player);
-			MPlayer mp = player.GetModPlayer<MPlayer>();
 			// mp.EnergyDefenseEfficiency += Common.Configs.MConfigItems.Instance.energyDefenseEfficiency;
 			// mp.EnergyExpenseEfficiency += Common.Configs.MConfigItems.Instance.energyExpenseEfficiency;
 			mp.senseMove = true;
