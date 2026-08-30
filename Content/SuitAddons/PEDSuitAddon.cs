@@ -59,8 +59,8 @@ namespace MetroidMod.Content.SuitAddons
 			mp.maxOverheat += overheatCap;
 			mp.overheatCost -= overheatCost / 100;
 			mp.missileCost -= comboCost / 100;
-			mp.EnergyDefenseEfficiency += energyEff / 100;
-			mp.EnergyExpenseEfficiency += energyRes / 100;
+			// mp.EnergyDefenseEfficiency += energyEff / 100;
+			// mp.EnergyExpenseEfficiency += energyRes / 100;
 			// code to activate Hypermode goes here; might need to add a Hypermode hook to MPlayer like Sense Move
 		}
 		public override void OnUpdateVanitySet(Player player)

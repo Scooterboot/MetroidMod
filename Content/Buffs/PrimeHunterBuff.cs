@@ -50,7 +50,7 @@ namespace MetroidMod.Content.Buffs
 			player.runAcceleration *= 5f;
 			player.runSlowdown *= 5f;
 			player.accRunSpeed *= 5f;
-			mp.EnergyExpenseEfficiency = 1f;
+			// mp.EnergyExpenseEfficiency = 1f;
 			if (player.mount.Active && mp.morphBall)
 			{
 				player.thorns *= 3f;

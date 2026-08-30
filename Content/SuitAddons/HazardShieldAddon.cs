@@ -77,8 +77,8 @@ namespace MetroidMod.Content.SuitAddons
 			mp.overheatCost -= overheatCost / 100;
 			mp.missileCost -= comboCost / 100;
 			//mp.tankCapacity += 0;
-			mp.EnergyDefenseEfficiency += energyEff / 100;
-			mp.EnergyExpenseEfficiency += energyRes / 100;
+			// mp.EnergyDefenseEfficiency += energyEff / 100;
+			// mp.EnergyExpenseEfficiency += energyRes / 100;
 			mp.hazardShield += 1;
 		}
 		public override void OnUpdateVanitySet(Player player)

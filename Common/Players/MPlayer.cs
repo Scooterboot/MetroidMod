@@ -587,8 +587,14 @@ namespace MetroidMod.Common.Players
 				modifiers.FinalDamage /= oof;
 				modifiers.KnockbackImmunityEffectiveness /= oof;
 			}
-			ModifyHurt_SuitEnergy(ref modifiers);
 		}
+
+		public override bool FreeDodge(Player.HurtInfo info)
+		{
+			bool val = FreeDodge_SuitEnergy(info);
+			return val;
+		}
+		
 		public override void PostHurt(Player.HurtInfo info)
 		{
 			if (Eyed)
@@ -596,7 +602,6 @@ namespace MetroidMod.Common.Players
 				info.Knockback *= oof;
 				Player.immuneTime = (int)(Player.immuneTime / 2f);// rounding is dumb
 			}
-			PostHurt_SuitEnergy(info);
 		}
 		public override bool ConsumableDodge(Player.HurtInfo info)
 		{

@@ -9,15 +9,9 @@ namespace MetroidMod.Common.Players
 	public partial class MPlayer : ModPlayer
 	{
 		/// <summary>
-		/// The percentage of energy that is subtracted from the damage the player has taken. <br />
-		/// Known as 'Energy Barrier Efficiency' (PROVISIONAL NAME).
+		/// The amount of damage removed from incoming damage to Energy.
 		/// </summary>
-		public float EnergyDefenseEfficiency = 0f;
-		/// <summary>
-		/// The percentage of damage that is subtracted from the player's energy. <br />
-		/// Known as 'Energy Barrier Resilience' (PROVISIONAL NAME).
-		/// </summary>
-		public float EnergyExpenseEfficiency = 0.1f;
+		public int EnergyDefense = 0;
 		/// <summary>
 		/// The number of Energy Tanks the player has.
 		/// </summary>
@@ -62,11 +56,7 @@ namespace MetroidMod.Common.Players
 		public bool drainingReserves = false;
 
 		public void ResetEffects_SuitEnergy()
-		{
-			EnergyDefenseEfficiency = 0f;
-			EnergyExpenseEfficiency = 0.1f;
-
-			bool flag = false;
+		{			bool flag = false;
 			for (int i = 0; i < Player.buffType.Length; i++)
 			{
 				if (Player.buffType[i] == ModContent.BuffType<Content.Buffs.EnergyRecharge>() && Player.buffTime[i] > 0)
@@ -83,43 +73,29 @@ namespace MetroidMod.Common.Players
 				AdditionalMaxEnergy = 0;
 			}
 		}
-		public void ModifyHurt_SuitEnergy(ref Player.HurtModifiers modifiers) //bug: can make one immune to DoT debuffs
+		public bool FreeDodge_SuitEnergy(Player.HurtInfo info)
 		{
-			/*
-			modifiers.ModifyHurtInfo += (ref Player.HurtInfo info) =>
+			if (!ShouldShowArmorUI)
 			{
-				if (!ShouldShowArmorUI || Player.immune || Energy <=0) { return; };
-				int energyDamage = (int)(info.SourceDamage * EnergyDefenseEfficiency);
-				info.Damage = Math.Max(1, info.Damage - energyDamage);
-				Energy = Math.Max(1, Energy - (int)(energyDamage *(1-EnergyExpenseEfficiency)));
-				if (info.Damage <= 1)
-				{
-					//info.Damage = 0;
-					Energy -= info.SourceDamage;
-					//customDamage = true;
-					if(info.SourceDamage >= Energy)
-					{
-						Energy = 0;
-					}
-				}
-			};
-			*/
-			if (!ShouldShowArmorUI || Player.immune || SMoveEffect > 0 || Energy <= 0) { return; }
-			;
-			float hit = 1f - EnergyDefenseEfficiency;
-			modifiers.FinalDamage *= hit;
-			if (Configs.MConfigClient.Instance.energyHit && Energy > 0)
-			{
-				modifiers.DisableSound();
-				SoundEngine.PlaySound(Sounds.Suit.EnergyHit, Player.position);
+				return false;
 			}
-		}
-		public void PostHurt_SuitEnergy(Player.HurtInfo info)
-		{
-			if (!ShouldShowArmorUI || SMoveEffect > 0 || Energy <= 0) { return; }
-			;
-			int energyDamage = (int)(info.SourceDamage * EnergyDefenseEfficiency);
-			Energy = Math.Max(0, Energy - (int)(energyDamage * (1 - EnergyExpenseEfficiency)));
+
+			if (Energy > 0)
+			{
+				Energy -= Math.Max(info.Damage - EnergyDefense, 1);
+
+				if (Energy > 0)
+				{
+					if (Configs.MConfigClient.Instance.energyHit)
+					{
+						SoundEngine.PlaySound(Sounds.Suit.EnergyHit, Player.position);
+					}
+
+					return true;
+				}
+			}
+
+			return false;
 		}
 		public override void OnRespawn()
 		{
@@ -164,8 +140,8 @@ namespace MetroidMod.Common.Players
 			if (Energy > MaxEnergy) { Energy = MaxEnergy; }
 			if (EnergyTanks > tankCapacity) { EnergyTanks = tankCapacity; }
 			if (SuitReserves > MaxSuitReserves) { SuitReserves = MaxSuitReserves; }
-			SetMinMax(ref EnergyDefenseEfficiency);
-			SetMinMax(ref EnergyExpenseEfficiency);
+			// SetMinMax(ref EnergyDefenseEfficiency);
+			// SetMinMax(ref EnergyExpenseEfficiency);
 			if (!ShouldShowArmorUI) { return; }
 			if (SuitReservesAuto)
 			{
@@ -208,8 +184,8 @@ namespace MetroidMod.Common.Players
 				if (Stinger >= 30 && !Player.creativeGodMode)
 				{
 					Stinger = 0;
-					float damageToSubtractFromEnergy = Math.Max((-Player.lifeRegen) * (1 - EnergyExpenseEfficiency), 1f);// Math.Max((-Player.lifeRegen) / 60 * (1 - EnergyExpenseEfficiency), 1f); //why was this set to min? it nullified dot
-					Energy = (int)Math.Max(Energy - damageToSubtractFromEnergy, 0);
+					// float damageToSubtractFromEnergy = Math.Max((-Player.lifeRegen) * (1 - EnergyExpenseEfficiency), 1f);// Math.Max((-Player.lifeRegen) / 60 * (1 - EnergyExpenseEfficiency), 1f); //why was this set to min? it nullified dot
+					// Energy = (int)Math.Max(Energy - damageToSubtractFromEnergy, 0);
 					//Player.lifeRegen += (int)(oldEnergy * EnergyDefenseEfficiency);
 				}
 				Player.lifeRegen -= Player.lifeRegen;
