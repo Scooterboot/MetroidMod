@@ -73,7 +73,7 @@ namespace MetroidMod.Common.Players
 				AdditionalMaxEnergy = 0;
 			}
 		}
-		public bool FreeDodge_SuitEnergy(Player.HurtInfo info)
+		public bool EnergyDamageLogic(Player.HurtInfo info)
 		{
 			if (!ShouldShowArmorUI)
 			{
@@ -83,6 +83,11 @@ namespace MetroidMod.Common.Players
 			if (Energy > 0)
 			{
 				Energy -= Math.Max(info.Damage - EnergyDefense, 1);
+				Player.immune = true;
+				Player.AddImmuneTime(info.CooldownCounter, info.PvP ? 8 : 40);
+				// TODO: Implement immunity frames properly. Cross Necklace is ignored because
+				// Terraria doesn't cache it being equipped so we'll have to do that ourselves.
+				// - Armipotent
 
 				if (Energy > 0)
 				{

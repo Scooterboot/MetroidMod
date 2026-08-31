@@ -588,12 +588,6 @@ namespace MetroidMod.Common.Players
 				modifiers.KnockbackImmunityEffectiveness /= oof;
 			}
 		}
-
-		public override bool FreeDodge(Player.HurtInfo info)
-		{
-			bool val = FreeDodge_SuitEnergy(info);
-			return val;
-		}
 		
 		public override void PostHurt(Player.HurtInfo info)
 		{
@@ -609,7 +603,8 @@ namespace MetroidMod.Common.Players
 			{
 				return true;
 			}
-			return false;
+			bool val = EnergyDamageLogic(info);
+			return val;
 		}
 
 		public void SenseMove(Player P)
