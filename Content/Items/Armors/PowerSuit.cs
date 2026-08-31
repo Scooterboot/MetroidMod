@@ -90,7 +90,15 @@ namespace MetroidMod.Content.Items.Armors
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			if (mp.Energy <= 0)
+			{
+				player.moveSpeed *= 0.5f;
 				return;
+			}
+			else
+			{
+				player.moveSpeed *= 0.9f;
+				player.aggro += 3;
+			}
 			player.setBonus = SetBonus.Value;// 
 											 //SuitAddonLoader.GetSetBonusText(player);
 			// mp.EnergyDefenseEfficiency += Common.Configs.MConfigItems.Instance.energyDefenseEfficiency;
