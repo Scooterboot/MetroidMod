@@ -9,10 +9,6 @@ namespace MetroidMod.Common.Players
 	public partial class MPlayer : ModPlayer
 	{
 		/// <summary>
-		/// The amount of damage removed from incoming damage to Energy.
-		/// </summary>
-		public int EnergyDefense = 0;
-		/// <summary>
 		/// The number of Energy Tanks the player has.
 		/// </summary>
 		public int EnergyTanks = 0;
@@ -82,7 +78,7 @@ namespace MetroidMod.Common.Players
 
 			if (Energy > 0)
 			{
-				Energy -= Math.Max(info.Damage - EnergyDefense, 1);
+				Energy -= Math.Max(info.Damage, 1);
 				Player.immune = true;
 				Player.AddImmuneTime(info.CooldownCounter, info.PvP ? 8 : 40);
 				// TODO: Implement immunity frames properly. Cross Necklace is ignored because

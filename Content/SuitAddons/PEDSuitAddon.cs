@@ -52,7 +52,6 @@ namespace MetroidMod.Content.SuitAddons
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			HunterDamagePlayer.ModPlayer(player).HunterDamageMult += huntDamage / 100;
 			HunterDamagePlayer.ModPlayer(player).HunterCrit += huntCrit;
-			mp.EnergyDefense += suitDef;
 			mp.phazonImmune = true;
 			mp.phazonRegen += 2;
 			// workaround for Hazard Shield being applied earlier than PED Suit causing hazard shield buffing PED to not work
