@@ -48,10 +48,10 @@ namespace MetroidMod.Content.SuitAddons
 		{
 			base.ItemSetDefaults(generatedModItem);
 
-			GeneratedModItem.Item.width = 16;
-			GeneratedModItem.Item.height = 16;
-			GeneratedModItem.Item.value = Item.buyPrice(0, 2, 10, 0);
-			GeneratedModItem.Item.rare = ItemRarityID.Orange;
+			generatedModItem.Item.width = 16;
+			generatedModItem.Item.height = 16;
+			generatedModItem.Item.value = Item.buyPrice(0, 2, 10, 0);
+			generatedModItem.Item.rare = ItemRarityID.Orange;
 		}
 		public override void OnUpdateArmorSet(Player player, int stack)
 		{
