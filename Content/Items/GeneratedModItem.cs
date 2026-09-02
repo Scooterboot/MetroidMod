@@ -21,14 +21,15 @@ namespace MetroidMod.Content.Items
 		string ItemTexture { get; }
 		
 		/// <inheritdoc cref="GeneratedModItem.AddRecipes"/>
-		void ItemAddRecipes(GeneratedModItem generatedModItem) { }
+		void ItemAddRecipes(GeneratedModItem generatedModItem);
 
 		/// <inheritdoc cref="GeneratedModItem.SetDefaults"/>
-		void ItemSetDefaults(GeneratedModItem generatedModItem) { }
+		void ItemSetDefaults(GeneratedModItem generatedModItem);
 
 		/// <inheritdoc cref="GeneratedModItem.SetStaticDefaults"/>
-		void ItemSetStaticDefaults(GeneratedModItem generatedModItem) { }
-
+		void ItemSetStaticDefaults(GeneratedModItem generatedModItem);
+		
+		IGeneratesModItem Clone(GeneratedModItem newGeneratedModItem);
 	}
 
 	/// <summary>
@@ -54,16 +55,17 @@ namespace MetroidMod.Content.Items
 			this.producer = producer;
 		}
 
+
 		public override ModItem Clone(Item item)
 		{
 			GeneratedModItem obj = (GeneratedModItem)base.Clone(item);
-			obj.producer = producer;
+			obj.producer = producer.Clone(obj);
 			return obj;
 		}
 
 		public override ModItem NewInstance(Item entity)
 		{
-			var inst = Clone(entity);
+			ModItem inst = Clone(entity);
 			return inst;
 		}
 

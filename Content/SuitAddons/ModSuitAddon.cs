@@ -29,9 +29,6 @@ namespace MetroidMod.Content.SuitAddons
 		public int Type { get; private set; }
 		internal void ChangeType(int type) => Type = type;
 
-		/// <summary>
-		/// Currently buggy, refer to instance variables instead.
-		/// </summary>
 		public GeneratedModItem GeneratedModItem { get; internal set; }
 
 		public GeneratedModTile GeneratedModTile { get; internal set; }
@@ -118,11 +115,11 @@ namespace MetroidMod.Content.SuitAddons
 		
 		public virtual void ItemSetDefaults(GeneratedModItem generatedModItem)
 		{
-			generatedModItem.Item.DefaultToPlaceableTile(TileType);
+			GeneratedModItem.Item.DefaultToPlaceableTile(TileType);
 
-			generatedModItem.Item.maxStack = 1;
-			generatedModItem.Item.width = 32;
-			generatedModItem.Item.height = 32;
+			GeneratedModItem.Item.maxStack = 1;
+			GeneratedModItem.Item.width = 32;
+			GeneratedModItem.Item.height = 32;
 		}
 
 		public virtual void ItemSetStaticDefaults(GeneratedModItem generatedModItem)
@@ -210,5 +207,12 @@ namespace MetroidMod.Content.SuitAddons
 
 		/// <inheritdoc cref="ModMBAddon.CanExplodeTile(int, int)"/>
 		public virtual bool CanExplodeTile(int i, int j) { return true; }
+
+		public virtual IGeneratesModItem Clone(GeneratedModItem newGeneratedModItem)
+		{
+			ModSuitAddon inst = (ModSuitAddon)MemberwiseClone();
+			inst.GeneratedModItem = newGeneratedModItem;
+			return inst;
+		}
 	}
 }
