@@ -26,29 +26,29 @@ namespace MetroidMod.Content.SuitAddons
 			// Tooltip.SetDefault("Can store a spare tank of energy.");
 			//ItemID.Sets.ShimmerTransformToItem[ItemType] = ModContent.ItemType<Items.Accessories.ReserveTank>();
 		}
-		public override void ItemSetStaticDefaults(Items.GeneratedModItem generatedModItem)
+		public override void ItemSetStaticDefaults()
 		{
-			base.ItemSetStaticDefaults(generatedModItem);
-			generatedModItem.Item.ResearchUnlockCount = Common.Configs.MConfigItems.Instance.stackReserveTank;
+			GeneratedModItem.Item.ResearchUnlockCount = Common.Configs.MConfigItems.Instance.stackReserveTank;
 		}
 
-		public override void ItemSetDefaults(Items.GeneratedModItem generatedModItem)
+		public override void ItemSetDefaults()
 		{
-			base.ItemSetDefaults(generatedModItem);
-			generatedModItem.Item.width = 16;
-			generatedModItem.Item.height = 11;
-			generatedModItem.Item.maxStack = Common.Configs.MConfigItems.Instance.stackReserveTank;
-			generatedModItem.Item.value = Item.buyPrice(0, 5, 0, 0);
-			generatedModItem.Item.rare = ItemRarityID.Green;
+			base.ItemSetDefaults();
+			
+			GeneratedModItem.Item.width = 16;
+			GeneratedModItem.Item.height = 11;
+			GeneratedModItem.Item.maxStack = Common.Configs.MConfigItems.Instance.stackReserveTank;
+			GeneratedModItem.Item.value = Item.buyPrice(0, 5, 0, 0);
+			GeneratedModItem.Item.rare = ItemRarityID.Green;
 		}
-		public override void ItemAddRecipes(Items.GeneratedModItem generatedModItem)
+		public override void ItemAddRecipes()
 		{
-			generatedModItem.CreateRecipe(1)
+			GeneratedModItem.CreateRecipe(1)
 				.AddIngredient(SuitAddonLoader.GetAddon<EnergyTank>().ItemType, 1)
 				.AddIngredient(ItemID.LifeCrystal, 1)
 				.AddTile(TileID.Anvils)
 				.Register();
-			generatedModItem.CreateRecipe(1)
+			GeneratedModItem.CreateRecipe(1)
 				.AddIngredient<Items.Accessories.ReserveTank>(1)
 				.Register();
 		}

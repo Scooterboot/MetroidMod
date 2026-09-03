@@ -37,14 +37,14 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override BreastplateAddonSlot AddonSlot => BreastplateAddonSlot.Primary;
 
-		public override void ItemSetDefaults(Items.GeneratedModItem generatedModItem)
+		public override void ItemSetDefaults()
 		{
-			base.ItemSetDefaults(generatedModItem);
+			base.ItemSetDefaults();
 
-			generatedModItem.Item.width = 16;
-			generatedModItem.Item.height = 16;
-			generatedModItem.Item.value = Item.buyPrice(0, 7, 80, 0);
-			generatedModItem.Item.rare = ItemRarityID.Pink;
+			GeneratedModItem.Item.width = 16;
+			GeneratedModItem.Item.height = 16;
+			GeneratedModItem.Item.value = Item.buyPrice(0, 7, 80, 0);
+			GeneratedModItem.Item.rare = ItemRarityID.Pink;
 		}
 		public override void OnUpdateArmorSet(Player player, int stack)
 		{

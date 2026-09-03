@@ -30,10 +30,12 @@ namespace MetroidMod.Content.SuitAddons
 		internal void ChangeType(int type) => Type = type;
 
 		public GeneratedModItem GeneratedModItem { get; internal set; }
-
 		public GeneratedModTile GeneratedModTile { get; internal set; }
+
 		public int ItemType { get; internal set; }
 		public int TileType { get; internal set; }
+
+		public Item Item => GeneratedModItem.Item;
 
 		/// <summary>
 		/// <inheritdoc cref="ModItem.DisplayName"/>
@@ -111,9 +113,9 @@ namespace MetroidMod.Content.SuitAddons
 		}
 
 		/// <inheritdoc cref="GeneratedModItem.AddRecipes"/>
-		public virtual void ItemAddRecipes(GeneratedModItem generatedModItem) { }
+		public virtual void ItemAddRecipes() { }
 		
-		public virtual void ItemSetDefaults(GeneratedModItem generatedModItem)
+		public virtual void ItemSetDefaults()
 		{
 			GeneratedModItem.Item.DefaultToPlaceableTile(TileType);
 
@@ -122,9 +124,9 @@ namespace MetroidMod.Content.SuitAddons
 			GeneratedModItem.Item.height = 32;
 		}
 
-		public virtual void ItemSetStaticDefaults(GeneratedModItem generatedModItem)
+		public virtual void ItemSetStaticDefaults()
 		{
-			generatedModItem.Item.ResearchUnlockCount = 1;
+			GeneratedModItem.Item.ResearchUnlockCount = 1;
 		}
 
 		public virtual void TileSetStaticDefaults()
@@ -178,9 +180,6 @@ namespace MetroidMod.Content.SuitAddons
 
 		public virtual bool ShowTileHover(Player player) => player.InInteractionRange(Player.tileTargetX, Player.tileTargetY, default);
 
-		/// <inheritdoc cref="ModItem.UpdateAccessory(Player, bool)"/>
-		public virtual void UpdateAccessory(Player player, bool hideVisual) { UpdateInventory(player); }
-
 		/// <inheritdoc cref="ModItem.UpdateInventory(Player)"/>
 		public virtual void UpdateInventory(Player player) { }
 
@@ -193,19 +192,14 @@ namespace MetroidMod.Content.SuitAddons
 		/// <inheritdoc cref="ModItem.ArmorSetShadows(Player)"/>
 		public virtual void ArmorSetShadows(Player player) { }
 
-		/// <inheritdoc cref="ModItem.AltFunctionUse(Player)"/>
-		public virtual bool AltFunctionUse(Player player) { return false; }
+		public virtual bool ItemAltFunctionUse(Player player) { return false; }
 
-		/// <inheritdoc cref="ModItem.CanUseItem(Player)"/>
-		public virtual bool CanUseItem(Player player) { return true; }
+		public virtual bool ItemCanUseItem(Player player) { return true; }
 
-		/// <inheritdoc cref="ModItem.UseItem(Player)"/>
-		public virtual bool? UseItem(Player player) { return null; }
+		public virtual bool? ItemUseItem(Player player) { return null; }
 
-		/// <inheritdoc cref="ModItem.HoldItem(Player)"/>
-		public virtual void HoldItem(Player player) { }
-
-		/// <inheritdoc cref="ModMBAddon.CanExplodeTile(int, int)"/>
+		public virtual void ItemHoldItem(Player player) { }
+		
 		public virtual bool CanExplodeTile(int i, int j) { return true; }
 
 		public virtual IGeneratesModItem Clone(GeneratedModItem newGeneratedModItem)

@@ -24,22 +24,22 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override double GenerationChance() => Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues ? 4 : 5;
 
-		public override void ItemSetDefaults(Items.GeneratedModItem generatedModItem)
+		public override void ItemSetDefaults()
 		{
-			base.ItemSetDefaults(generatedModItem);
+			base.ItemSetDefaults();
 
-			generatedModItem.Item.width = 16;
-			generatedModItem.Item.height = 16;
-			generatedModItem.Item.value = Item.buyPrice(0, 40, 0, 0);
-			generatedModItem.Item.rare = ItemRarityID.Pink;
-			generatedModItem.Item.mech = true;
+			GeneratedModItem.Item.width = 16;
+			GeneratedModItem.Item.height = 16;
+			GeneratedModItem.Item.value = Item.buyPrice(0, 40, 0, 0);
+			GeneratedModItem.Item.rare = ItemRarityID.Pink;
+			GeneratedModItem.Item.mech = true;
 
 			ItemID.Sets.Torches[ItemType] = true;
 		}
 
-		public override void ItemAddRecipes(Items.GeneratedModItem generatedModItem)
+		public override void ItemAddRecipes()
 		{
-			generatedModItem.CreateRecipe(1)
+			GeneratedModItem.CreateRecipe(1)
 				//.AddRecipeGroup(MetroidMod.T1HMBarRecipeGroupID, 10)
 				//.AddIngredient(ItemID.SpelunkerPotion, 30)
 				.AddRecipeGroup(RecipeGroupID.IronBar, 10)
@@ -48,46 +48,46 @@ namespace MetroidMod.Content.SuitAddons
 				.Register();
 		}
 
-		//bool isScope = false;
+		bool isScope = false;
 
-		//public override bool ShowTileHover(Player player) => !isScope && base.ShowTileHover(player);
+		public override bool ShowTileHover(Player player) => !isScope && base.ShowTileHover(player);
 
-		//public override bool AltFunctionUse(Player player) => true;
+		public override bool ItemAltFunctionUse(Player player) => true;
 
-		//public override bool CanUseItem(Player player)
-		//{
-		//	if (player.altFunctionUse == 2)
-		//	{
-		//		isScope = !isScope;
-		//		return false;
-		//	}
-		//	if (isScope == false) // Placeable
-		//	{
-		//		Item.useStyle = ItemUseStyleID.Swing;
-		//		Item.useAnimation = 15;
-		//		Item.useTime = 15;
-		//		Item.consumable = true;
-		//		Item.createTile = TileType;
-		//		Item.noUseGraphic = false;
-		//	}
-		//	else if (isScope == true) // Useable
-		//	{
-		//		Item.useStyle = ItemUseStyleID.Shoot;
-		//		Item.useAnimation = 2;
-		//		Item.useTime = 2;
-		//		Item.consumable = false;
-		//		Item.createTile = -1;
-		//		Item.noUseGraphic = true;
-		//	}
-		//	return base.CanUseItem(player);
-		//}
-		//public override bool? UseItem(Player player)
-		//{
-		//	if (isScope == false) { return base.UseItem(player); }
-		//	DrawVisor(player);
-		//	return true;
-		//}
-		public override void HoldItem(Player player)
+		public override bool ItemCanUseItem(Player player)
+		{
+			if (player.altFunctionUse == 2)
+			{
+				isScope = !isScope;
+				return false;
+			}
+			if (isScope == false) // Placeable
+			{
+				Item.useStyle = ItemUseStyleID.Swing;
+				Item.useAnimation = 15;
+				Item.useTime = 15;
+				Item.consumable = true;
+				Item.createTile = TileType;
+				Item.noUseGraphic = false;
+			}
+			else if (isScope == true) // Useable
+			{
+				Item.useStyle = ItemUseStyleID.Shoot;
+				Item.useAnimation = 2;
+				Item.useTime = 2;
+				Item.consumable = false;
+				Item.createTile = -1;
+				Item.noUseGraphic = true;
+			}
+			return base.ItemCanUseItem(player);
+		}
+		public override bool? ItemUseItem(Player player)
+		{
+			if (isScope == false) { return base.ItemUseItem(player); }
+			DrawVisor(player);
+			return true;
+		}
+		public override void ItemHoldItem(Player player)
 		{
 			HoldVisor(player);
 			//player.itemLocation.X += -5 * player.direction;

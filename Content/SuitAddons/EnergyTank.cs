@@ -21,11 +21,9 @@ namespace MetroidMod.Content.SuitAddons
 
         public virtual BreastplateAddonSlot AddonSlot => BreastplateAddonSlot.Energy;
 
-		public override void ItemSetStaticDefaults(Items.GeneratedModItem generatedModItem)
+		public override void ItemSetStaticDefaults()
 		{
-			base.ItemSetStaticDefaults(generatedModItem);
-
-			generatedModItem.Item.ResearchUnlockCount = 14;
+			GeneratedModItem.Item.ResearchUnlockCount = 14;
 			ItemID.Sets.ShimmerTransformToItem[ItemType] = ModContent.ItemType<MissileExpansion>();
 		}
 		public override void TileSetStaticDefaults()
@@ -35,19 +33,19 @@ namespace MetroidMod.Content.SuitAddons
 			TileID.Sets.FriendlyFairyCanLureTo[TileType] = true;
 		}
 
-		public override void ItemSetDefaults(Items.GeneratedModItem generatedModItem)
+		public override void ItemSetDefaults()
 		{
-			generatedModItem.Item.DefaultToPlaceableTile(TileType);
+			GeneratedModItem.Item.DefaultToPlaceableTile(TileType);
 
-			generatedModItem.Item.width = 16;
-			generatedModItem.Item.height = 11;
-			generatedModItem.Item.maxStack = 14;
-			generatedModItem.Item.value = Item.buyPrice(0, 10, 0, 0);
-			generatedModItem.Item.rare = ItemRarityID.Green;
+			GeneratedModItem.Item.width = 16;
+			GeneratedModItem.Item.height = 11;
+			GeneratedModItem.Item.maxStack = 14;
+			GeneratedModItem.Item.value = Item.buyPrice(0, 10, 0, 0);
+			GeneratedModItem.Item.rare = ItemRarityID.Green;
 		}
-		public override void ItemAddRecipes(Items.GeneratedModItem generatedModItem)
+		public override void ItemAddRecipes()
 		{
-			generatedModItem.CreateRecipe(1)
+			GeneratedModItem.CreateRecipe(1)
 				.AddIngredient<Items.Miscellaneous.EnergyShard>(4)
 				.AddIngredient<Items.Miscellaneous.ChoziteBar>(1)
 				.AddRecipeGroup(MetroidMod.EvilBarRecipeGroupID, 1)

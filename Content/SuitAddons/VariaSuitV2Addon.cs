@@ -45,14 +45,14 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override BreastplateAddonSlot AddonSlot => BreastplateAddonSlot.Barrier;
 
-		public override void ItemSetDefaults(Items.GeneratedModItem generatedModItem)
+		public override void ItemSetDefaults()
 		{
-			base.ItemSetDefaults(generatedModItem);
+			base.ItemSetDefaults();
 			
-			generatedModItem.Item.width = 16;
-			generatedModItem.Item.height = 16;
-			generatedModItem.Item.value = Item.buyPrice(0, 2, 10, 0);
-			generatedModItem.Item.rare = ItemRarityID.Orange;
+			GeneratedModItem.Item.width = 16;
+			GeneratedModItem.Item.height = 16;
+			GeneratedModItem.Item.value = Item.buyPrice(0, 2, 10, 0);
+			GeneratedModItem.Item.rare = ItemRarityID.Orange;
 		}
 		public override void OnUpdateArmorSet(Player player, int stack)
 		{
@@ -78,9 +78,9 @@ namespace MetroidMod.Content.SuitAddons
 			mp.canHyper = true;
 			mp.UACost -= 0.10f;
 		}
-		public override void ItemAddRecipes(Items.GeneratedModItem generatedModItem)
+		public override void ItemAddRecipes()
 		{
-			generatedModItem.CreateRecipe(1)
+			GeneratedModItem.CreateRecipe(1)
 				.AddSuitAddon<VariaSuitAddon>(1)
 				.AddRecipeGroup(MUtils.CalamityActive() ? MetroidMod.T1HMBarRecipeGroupID : MetroidMod.T3HMBarRecipeGroupID, 5)
 				.AddIngredient<Items.Miscellaneous.KraidTissue>(1)

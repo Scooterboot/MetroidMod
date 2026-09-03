@@ -43,18 +43,18 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override BreastplateAddonSlot AddonSlot => BreastplateAddonSlot.Primary;
 
-		public override void ItemSetStaticDefaults(Items.GeneratedModItem generatedModItem)
+		public override void ItemSetStaticDefaults()
 		{
 			ItemID.Sets.ShimmerTransformToItem[ItemType] = SuitAddonLoader.GetAddon<VortexAugment>().ItemType;
 		}
-		public override void ItemSetDefaults(Items.GeneratedModItem generatedModItem)
+		public override void ItemSetDefaults()
 		{
-			base.ItemSetDefaults(generatedModItem);
+			base.ItemSetDefaults();
 
-			generatedModItem.Item.width = 16;
-			generatedModItem.Item.height = 16;
-			generatedModItem.Item.value = Item.buyPrice(0, 15, 60, 0);
-			generatedModItem.Item.rare = ItemRarityID.Red;
+			GeneratedModItem.Item.width = 16;
+			GeneratedModItem.Item.height = 16;
+			GeneratedModItem.Item.value = Item.buyPrice(0, 15, 60, 0);
+			GeneratedModItem.Item.rare = ItemRarityID.Red;
 		}
 		public override void OnUpdateArmorSet(Player player, int stack)
 		{
@@ -89,9 +89,9 @@ namespace MetroidMod.Content.SuitAddons
 			player.armorEffectDrawShadowLokis = true;
 			player.armorEffectDrawOutlines = true;
 		}
-		public override void ItemAddRecipes(Items.GeneratedModItem generatedModItem)
+		public override void ItemAddRecipes()
 		{
-			generatedModItem.CreateRecipe(1)
+			GeneratedModItem.CreateRecipe(1)
 				.AddIngredient(ItemID.LunarBar, 36)
 				.AddIngredient(ItemID.FragmentNebula, 45)
 				.AddSuitAddon<PhazonSuitAddon>(1)

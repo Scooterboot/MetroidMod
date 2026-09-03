@@ -20,14 +20,26 @@ namespace MetroidMod.Content.Items
 
 		string ItemTexture { get; }
 		
+		/// <inheritdoc cref="GeneratedModItem.AltFunctionUse(Player)"/>
+		bool ItemAltFunctionUse(Player player);
+
 		/// <inheritdoc cref="GeneratedModItem.AddRecipes"/>
-		void ItemAddRecipes(GeneratedModItem generatedModItem);
+		void ItemAddRecipes();
+
+		/// <inheritdoc cref="GeneratedModItem.CanUseItem(Player)"/>
+		bool ItemCanUseItem(Player player);
+
+		/// <inheritdoc cref="GeneratedModItem.HoldItem(Player)"/>
+		void ItemHoldItem(Player player);
 
 		/// <inheritdoc cref="GeneratedModItem.SetDefaults"/>
-		void ItemSetDefaults(GeneratedModItem generatedModItem);
+		void ItemSetDefaults();
 
 		/// <inheritdoc cref="GeneratedModItem.SetStaticDefaults"/>
-		void ItemSetStaticDefaults(GeneratedModItem generatedModItem);
+		void ItemSetStaticDefaults();
+
+		/// <inheritdoc cref="GeneratedModItem.UseItem(Player)"/>
+		bool? ItemUseItem(Player player);
 		
 		IGeneratesModItem Clone(GeneratedModItem newGeneratedModItem);
 	}
@@ -69,20 +81,39 @@ namespace MetroidMod.Content.Items
 			return inst;
 		}
 
+		public override bool AltFunctionUse(Player player)
+		{
+			return producer.ItemAltFunctionUse(player);
+		}
 
 		public override void AddRecipes()
 		{
-			producer.ItemAddRecipes(this);
+			producer.ItemAddRecipes();
+		}
+
+		public override bool CanUseItem(Player player)
+		{
+			return producer.ItemCanUseItem(player);
+		}
+
+		public override void HoldItem(Player player)
+		{
+			producer.ItemHoldItem(player);
 		}
 
 		public override void SetDefaults()
 		{
-			producer.ItemSetDefaults(this);
+			producer.ItemSetDefaults();
 		}
 
 		public override void SetStaticDefaults()
 		{
-			producer.ItemSetStaticDefaults(this);
+			producer.ItemSetStaticDefaults();
+		}
+
+		public override bool? UseItem(Player player)
+		{
+			return producer.ItemUseItem(player);
 		}
 	}
 }

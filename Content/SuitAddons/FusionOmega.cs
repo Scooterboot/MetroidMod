@@ -45,16 +45,16 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override BreastplateAddonSlot AddonSlot => BreastplateAddonSlot.Barrier;
 
-		public override void ItemSetDefaults(Items.GeneratedModItem generatedModItem)
+		public override void ItemSetDefaults()
 		{
-            base.ItemSetDefaults(generatedModItem);
+            base.ItemSetDefaults();
             
-			generatedModItem.Item.width = 18;
-			generatedModItem.Item.height = 18;
-			generatedModItem.Item.value = Item.buyPrice(2, 0, 0, 0);
-			generatedModItem.Item.rare = ItemRarityID.Red;
-			Main.RegisterItemAnimation(generatedModItem.Item.type, new DrawAnimationVertical(3, 10));
-			ItemID.Sets.AnimatesAsSoul[generatedModItem.Item.type] = true;
+			GeneratedModItem.Item.width = 18;
+			GeneratedModItem.Item.height = 18;
+			GeneratedModItem.Item.value = Item.buyPrice(2, 0, 0, 0);
+			GeneratedModItem.Item.rare = ItemRarityID.Red;
+			Main.RegisterItemAnimation(ItemType, new DrawAnimationVertical(3, 10));
+			ItemID.Sets.AnimatesAsSoul[ItemType] = true;
 		}
 
 		public override void OnUpdateArmorSet(Player player, int stack)
@@ -82,13 +82,13 @@ namespace MetroidMod.Content.SuitAddons
 			mp.UACost -= 0.10f;
 			mp.reserveTanks += 6;
 		}
-		public override void ItemAddRecipes(Items.GeneratedModItem generatedModItem)
+		public override void ItemAddRecipes()
 		{
 			if (MUtils.JoostActive())
 			{
 				if (ModContent.TryFind("JoostMod", "IceCoreX", out ModItem saxCore))
 				{
-					generatedModItem.CreateRecipe()
+					GeneratedModItem.CreateRecipe()
 						.AddSuitAddon<VariaSuitV2Addon>()
 						.AddIngredient(saxCore.Type)
 						.Register();
@@ -98,7 +98,7 @@ namespace MetroidMod.Content.SuitAddons
 			{
 				if (ModContent.TryFind("CalamityMod", "EndothermicEnergy", out ModItem endoEnergy))
 				{
-					generatedModItem.CreateRecipe()
+					GeneratedModItem.CreateRecipe()
 						.AddSuitAddon<VariaSuitV2Addon>()
 						.AddIngredient(endoEnergy.Type, 20)
 						.AddTile(TileID.LunarCraftingStation)
@@ -111,7 +111,7 @@ namespace MetroidMod.Content.SuitAddons
 					ModContent.TryFind("ThoriumMod", "InfernoEssence", out ModItem infernoEss) &&
 					ModContent.TryFind("ThoriumMod", "DeathEssence", out ModItem deathEss))
 				{
-					generatedModItem.CreateRecipe()
+					GeneratedModItem.CreateRecipe()
 						.AddSuitAddon<VariaSuitV2Addon>()
 						.AddIngredient(oceanEss.Type, 3)
 						.AddIngredient(infernoEss.Type, 3)

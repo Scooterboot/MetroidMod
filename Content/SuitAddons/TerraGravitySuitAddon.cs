@@ -47,7 +47,7 @@ namespace MetroidMod.Content.SuitAddons
 		public override BreastplateAddonSlot AddonSlot => BreastplateAddonSlot.Primary;
 
 
-		public override void ItemSetStaticDefaults(Items.GeneratedModItem generatedModItem)
+		public override void ItemSetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Terra Gravity Suit");
 			/* Tooltip.SetDefault("+19 defense\n" +
@@ -67,14 +67,14 @@ namespace MetroidMod.Content.SuitAddons
 				"Immune to Distorted and Amplified Gravity effects"); */
 			ItemID.Sets.ShimmerTransformToItem[ItemType] = SuitAddonLoader.GetAddon<PhazonSuitAddon>().ItemType;
 		}
-		public override void ItemSetDefaults(Items.GeneratedModItem generatedModItem)
+		public override void ItemSetDefaults()
 		{
-			base.ItemSetDefaults(generatedModItem);
+			base.ItemSetDefaults();
 
-			generatedModItem.Item.width = 16;
-			generatedModItem.Item.height = 16;
-			generatedModItem.Item.value = Item.buyPrice(0, 11, 70, 0);
-			generatedModItem.Item.rare = ItemRarityID.Lime;
+			GeneratedModItem.Item.width = 16;
+			GeneratedModItem.Item.height = 16;
+			GeneratedModItem.Item.value = Item.buyPrice(0, 11, 70, 0);
+			GeneratedModItem.Item.rare = ItemRarityID.Lime;
 		}
 		public override void OnUpdateArmorSet(Player player, int stack)
 		{
@@ -110,9 +110,9 @@ namespace MetroidMod.Content.SuitAddons
 		{
 			player.armorEffectDrawShadowLokis = true;
 		}
-		public override void ItemAddRecipes(Items.GeneratedModItem generatedModItem)
+		public override void ItemAddRecipes()
 		{
-			generatedModItem.CreateRecipe(1)
+			GeneratedModItem.CreateRecipe(1)
 				.AddIngredient(ItemID.ChlorophyteBar, 60)
 				.AddIngredient<Items.Miscellaneous.NightmareCoreX>(1)
 				.AddSuitAddon<GravitySuitAddon>(1)

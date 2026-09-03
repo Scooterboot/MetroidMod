@@ -44,14 +44,14 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override BreastplateAddonSlot AddonSlot => BreastplateAddonSlot.Primary;
 
-		public override void ItemSetDefaults(Items.GeneratedModItem generatedModItem)
+		public override void ItemSetDefaults()
 		{
-			base.ItemSetDefaults(generatedModItem);
+			base.ItemSetDefaults();
 			
-			generatedModItem.Item.width = 16;
-			generatedModItem.Item.height = 16;
-			generatedModItem.Item.value = Item.buyPrice(0, 7, 80, 0);
-			generatedModItem.Item.rare = ItemRarityID.Pink;
+			GeneratedModItem.Item.width = 16;
+			GeneratedModItem.Item.height = 16;
+			GeneratedModItem.Item.value = Item.buyPrice(0, 7, 80, 0);
+			GeneratedModItem.Item.rare = ItemRarityID.Pink;
 		}
 		public override void OnUpdateArmorSet(Player player, int stack)
 		{
@@ -79,9 +79,9 @@ namespace MetroidMod.Content.SuitAddons
 		{
 			player.GetModPlayer<MPlayer>().visorGlowColor = new Color(0, 248, 112);
 		}
-		public override void ItemAddRecipes(Items.GeneratedModItem generatedModItem)
+		public override void ItemAddRecipes()
 		{
-			generatedModItem.CreateRecipe(1)
+			GeneratedModItem.CreateRecipe(1)
 				.AddIngredient(ItemID.HallowedBar, 54)
 				.AddIngredient<Items.Miscellaneous.GravityFlare>(1)
 				.AddTile(TileID.MythrilAnvil)
