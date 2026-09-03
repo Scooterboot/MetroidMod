@@ -1,5 +1,6 @@
 using System;
 using MetroidMod.Common.Players;
+using MetroidMod.Content.DamageClasses;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -24,7 +25,7 @@ namespace MetroidMod.Content.Projectiles
 			Projectile.friendly = true;
 			Projectile.hostile = false;
 			Projectile.penetrate = -1;
-			Projectile.DamageType = DamageClass.Melee;//Projectile.melee = true;
+			Projectile.DamageType = ModContent.GetInstance<HunterDamageClass>();
 			Projectile.alpha = 255;
 			Projectile.tileCollide = false;
 			Projectile.ownerHitCheck = true;
