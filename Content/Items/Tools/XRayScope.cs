@@ -9,11 +9,6 @@ namespace MetroidMod.Content.Items.Tools
 {
 	public abstract class XRayScope : ModItem
 	{
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("X-Ray Scope");
-			// Tooltip.SetDefault("Projects a wide ray of light if you are standing still");
-		}
 		public override void SetDefaults()
 		{
 			Item.maxStack = 1;
@@ -24,7 +19,7 @@ namespace MetroidMod.Content.Items.Tools
 			Item.useTime = 2;
 			Item.useAnimation = 2;
 			Item.autoReuse = true;
-			Item.value = 400000;
+			Item.value = 40000;
 			Item.rare = 5;
 			Item.channel = true;
 			Item.mech = true;

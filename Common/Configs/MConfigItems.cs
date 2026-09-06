@@ -127,16 +127,16 @@ namespace MetroidMod.Common.Configs
 		[DefaultValue(0.1f)]
 		public float energyExpenseEfficiency;
 
-		[Header("SuitAddons")]
+		[Header("[i:MetroidMod/ReserveTankAddon]SuitAddons")]
 
-		[Label("[i:MetroidMod/ReserveTankAddon] Reserve Tank Stack")]
+		//[Label("[i:MetroidMod/ReserveTankAddon] Reserve Tank Stack")]
 		[Range(1, 10)]
 		[Increment(1)]
 		[Slider]
 		[DefaultValue(4)]
 		public int stackReserveTank;
 
-		[Label("[i:MetroidMod/ReserveTankAddon] Reserve Tank Energy Capacity")]
+	    //[Label("[i:MetroidMod/ReserveTankAddon] Reserve Tank Energy Capacity")]
 		[Range(20, 200)]
 		[Increment(20)]
 		[Slider]
@@ -160,7 +160,7 @@ namespace MetroidMod.Common.Configs
 		[DefaultValue(false)]
 		public bool muteSpeedBooster;
 
-		[Header("[i:MetroidMod/PowerBeam]StandardWeapons")]
+		[Header("[i:MetroidMod/ArmCannon]StandardWeapons")]
 
 		//[Label("[i:MetroidMod/PowerBeam] Power Beam Damage")]
 		[Range(1, 50)]
@@ -225,7 +225,7 @@ namespace MetroidMod.Common.Configs
 		[DefaultValue(5)]
 		public int ammoMissileTank;
 
-		[Header("[i:MetroidMod/PowerBeam]SpecialBeams")]
+		[Header("[i:MetroidMod/ArmCannon]SpecialBeams")]
 
 		//[Label("check localization")]
 		[DefaultValue(false)]
@@ -273,7 +273,7 @@ namespace MetroidMod.Common.Configs
 		[DefaultValue(1)]
 		public int overheatPhazonBeam;
 
-		[Header("[i:MetroidMod/PowerBeam]PowerBeamV1Addons")]
+		[Header("[i:MetroidMod/ArmCannon]PowerBeamV1Addons")]
 
 		//[Label("[i:MetroidMod/ChargeBeamAddon] Charge Beam Damage Multiplier")]
 		[Range(1f, 4f)]
@@ -394,7 +394,7 @@ namespace MetroidMod.Common.Configs
 		[DefaultValue(-0.15f)]
 		public float speedPlasmaBeamRed;
 
-		[Header("[i:MetroidMod/PowerBeam]PowerBeamV2Addons")]
+		[Header("[i:MetroidMod/ArmCannon]PowerBeamV2Addons")]
 
 		//[Label("[i:MetroidMod/ChargeBeamV2Addon] Charge Beam V2 Damage Multiplier")]
 		[Range(1f, 4f)]
@@ -494,7 +494,7 @@ namespace MetroidMod.Common.Configs
 		[DefaultValue(-0.15f)]
 		public float speedNovaBeam;
 
-		[Header("[i:MetroidMod/PowerBeam]PowerBeamV3Addons")]
+		[Header("[i:MetroidMod/ArmCannon]PowerBeamV3Addons")]
 
 		//[Label("[i:MetroidMod/LuminiteBeamAddon] Luminite Beam Damage Multiplier")]
 		[Range(1f, 5f)]
@@ -594,7 +594,7 @@ namespace MetroidMod.Common.Configs
 		[DefaultValue(0.25f)]
 		public float speedVortexBeam;
 
-		[Header("[i:MetroidMod/PowerBeam]PowerBeamHuntersAddons")]
+		[Header("[i:MetroidMod/ArmCannon]PowerBeamHuntersAddons")]
 
 		//[Label("[i:MetroidMod/VoltDriverAddon] VoltDriver Damage Modifier")]
 		[Range(0f, 10f)]
@@ -715,7 +715,7 @@ namespace MetroidMod.Common.Configs
 		[DefaultValue(10f)]
 		public float overheatOmegaCannon;
 
-		[Header("[i:MetroidMod/MissileLauncher]MissileLauncherAddons")]
+		[Header("[i:MetroidMod/ArmCannon]MissileLauncherAddons")]
 
 		//[Label("[i:MetroidMod/IceMissileAddon] Ice Missile Damage Multiplier")]
 		[Range(-0.5f, 4f)]
