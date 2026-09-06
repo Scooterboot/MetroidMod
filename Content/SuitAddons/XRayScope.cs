@@ -36,7 +36,7 @@ namespace MetroidMod.Content.SuitAddons
 		{
 			item.width = 16;
 			item.height = 16;
-			item.value = Item.buyPrice(0, 40, 0, 0);
+			item.value = Item.buyPrice(0, 4, 0, 0);
 			item.rare = ItemRarityID.Pink;
 			item.mech = true;
 			ItemID.Sets.Torches[item.type] = true;
