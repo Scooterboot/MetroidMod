@@ -16,6 +16,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
@@ -48,6 +49,8 @@ namespace MetroidMod.Common.Players
 		/// </summary>
 		public bool canHyper = false;
 		public bool PrimeHunter = false;
+		internal LocalizedText PrimeHunterFoundAnExploitText => Mod.GetLocalization("PrimeHunter.Exploit", () => "{0} did not find an exploit");
+		internal LocalizedText PrimeHunterIsDeadText => Mod.GetLocalization("PrimeHunter.IsDead", () => "The Prime Hunter is dead!");
 		/// <summary>
 		/// Determines whether or not the player can access Sense Move.
 		/// </summary>
@@ -87,6 +90,14 @@ namespace MetroidMod.Common.Players
 		public int oldSelectedItem = 0;
 
 		public bool suckedByMetroid = false;
+		
+		public override void Load()
+		{
+			// Format texts to populate their values in .hjson files.
+			PrimeHunterFoundAnExploitText.Format("test value");
+			PrimeHunterIsDeadText.Format();
+		}
+
 		public override void ResetEffects()
 		{
 			ResetEffects_Accessories();

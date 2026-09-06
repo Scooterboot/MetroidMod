@@ -5540,5 +5540,10 @@ Mods: {
 			// GreenHatch.DisplayName: Green Hatch
 			// BlueHatch.DisplayName: Blue Hatch
 		}
+
+		PrimeHunter: {
+			// IsDead: The Prime Hunter is dead!
+			// Exploit: "{0} did not find an exploit"
+		}
 	}
 }
