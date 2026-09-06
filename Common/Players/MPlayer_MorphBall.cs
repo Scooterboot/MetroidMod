@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using MetroidMod.Content.Elevators;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
@@ -6,6 +7,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static MetroidMod.Sounds;
 
 //using MetroidMod.Content.NPCs;
 //using MetroidMod.Content.Items;
@@ -873,7 +875,7 @@ namespace MetroidMod.Common.Players
 				Player.position -= velocity2;
 			}
 		}
-		public void SpiderBall(Player Player)
+		public void SpiderBall2(Player Player)
 		{
 			// disable spiderball when jumping
 			if (Player.controlJump && Player.releaseJump)
@@ -948,6 +950,120 @@ namespace MetroidMod.Common.Players
 			{
 				spiderVelocity = Vector2.Zero;
 				spiderSpeed = 0f;
+				Ibounce = true;
+			}
+		}
+		//Im really just readding all the directions in the first place WHY CANT I JUST MOVE TANGENT TO A SURFACE AAAAH --Dr
+		private static bool HasSolidTile(List<Point> tiles, out Point collisionTile) //Because Collision.SolidTiles doesnt use points
+		{
+			foreach (Point point in tiles)
+			{
+				Tile tile = Main.tile[point.X, point.Y];
+
+				if (tile.HasTile && Main.tileSolid[tile.TileType])
+				{
+					collisionTile = point;
+					return true;
+				}
+			}
+
+			collisionTile = Point.Zero;
+			return false;
+		}
+		public void SpiderBall(Player Player)
+		{
+			// disable spiderball when jumping
+			if (Player.controlJump && Player.releaseJump)
+			{
+				spiderball = false;
+			}
+			int collisionDirection = -1;
+			Point collisionTile = Point.Zero;
+			static List<Point> GetEdgeTiles(Player player, bool left, bool right, bool up, bool down) //voids for lists hurt me but it's better than making a buncha news
+			{
+				List<Point> tiles = [];
+				Collision.GetEntityEdgeTiles(tiles, player, left, right, up, down);
+				return tiles;
+			}
+			List<Point> hidari = GetEdgeTiles(Player, left: false, right: false, up: true, down: false); //japanese because funi
+			List<Point> migi = GetEdgeTiles(Player,left: false,right: true,up: false,down: false);
+			List<Point> ue = GetEdgeTiles(Player,left: false,right: false,	up: true,down: false);
+			List<Point> shita = GetEdgeTiles(Player,left: false,right: false,up: false,	down: true);
+			if (Player.whoAmI == Main.myPlayer && Systems.MSystem.SpiderBallKey.JustPressed)
+			{
+				if (ballstate)
+				{
+					spiderball = !spiderball;
+
+					SoundEngine.PlaySound(Sounds.Suit.SpiderActivate,Player.position);
+				}
+			}
+
+			if (spiderball)
+			{
+				Ibounce = false;
+				//elseifs are so ugly, jus lemme switch
+				if (HasSolidTile(migi, out collisionTile))
+				{
+					collisionDirection = 0;
+				}
+				else if (HasSolidTile(hidari, out collisionTile))
+				{
+					collisionDirection = 1;
+				}
+				else if (HasSolidTile(shita, out collisionTile))
+				{
+					collisionDirection = 2;
+				}
+				else if (HasSolidTile(ue, out collisionTile))
+				{
+					collisionDirection = 3;
+				}
+				if (collisionDirection != -1)
+				{
+					float speed = 1f;
+
+					if (collisionDirection == 2 || collisionDirection == 3)
+					{
+						//tom/bottom
+						//will have to make this so right only move "clockwise" and such
+						Player.velocity.Y = 0;// 1E-05f;
+						if (Player.controlRight)
+						{
+							Player.velocity.X = speed;
+						}
+						else if (Player.controlLeft)
+						{
+							Player.velocity.X = -speed;
+						}
+						else
+							Player.velocity.X = 0f;
+					}
+					else
+					{
+						//side
+						Player.velocity.X = 0f;
+
+						if (Player.controlRight)
+						{
+							Player.velocity.Y = speed;
+						}
+						else if (Player.controlLeft)
+						{
+							Player.velocity.Y = -speed;
+						}
+						else
+							Player.velocity.Y = 0f;// 1E-05f;
+					}
+					Player.moveSpeed = 0f;
+					Player.maxRunSpeed = 0f;
+					Player.accRunSpeed = 0f;
+					Player.gravity = 0f; //DONT FORGET THIS OR YOU JUST FALL LOL
+					Player.stairFall = true;
+				}
+			}
+			else
+			{
 				Ibounce = true;
 			}
 		}

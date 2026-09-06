@@ -9,66 +9,67 @@ namespace MetroidMod
 	{
 		public static bool CheckCollide(Vector2 Position, int Width, int Height)
 		{
-			int num = (int)(Position.X / 16f) - 1;
-			int num2 = (int)((Position.X + Width) / 16f) + 2;
-			int num3 = (int)(Position.Y / 16f) - 1;
-			int num4 = (int)((Position.Y + Height) / 16f) + 2;
-			num = Utils.Clamp<int>(num, 0, Main.maxTilesX - 1);
-			num2 = Utils.Clamp<int>(num2, 0, Main.maxTilesX - 1);
-			num3 = Utils.Clamp<int>(num3, 0, Main.maxTilesY - 1);
-			num4 = Utils.Clamp<int>(num4, 0, Main.maxTilesY - 1);
-			for (int i = num; i < num2; i++)
-			{
-				for (int j = num3; j < num4; j++)
-				{
-					if (Main.tile[i, j] != null && !Main.tile[i, j].IsActuated && Main.tile[i, j].HasTile && Main.tileSolid[Main.tile[i, j].TileType] && !Main.tileSolidTop[Main.tile[i, j].TileType])
-					{
-						Vector2 vector;
-						vector.X = i * 16;
-						vector.Y = j * 16;
-						int num5 = 16;
-						if (Main.tile[i, j].IsHalfBlock)
-						{
-							vector.Y += 8f;
-							num5 -= 8;
-						}
-						if (Position.X + Width > vector.X && Position.X < vector.X + 16f && Position.Y + Height > vector.Y && Position.Y < vector.Y + num5)
-						{
-							if (Main.tile[i, j].Slope > SlopeType.Solid)
-							{
-								if (Main.tile[i, j].Slope > SlopeType.SlopeDownRight)
-								{
-									if (Main.tile[i, j].Slope == SlopeType.SlopeUpLeft && Position.Y < vector.Y + num5 - Math.Max(Position.X - vector.X, 0f))
-									{
-										return true;
-									}
-									if (Main.tile[i, j].Slope == SlopeType.SlopeUpRight && Position.Y < vector.Y + num5 - Math.Max(vector.X + 16f - (Position.X + Width), 0f))
-									{
-										return true;
-									}
-								}
-								else
-								{
-									if (Main.tile[i, j].Slope == SlopeType.SlopeDownLeft && Position.Y + Height > vector.Y + Math.Max(Position.X - vector.X, 0f))
-									{
-										return true;
-									}
-									if (Main.tile[i, j].Slope == SlopeType.SlopeDownRight && Position.Y + Height > vector.Y + Math.Max(vector.X + 16f - (Position.X + Width), 0f))
-									{
-										return true;
-									}
-								}
-							}
-							else
-							{
-								return true;
-							}
-						}
-					}
-				}
-			}
-			return false;
+			//int num = (int)(Position.X / 16f) - 1;
+			//int num2 = (int)((Position.X + Width) / 16f) + 2;
+			//int num3 = (int)(Position.Y / 16f) - 1;
+			//int num4 = (int)((Position.Y + Height) / 16f) + 2;
+			//num = Utils.Clamp<int>(num, 0, Main.maxTilesX - 1);
+			//num2 = Utils.Clamp<int>(num2, 0, Main.maxTilesX - 1);
+			//num3 = Utils.Clamp<int>(num3, 0, Main.maxTilesY - 1);
+			//num4 = Utils.Clamp<int>(num4, 0, Main.maxTilesY - 1);
+			//for (int i = num; i < num2; i++)
+			//{
+			//	for (int j = num3; j < num4; j++)
+			//	{
+			//		if (Main.tile[i, j] != null && !Main.tile[i, j].IsActuated && Main.tile[i, j].HasTile && Main.tileSolid[Main.tile[i, j].TileType] && !Main.tileSolidTop[Main.tile[i, j].TileType])
+			//		{
+			//			Vector2 vector;
+			//			vector.X = i * 16;
+			//			vector.Y = j * 16;
+			//			int num5 = 16;
+			//			if (Main.tile[i, j].IsHalfBlock)
+			//			{
+			//				vector.Y += 8f;
+			//				num5 -= 8;
+			//			}
+			//			if (Position.X + Width > vector.X && Position.X < vector.X + 16f && Position.Y + Height > vector.Y && Position.Y < vector.Y + num5)
+			//			{
+			//				if (Main.tile[i, j].Slope > SlopeType.Solid)
+			//				{
+			//					if (Main.tile[i, j].Slope > SlopeType.SlopeDownRight)
+			//					{
+			//						if (Main.tile[i, j].Slope == SlopeType.SlopeUpLeft && Position.Y < vector.Y + num5 - Math.Max(Position.X - vector.X, 0f))
+			//						{
+			//							return true;
+			//						}
+			//						if (Main.tile[i, j].Slope == SlopeType.SlopeUpRight && Position.Y < vector.Y + num5 - Math.Max(vector.X + 16f - (Position.X + Width), 0f))
+			//						{
+			//							return true;
+			//						}
+			//					}
+			//					else
+			//					{
+			//						if (Main.tile[i, j].Slope == SlopeType.SlopeDownLeft && Position.Y + Height > vector.Y + Math.Max(Position.X - vector.X, 0f))
+			//						{
+			//							return true;
+			//						}
+			//						if (Main.tile[i, j].Slope == SlopeType.SlopeDownRight && Position.Y + Height > vector.Y + Math.Max(vector.X + 16f - (Position.X + Width), 0f))
+			//						{
+			//							return true;
+			//						}
+			//					}
+			//				}
+			//				else
+			//				{
+			//					return true;
+			//				}
+			//			}
+			//		}
+			//	}
+			//}
+			//return false;
 			//return !Collision.IsClearSpotTest(Position,12f,Width,Height);
+			return Collision.SolidCollision(Position, Width, Height);
 		}
 
 		public static Tile GetTile(Vector2 Position)
