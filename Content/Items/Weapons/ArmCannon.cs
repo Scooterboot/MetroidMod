@@ -2066,11 +2066,11 @@ namespace MetroidMod.Content.Items.Weapons
 
 				if (!resetStealth)
 				{
-					impStealth = Math.Min(impStealth + (LuminiteActive ? 3f : DiffusionActive ? 1.5f : 1f), 693f); //126f
+					impStealth = Math.Min(impStealth + (LuminiteActive ? 3f : DiffusionActive ? 1.5f : 1f), 126f); //126f
 					if (stealthEnabled)
 					{
 						player.shroomiteStealth = true;
-						player.stealth -= impStealth / 693f;
+						player.stealth -= impStealth / 126f;
 						player.aggro -= (int)impStealth;// * 4;
 					}
 
