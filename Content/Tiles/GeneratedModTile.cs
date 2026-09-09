@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 
 namespace MetroidMod.Content.Tiles
 {
+	// This is half-advanced, see /Documentation/AutomaticContentGeneration.md for a wordy explanation. - Armipotent
 	/// <summary>
 	/// A standard for generating and interacting with <see cref="Terraria.ModLoader.ModTile">s.
 	/// </summary>
