@@ -56,7 +56,6 @@ namespace MetroidMod.Content.Items.Armors
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			mp.maxOverheat += overheatMax;
 			mp.overheatCost -= overheatCost / 100;
-			mp.tankCapacity += 4;
 			mp.IsPowerSuitBreastplate = true;
 			if (Common.Configs.MConfigItems.Instance.enableLedgeClimbPowerSuitBreastplate)
 			{
@@ -91,8 +90,6 @@ namespace MetroidMod.Content.Items.Armors
 			player.setBonus = SetBonus.Value;// 
 											 //SuitAddonLoader.GetSetBonusText(player);
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			mp.EnergyDefenseEfficiency += Common.Configs.MConfigItems.Instance.energyDefenseEfficiency;
-			mp.EnergyExpenseEfficiency += Common.Configs.MConfigItems.Instance.energyExpenseEfficiency;
 			mp.senseMove = true;
 			mp.ShouldShowArmorUI = true;
 			SuitAddonLoader.OnUpdateArmorSet(player);

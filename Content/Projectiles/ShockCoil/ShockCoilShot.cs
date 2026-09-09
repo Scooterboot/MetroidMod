@@ -470,7 +470,7 @@ namespace MetroidMod.Content.Projectiles.ShockCoil
 																		//mp.statCharge =Math.Min(mp.statCharge++, MPlayer.maxCharge);
 			if (!mp.PrimeHunter && (Luminite || DiffBeam))
 			{
-				mp.Energy = Math.Min(mp.Energy += heal, mp.MaxEnergy);
+				// mp.Energy = Math.Min(mp.Energy += heal, mp.MaxEnergy);
 			}
 			SoundEngine.PlaySound(Sounds.Items.Weapons.ShockCoilAffinity1, target2.Center);
 			if (damageDone > 0)

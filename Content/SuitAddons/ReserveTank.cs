@@ -54,8 +54,8 @@ namespace MetroidMod.Content.SuitAddons
 		}
 		public override void OnUpdateArmorSet(Player player, int stack)
 		{
-			MPlayer mp = player.GetModPlayer<MPlayer>();
-			mp.SuitReserveTanks = stack <= Common.Configs.MConfigItems.Instance.stackReserveTank ? stack : Common.Configs.MConfigItems.Instance.stackReserveTank;
+			// MPlayer mp = player.GetModPlayer<MPlayer>();
+			// mp.SuitReserveTanks = stack <= Common.Configs.MConfigItems.Instance.stackReserveTank ? stack : Common.Configs.MConfigItems.Instance.stackReserveTank;
 		}
 	}
 }

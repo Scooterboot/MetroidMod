@@ -377,14 +377,6 @@ namespace MetroidMod.Common.Systems
 					},
 					InterfaceScaleType.UI)
 				);*/
-				layers.Insert(ResourceIndex + 2, new LegacyGameInterfaceLayer(
-					"MetroidMod: Suit Energy Bar",
-					delegate {
-						DrawEnergyBar(Main.spriteBatch);
-						return true;
-					},
-					InterfaceScaleType.UI)
-				);
 			}
 			// Draws the Music Player UI.
 			int index = layers.FindIndex((GameInterfaceLayer layer) => layer.Name.Equals("Vanilla: Mouse Text"));
@@ -889,44 +881,6 @@ namespace MetroidMod.Common.Systems
 					Color s = sjpercent < 1f ? Color.Cyan : Color.SkyBlue;
 					sb.Draw(texBarBorder, new Vector2(x, y), new Rectangle(0, 0, texBarBorder.Width, texBarBorder.Height), Color.White);
 					sb.Draw(texBar, new Vector2(x + 2, y + 2), new Rectangle(0, 0, w, texBar.Height), s);
-				}
-			}
-		}
-		public void DrawEnergyBar(SpriteBatch sb)
-		{
-			Player P = Main.player[Main.myPlayer];
-			MPlayer mp = P.GetModPlayer<MPlayer>();
-			if (mp.ShouldShowArmorUI)
-			{
-				// number
-				int num0 = (int)Math.Floor(mp.Energy / 10f);
-				int num1 = num0 - ((int)Math.Floor(num0 / 10f) * 10);
-				int num2 = mp.Energy - (num0 * 10);
-				Texture2D tex1 = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/EnergyTextures/{num1}").Value;
-				Texture2D tex2 = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/EnergyTextures/{num2}").Value;
-				Vector2 center = new(Main.screenWidth / 2, tex1.Height);
-				center += new Vector2(0, 20);
-				sb.Draw(tex1, center + new Vector2(-100 - (tex1.Width * 2) - 16, -tex1.Height / 2), new Rectangle?(new Rectangle(0, 0, tex1.Width, tex1.Height)), mp.HUDColor, 0f, new Vector2(tex1.Width / 2, tex1.Height / 2), 2f, SpriteEffects.None, 0f);
-				sb.Draw(tex2, center + new Vector2(-100 - tex1.Width - 4, -tex1.Height / 2), new Rectangle?(new Rectangle(0, 0, tex2.Width, tex2.Height)), mp.HUDColor, 0f, new Vector2(tex2.Width / 2, tex2.Height / 2), 2f, SpriteEffects.None, 0f);
-
-				// bar
-				Texture2D value = Terraria.GameContent.TextureAssets.MagicPixel.Value;
-				Rectangle rectangle = Utils.CenteredRectangle(center, new Vector2(200f, 10f));
-				Rectangle destinationRectangle = rectangle;
-				Rectangle destinationRectangle2 = rectangle;
-				destinationRectangle2.Width = (int)(destinationRectangle2.Width * ((mp.Energy - (Math.Floor(mp.Energy / 100f) * 100f)) / 99f));
-				Rectangle value2 = new Rectangle(0, 0, 1, 1);
-				sb.Draw(value, destinationRectangle, value2, Color.White * 0.6f);
-				sb.Draw(value, rectangle, value2, Color.Black * 0.6f);
-				sb.Draw(value, destinationRectangle2, value2, mp.HUDColor * 0.5f);
-
-				// boxes
-				int totalBoxes = Math.Min(mp.tankCapacity, mp.EnergyTanks);
-				int boxCount = mp.FilledEnergyTanks;
-				Texture2D boxTex = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/EnergyTextures/Box2").Value;
-				for (int i = 0; i < totalBoxes; i++)
-				{
-					sb.Draw(boxTex, center + new Vector2(-100 + (tex1.Width * i) + 8 + (4 * i), -boxTex.Height / 2), new Rectangle?(new Rectangle(0, 0, boxTex.Width / 2, boxTex.Height / 2)), i < boxCount ? mp.HUDColor : Color.DarkSlateGray, 0f, new Vector2(tex1.Width / 2, tex1.Height / 2), 1.5f, SpriteEffects.None, 0f);
 				}
 			}
 		}

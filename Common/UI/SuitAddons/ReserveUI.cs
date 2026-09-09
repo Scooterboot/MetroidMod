@@ -14,7 +14,7 @@ namespace MetroidMod.Common.UI.SuitAddons
 {
 	public class ReserveUI : UIState
 	{
-		public static bool Visible => Main.playerInventory && Main.LocalPlayer.TryGetModPlayer(out MPlayer mp) && mp.ShouldShowArmorUI && mp.SuitAddonUIState == SuitAddonUIState.Breastplate && mp.SuitReserveTanks > 0 && Main.EquipPage == 0;
+		public static bool Visible => Main.playerInventory && Main.LocalPlayer.TryGetModPlayer(out MPlayer mp) && mp.ShouldShowArmorUI && mp.SuitAddonUIState == SuitAddonUIState.Breastplate && 0 > 0 && Main.EquipPage == 0;
 
 		public ReservePanel panel;
 
@@ -96,7 +96,7 @@ namespace MetroidMod.Common.UI.SuitAddons
 				}
 			};
 			modeButton.OnLeftClick += delegate {
-				Main.LocalPlayer.MetroidPlayer().SuitReservesAuto = !Main.LocalPlayer.MetroidPlayer().SuitReservesAuto;
+				// Main.LocalPlayer.MetroidPlayer().SuitReservesAuto = !Main.LocalPlayer.MetroidPlayer().SuitReservesAuto;
 			};
 			Append(modeButton);
 			reserveAmt = new();
@@ -149,35 +149,35 @@ namespace MetroidMod.Common.UI.SuitAddons
 				}
 			}
 			MPlayer mp = Main.LocalPlayer.GetModPlayer<MPlayer>();
-			if (reserveHoldingLClick)
-			{
-				if (mp.SuitReserves < mp.SuitReserveTanks * MConfigItems.Instance.reserveTankStoreCount && mp.Energy >= (mp.SuitReservesAuto ? 2 : 1))
-				{
-					mp.SuitReserves += 1;
-					mp.Energy -= 1;
-					mp.drainingReserves = false;
-				}
-			}
-			if (reserveHoldingRClick)
-			{
-				if (mp.SuitReserves >= 1 && mp.Energy <= mp.MaxEnergy - 1)
-				{
-					mp.SuitReserves -= 1;
-					mp.Energy += 1;
-				}
-			}
+			// if (reserveHoldingLClick)
+			// {
+			// 	if (mp.SuitReserves < mp.SuitReserveTanks * MConfigItems.Instance.reserveTankStoreCount && mp.Energy >= (mp.SuitReservesAuto ? 2 : 1))
+			// 	{
+			// 		mp.SuitReserves += 1;
+			// 		mp.Energy -= 1;
+			// 		mp.drainingReserves = false;
+			// 	}
+			// }
+			// if (reserveHoldingRClick)
+			// {
+			// 	if (mp.SuitReserves >= 1 && mp.Energy <= mp.MaxEnergy - 1)
+			// 	{
+			// 		mp.SuitReserves -= 1;
+			// 		mp.Energy += 1;
+			// 	}
+			// }
 		}
 
 		protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
 			MPlayer mp = Main.LocalPlayer.GetModPlayer<MPlayer>();
 			spriteBatch.Draw(PanelTexture.Value, DrawRectangle, Color.White);
-			spriteBatch.Draw(ModeTexture.Value, new Rectangle(DrawRectangle.Left + ModeAddRectangle.Left, DrawRectangle.Top + ModeAddRectangle.Top, ModeAddRectangle.Width, ModeAddRectangle.Height), new(0, mp.SuitReservesAuto ? ModeTexture.Value.Height / 2 : 0, ModeTexture.Value.Width, ModeTexture.Value.Height / 2), Color.White);
+			spriteBatch.Draw(ModeTexture.Value, new Rectangle(DrawRectangle.Left + ModeAddRectangle.Left, DrawRectangle.Top + ModeAddRectangle.Top, ModeAddRectangle.Width, ModeAddRectangle.Height), new(0, /* mp.SuitReservesAuto */ true ? ModeTexture.Value.Height / 2 : 0, ModeTexture.Value.Width, ModeTexture.Value.Height / 2), Color.White);
 
 			// number drawing
-			int tanks = mp.SuitReserveTanks * MConfigItems.Instance.reserveTankStoreCount;
-			int filled = mp.SuitReserves;
-			int bars = Math.Min(mp.SuitReserveTanks, 4);
+			int tanks = 0; // mp.SuitReserveTanks * MConfigItems.Instance.reserveTankStoreCount;
+			int filled = 0; // mp.SuitReserves;
+			int bars = Math.Min(0, 4);
 
 			// bar drawing
 			Rectangle bRectFrame = new Rectangle(0, 0, 16 + ((bars - 1) * 14), 12);

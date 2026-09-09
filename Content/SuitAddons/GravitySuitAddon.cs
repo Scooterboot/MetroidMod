@@ -63,13 +63,10 @@ namespace MetroidMod.Content.SuitAddons
 			MPlayer mp = player.GetModPlayer<MPlayer>();
 			HunterDamagePlayer.ModPlayer(player).HunterDamageMult += huntDamage / 100;
 			HunterDamagePlayer.ModPlayer(player).HunterCrit += huntCrit;
-			mp.tankCapacity += energyCap;
 			mp.maxOverheat += overheatCap;
 			mp.overheatCost -= overheatCost / 100;
 			mp.missileCost -= comboCost / 100;
 			mp.UACost -= 0.05f;
-			mp.EnergyDefenseEfficiency += energyEff / 100;
-			mp.EnergyExpenseEfficiency += energyRes / 100;
 			if (Collision.DrownCollision(player.position, player.width, player.height, player.gravDir))// || (!WorldGen.everythingWorldGen && !WorldGen.getGoodWorldGen)) This kinda fixed some mods that say youre drowning when youre not...but broke others making you actually drown --DR
 			{
 				player.gills = true;

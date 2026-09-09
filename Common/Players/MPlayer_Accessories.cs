@@ -135,14 +135,14 @@ namespace MetroidMod.Common.Players
 			screwAttackDmg = 0;
 
 			bool flag = false;
-			for (int i = 0; i < Player.buffType.Length; i++)
-			{
-				if (Player.buffType[i] == ModContent.BuffType<Content.Buffs.EnergyRecharge>() && Player.buffTime[i] > 0)
-				{
-					flag = true;
-					break;
-				}
-			}
+			// for (int i = 0; i < Player.buffType.Length; i++)
+			// {
+			// 	if (Player.buffType[i] == ModContent.BuffType<Content.Buffs.EnergyRecharge>() && Player.buffTime[i] > 0)
+			// 	{
+			// 		flag = true;
+			// 		break;
+			// 	}
+			// }
 			if (!flag)
 			{
 				reserveTanks = 0;

@@ -39,7 +39,7 @@ namespace MetroidMod.Content.SuitAddons
 
 			GeneratedModItem.Item.width = 16;
 			GeneratedModItem.Item.height = 11;
-			GeneratedModItem.Item.maxStack = 14;
+			GeneratedModItem.Item.maxStack = 1;
 			GeneratedModItem.Item.value = Item.buyPrice(0, 10, 0, 0);
 			GeneratedModItem.Item.rare = ItemRarityID.Green;
 		}
@@ -55,8 +55,8 @@ namespace MetroidMod.Content.SuitAddons
 		}
 		public override void OnUpdateArmorSet(Player player, int stack)
 		{
-			MPlayer mp = player.GetModPlayer<MPlayer>();
-			mp.EnergyTanks = stack;
+			// MPlayer mp = player.GetModPlayer<MPlayer>();
+			// mp.EnergyTanks = stack;
 		}
 	}
 }

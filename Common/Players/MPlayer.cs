@@ -90,7 +90,6 @@ namespace MetroidMod.Common.Players
 		public override void ResetEffects()
 		{
 			ResetEffects_Accessories();
-			ResetEffects_SuitEnergy();
 			ResetEffects_GetArmors();
 			ResetEffects_MorphBall();
 			ResetEffects_Graphics();
@@ -150,7 +149,6 @@ namespace MetroidMod.Common.Players
 		{
 			Player.statLife = Player.statLifeMax2;
 			Player.statMana = Player.statManaMax;
-			Energy = MaxEnergy;
 			canSomersault = true;
 			canWallJump = true;
 			powerGrip = true;
@@ -160,7 +158,6 @@ namespace MetroidMod.Common.Players
 			spaceJump = true;
 			senseMoveCooldown = 0;
 			senseMove = true;
-			Energy = MaxEnergy;
 			statOverheat = 0f;
 			statPBCh = 0f;
 			bomb = 0;
@@ -177,7 +174,6 @@ namespace MetroidMod.Common.Players
 			screwSpeedDelay = 0;
 			spaceJumpsRegenDelay = 0;
 			insigniaActive = true;
-			SuitReserves = MaxSuitReserves;
 			reserveHearts = reserveTanks;
 
 			// Infinite missiles
@@ -529,19 +525,6 @@ namespace MetroidMod.Common.Players
 			}
 
 			GrappleBeamMovement();
-
-			if (Energy <= 30 && ShouldShowArmorUI == true)
-			{
-				energyLowTimer--;
-				if (energyLowTimer <= 0)
-				{
-					energyLowTimer = Configs.MConfigClient.Instance.energyLowInterval;
-					if (Configs.MConfigClient.Instance.energyLow)
-					{
-						SoundEngine.PlaySound(Sounds.Suit.EnergyLow, Player.position);
-					}
-				}
-			}
 		}
 		public override void PostUpdateRunSpeeds()
 		{
@@ -587,7 +570,6 @@ namespace MetroidMod.Common.Players
 				modifiers.FinalDamage /= oof;
 				modifiers.KnockbackImmunityEffectiveness /= oof;
 			}
-			ModifyHurt_SuitEnergy(ref modifiers);
 		}
 		public override void PostHurt(Player.HurtInfo info)
 		{
@@ -596,7 +578,6 @@ namespace MetroidMod.Common.Players
 				info.Knockback *= oof;
 				Player.immuneTime = (int)(Player.immuneTime / 2f);// rounding is dumb
 			}
-			PostHurt_SuitEnergy(info);
 		}
 		public override bool ConsumableDodge(Player.HurtInfo info)
 		{
@@ -605,6 +586,42 @@ namespace MetroidMod.Common.Players
 				return true;
 			}
 			return false;
+		}
+
+		public override void OnRespawn()
+		{
+			if (Player.TryMetroidPlayer(out MPlayer mp))
+			{
+				mp.reserveHearts = mp.reserveTanks;
+				if (mp.PrimeHunter)
+				{
+					mp.PrimeHunter = !mp.PrimeHunter;
+				}
+				if (mp.ShouldShowArmorUI)
+				{
+					SoundEngine.PlaySound(Sounds.Suit.SpawnIn, new(Player.SpawnX, Player.SpawnY));
+				}
+			}
+			for (int i = 0; i < Player.inventory.Length; i++)
+			{
+				if (Player.inventory[i].type == ModContent.ItemType<Content.Items.Weapons.ArmCannon>())
+				{
+					MGlobalItem mi = Player.inventory[i].GetGlobalItem<MGlobalItem>();
+
+					if (mi.statMissiles < mi.maxMissiles || mi.statUA < mi.maxUA)
+					{
+						if (mi.statMissiles < mi.maxMissiles)
+						{
+							mi.statMissiles = mi.maxMissiles;
+							mi.statUA = mi.maxUA;
+						}
+						if (mi.statUA < mi.maxUA)
+						{
+							mi.statUA += mi.maxUA;
+						}
+					}
+				}
+			}
 		}
 
 		public void SenseMove(Player P)
@@ -853,14 +870,6 @@ namespace MetroidMod.Common.Players
 				}
 			}
 		}
-		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-		{
-			if (PrimeHunter && target.life <= 0 && Energy < MaxEnergy && Main.myPlayer == Player.whoAmI)
-			{
-				int heal = Math.Max(target.lifeMax / 20, 1);
-				Energy += Math.Min(heal, MaxEnergy - Energy);
-			}
-		}
 		public bool psuedoScrewActive = false;
 		public bool beamChangeActive = false;
 		public bool missileChangeActive = false;
@@ -868,10 +877,6 @@ namespace MetroidMod.Common.Players
 		{
 			tag["psuedoScrewAttackActive"] = psuedoScrewActive;
 			tag["senseMoveEnabled"] = senseMoveEnabled;
-			tag["energy"] = Energy;
-			tag["capacity"] = tankCapacity;
-			tag["reserves"] = SuitReserves;
-			tag["reserveAuto"] = SuitReservesAuto;
 		}
 		public override void LoadData(TagCompound tag)
 		{
@@ -887,30 +892,6 @@ namespace MetroidMod.Common.Players
 				if (!flag)
 				{
 					senseMoveEnabled = flag;
-				}
-
-				int energy = tag.GetInt("energy");
-				if (energy > 0)
-				{
-					Energy = energy;
-				}
-
-				energy = tag.GetInt("capacity");
-				if (energy > 0)
-				{
-					tankCapacity = energy;
-				}
-
-				energy = tag.GetInt("reserves");
-				if (energy > 0)
-				{
-					SuitReserves = energy;
-				}
-
-				flag = tag.GetBool("reserveAuto");
-				if (flag)
-				{
-					SuitReservesAuto = flag;
 				}
 			}
 			catch { }
@@ -930,12 +911,7 @@ namespace MetroidMod.Common.Players
 			statCharge = 0f;
 			boostCharge = 0;
 			boostEffect = 0;
-			EnergyTanks = 0;
-			Energy = 0;
-			tankCapacity = 0;
 			hyperCharge = 0f;
-			SuitReserveTanks = 0;
-			SuitReserves = 0;
 		}
 
 		public override void CopyClientState(ModPlayer clientClone)/* tModPorter Suggestion: Replace Item.Clone usages with Item.CopyNetStateTo */
@@ -947,11 +923,6 @@ namespace MetroidMod.Common.Players
 			//clone.spiderball = spiderball;
 			clone.boostEffect = boostEffect;
 			clone.boostCharge = boostCharge;
-			clone.EnergyTanks = EnergyTanks;
-			clone.tankCapacity = tankCapacity;
-			clone.Energy = Energy;
-			clone.SuitReserveTanks = SuitReserveTanks;
-			clone.SuitReserves = SuitReserves;
 			clone.PrimeHunter = PrimeHunter;
 			clone.canHyper = canHyper;
 		}
@@ -986,13 +957,6 @@ namespace MetroidMod.Common.Players
 			writer.Write(boostEffect);
 			writer.Write(boostCharge);
 
-			writer.Write(EnergyTanks);
-			writer.Write(Energy);
-
-			writer.Write(SuitReserveTanks);
-			writer.Write(SuitReserves);
-			writer.Write(tankCapacity);
-
 			writer.Write(PrimeHunter);
 			writer.Write(canHyper);
 		}
@@ -1004,13 +968,6 @@ namespace MetroidMod.Common.Players
 
 			boostEffect = reader.ReadInt32();
 			boostCharge = reader.ReadInt32();
-
-			EnergyTanks = reader.ReadInt32();
-			Energy = reader.ReadInt32();
-
-			SuitReserveTanks = reader.ReadInt32();
-			SuitReserves = reader.ReadInt32();
-			tankCapacity = reader.ReadInt32();
 
 			PrimeHunter = reader.ReadBoolean();
 			canHyper = reader.ReadBoolean();

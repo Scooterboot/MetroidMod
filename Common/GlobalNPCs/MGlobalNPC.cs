@@ -206,14 +206,6 @@ namespace MetroidMod.Common.GlobalNPCs
 			if (npc.type != NPCID.MotherSlime && npc.type != NPCID.CorruptSlime && npc.type != NPCID.Slimer && npc.lifeMax > 1 && npc.damage > 0)
 			{
 				npcLoot.Add(ItemDropRule.ByCondition(new ItemDropRules.Conditions.MissileCondition(), ModContent.ItemType<Content.Items.Miscellaneous.MissilePickup>(), 6, 1, 6, 1));
-				if (npc.boss)
-				{
-					npcLoot.Add(ItemDropRule.ByCondition(new ItemDropRules.Conditions.EnergyCondition(), ModContent.ItemType<Content.Items.Miscellaneous.EnergyPickup>(), 3, (int)Math.Min(5f * npc.lifeMax / 10f, 255f), (int)Math.Min(25f * npc.lifeMax / 10f, 255f)));
-				}
-				else
-				{
-					npcLoot.Add(ItemDropRule.ByCondition(new ItemDropRules.Conditions.EnergyCondition(), ModContent.ItemType<Content.Items.Miscellaneous.EnergyPickup>(), 5, 5, 25));
-				}
 				npcLoot.Add(ItemDropRule.ByCondition(new ItemDropRules.Conditions.UniversalAmmoCondition(), ModContent.ItemType<Content.Items.Miscellaneous.UAPickup>(), 5, 5, 40));
 				//.OnFailedRoll(ItemDropRule.ByCondition(new ItemDropRules.Conditions.UniversalAmmoCondition(), ModContent.ItemType<Content.Items.Miscellaneous.UAPickup>(), 5, 10, 10), true);
 			}

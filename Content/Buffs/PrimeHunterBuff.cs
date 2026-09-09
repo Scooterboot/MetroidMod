@@ -50,7 +50,7 @@ namespace MetroidMod.Content.Buffs
 			player.runAcceleration *= 5f;
 			player.runSlowdown *= 5f;
 			player.accRunSpeed *= 5f;
-			mp.EnergyExpenseEfficiency = 1f;
+			// mp.EnergyExpenseEfficiency = 1f;
 			if (player.mount.Active && mp.morphBall)
 			{
 				player.thorns *= 3f;
@@ -59,6 +59,7 @@ namespace MetroidMod.Content.Buffs
 			{
 				player.lifeRegen = 0;
 			}*/
+			/*
 			if (Stinger >= 15)
 			{
 				mp.Energy -= 5;
@@ -79,6 +80,7 @@ namespace MetroidMod.Content.Buffs
 					player.KillMe(PlayerDeathReason.ByCustomReason($"{player.name} did not find an exploit"), 0, 0);
 				}
 			}
+			*/
 			//player.lifeRegenTime = 15;
 			//player.lifeRegen -= 5;
 			int dustID = Dust.NewDust(player.position, player.width, player.height, DustID.Fireworks, player.velocity.X * 0.2f, player.velocity.Y * 0.2f, 100, new Color(), 0.5f);
