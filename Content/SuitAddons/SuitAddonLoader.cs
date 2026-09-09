@@ -72,33 +72,6 @@ namespace MetroidMod.Content.SuitAddons
 			}
 		}*/
 
-		public static string GetSetBonusText(Player player)
-		{
-			string returnVal = "\n";
-			int index = 0;
-			Item[] items = new Item[SuitAddonSlotID.Count];
-			foreach (Item item in (player.armor[0].ModItem as PowerSuitHelmet).SuitAddons)
-			{
-				items[index++] = item;
-			}
-			foreach (Item item in (player.armor[1].ModItem as PowerSuitBreastplate).SuitAddons)
-			{
-				items[index++] = item;
-			}
-			foreach (Item item in items)
-			{
-				if (item.type == ItemID.None) { continue; }
-				GeneratedModItem addonItem = (GeneratedModItem)item.ModItem;
-				ModSuitAddon addon = (ModSuitAddon)(addonItem?.producer);
-				string temp = "";
-				if (temp != null && temp != "")
-				{
-					returnVal += temp + "\n";
-				}
-			}
-			return returnVal;
-		}
-
 		public static void OnUpdateArmorSet(Player player)
 		{
 			int index = 0;
