@@ -2013,6 +2013,11 @@ Mods: {
 			ChoziteBreastplate: {
 				// DisplayName: Chozite Breastplate
 				// Tooltip: ""
+				/* SetBonus:
+					'''
+					+2 Defense
+					Allows somersaulting & wall jumping
+					''' */
 			}
 
 			ChoziteGreaves: {
