@@ -35,7 +35,7 @@ namespace MetroidMod.Content.MorphBallAddons
 		void ExplosionDefaults();
 
 		/// <summary>
-		/// AI field for the Explosion projectile. Return false to trigger default code.
+		/// AI field for the Explosion projectile. Return true to trigger default code.
 		/// </summary>
 		bool ExplosionLogic();
 	}
@@ -185,7 +185,7 @@ namespace MetroidMod.Content.MorphBallAddons
 		private const int maxDistance = 55;
 		public virtual void ProjectileAI()
 		{
-			if (producer.ExplosionLogic())
+			if (!producer.ExplosionLogic())
 				return;
 			
 			// producer told us to run our own code by returning false, RATTLE EM
@@ -326,6 +326,7 @@ namespace MetroidMod.Content.MorphBallAddons
 			bool? value = producer.ExplosionDraw(ref lightColor);
 			if (value != null)
 				return (bool)value;
+
 			// producer gave us null, so here's the default code to run.
 			Texture2D tex = Terraria.GameContent.TextureAssets.Projectile[ProjectileType].Value;
 			Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height)), colory, Projectile.rotation, new Vector2(tex.Width / 2, tex.Height / 2), Projectile.scale, SpriteEffects.None, 0f);
@@ -374,6 +375,8 @@ namespace MetroidMod.Content.MorphBallAddons
 
 		public virtual string PowerBombExplosionProjectileTexture => TexturePath + "_PowerBombExplosion";
 
+		public override MorphBallAddonSlot AddonSlot => MorphBallAddonSlot.Special;
+
 		public override void Load()
 		{
 			base.Load();
@@ -399,7 +402,7 @@ namespace MetroidMod.Content.MorphBallAddons
 
 		public virtual bool ExplosionLogic()
 		{
-			return false;
+			return true;
 		}
 	}
 }

@@ -21,7 +21,6 @@ namespace MetroidMod.Content.MorphBallAddons
 			mp.Bomb(player, BombProjectile.ProjectileType, Item);
 		}
 
-
 		public override void ItemSetDefaults()
 		{
 			Item.damage = 13;

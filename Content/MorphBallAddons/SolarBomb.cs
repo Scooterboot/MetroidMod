@@ -168,7 +168,7 @@ namespace MetroidMod.Content.MorphBallAddons
 					}
 				}
 			}
-			return false;
+			return true;
 		}
 		public override bool? ExplosionDraw(ref Color lightColor)
 		{

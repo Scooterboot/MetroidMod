@@ -259,7 +259,7 @@ namespace MetroidMod.Content.MorphBallAddons
 
 		public virtual void ProjectileSetStaticDefaults()
 		{
-			
+			Main.projFrames[ProjectileType] = 6;
 		}
 
 		public IGeneratesModProjectile Clone(GeneratedModProjectile newGeneratedModProjectile)

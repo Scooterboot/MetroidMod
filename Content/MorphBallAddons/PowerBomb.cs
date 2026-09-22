@@ -5,6 +5,7 @@ using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -20,7 +21,7 @@ namespace MetroidMod.Content.MorphBallAddons
 
 		public override string PowerBombExplosionProjectileTexture => $"{Mod.Name}/Assets/Textures/MBAddons/PowerBomb/PowerBombExplosion";
 
-		public override MorphBallAddonSlot AddonSlot => MorphBallAddonSlot.Special;
+		public override SoundStyle? ExplosionSound => new SoundStyle($"{MetroidMod.Instance.Name}/Assets/Sounds/PowerBombExplode");
 
 		public int ChanceToGenerateOnStatue(int x, int y, int statueType, bool chozoRoom)
 		{

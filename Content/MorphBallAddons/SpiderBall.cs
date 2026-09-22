@@ -12,6 +12,8 @@ namespace MetroidMod.Content.MorphBallAddons
 
 		public override string TileTexture => $"{Mod.Name}/Assets/Textures/MBAddons/SpiderBall/SpiderBallTile";
 
+		public override MorphBallAddonSlot AddonSlot => MorphBallAddonSlot.Utility;
+
 		public int ChanceToGenerateOnStatue(int x, int y, int statueType, bool chozoRoom)
 		{
 			return Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues
@@ -27,15 +29,18 @@ namespace MetroidMod.Content.MorphBallAddons
 			"-Allows you to climb on walls and ceilings"); */
 			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<GrappleBeam>();
 		}
+
 		public override void ItemSetDefaults()
 		{
 			Item.value = Item.buyPrice(0, 0, 90, 0);
 			Item.rare = ItemRarityID.Orange;
 		}
+
 		public override void UpdateEquip(Player player)
 		{
 			player.GetModPlayer<MPlayer>().SpiderBall(player);
 		}
+
 		public override void ItemAddRecipes()
 		{
 			GeneratedModItem.CreateRecipe(1)
