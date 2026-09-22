@@ -333,6 +333,25 @@ Mods: {
 			// RidleyMusicBox.MapEntry: Music Box (Ridley?)
 			// RidleyTrophyTile.MapEntry: Ridley Trophy?
 			// ZeroHusk.MapEntry: Zero Husk
+			// VortexBombTile.MapEntry: Vortex Bomb Tile
+			// VenomBombTile.MapEntry: Venom Bomb Tile
+			// SpiderBallTile.MapEntry: Spider Ball Tile
+			// SolarFireBombTile.MapEntry: Solar Fire Bomb Tile
+			// SolarBombTile.MapEntry: Solar Bomb Tile
+			// ShadowflameBombTile.MapEntry: Shadowflame Bomb Tile
+			// PumpkinBombTile.MapEntry: Pumpkin Bomb Tile
+			// PowerBombTile.MapEntry: Power Bomb Tile
+			// PoisonBombTile.MapEntry: Poison Bomb Tile
+			// PhazonBombTile.MapEntry: Phazon Bomb Tile
+			// IchorBombTile.MapEntry: Ichor Bomb Tile
+			// FrostburnBombTile.MapEntry: Frostburn Bomb Tile
+			// FireBombTile.MapEntry: Fire Bomb Tile
+			// DrillTile.MapEntry: Drill Tile
+			// CursedFlameBombTile.MapEntry: Cursed Flame Bomb Tile
+			// CrystalBombTile.MapEntry: Crystal Bomb Tile
+			// BoostBallTile.MapEntry: Boost Ball Tile
+			// BombTile.MapEntry: Bomb Tile
+			// BetsyBombTile.MapEntry: Betsy Bomb Tile
 		}
 
 		Buffs: {
@@ -5502,6 +5521,122 @@ Mods: {
 					Enables the use of the Prime Hunter ability
 					Hold the Hypermode keybind to activate
 					''' */
+			}
+		}
+
+		MorphBallAddons: {
+			BetsyBomb: {
+				// DisplayName: Betsy Bomb
+				// Tooltip: ""
+				// Bomb.DisplayName: Mods.MetroidMod.MorphBallAddons.BetsyBomb.Bomb.DisplayName
+			}
+
+			Bomb: {
+				// DisplayName: Bomb
+				// Tooltip: ""
+				// Bomb.DisplayName: Mods.MetroidMod.MorphBallAddons.Bomb.Bomb.DisplayName
+			}
+
+			BoostBall: {
+				// DisplayName: Boost Ball
+				// Tooltip: ""
+			}
+
+			CrystalBomb: {
+				// DisplayName: Crystal Bomb
+				// Tooltip: ""
+				// Bomb.DisplayName: Mods.MetroidMod.MorphBallAddons.CrystalBomb.Bomb.DisplayName
+			}
+
+			CursedFlameBomb: {
+				// DisplayName: Cursed Flame Bomb
+				// Tooltip: ""
+				// Bomb.DisplayName: Mods.MetroidMod.MorphBallAddons.CursedFlameBomb.Bomb.DisplayName
+			}
+
+			Drill: {
+				// DisplayName: Drill
+				// Tooltip: ""
+			}
+
+			FireBomb: {
+				// DisplayName: Fire Bomb
+				// Tooltip: ""
+				// Bomb.DisplayName: Mods.MetroidMod.MorphBallAddons.FireBomb.Bomb.DisplayName
+			}
+
+			FrostburnBomb: {
+				// DisplayName: Frostburn Bomb
+				// Tooltip: ""
+				// Bomb.DisplayName: Mods.MetroidMod.MorphBallAddons.FrostburnBomb.Bomb.DisplayName
+			}
+
+			IchorBomb: {
+				// DisplayName: Ichor Bomb
+				// Tooltip: ""
+				// Bomb.DisplayName: Mods.MetroidMod.MorphBallAddons.IchorBomb.Bomb.DisplayName
+			}
+
+			PhazonBomb: {
+				// DisplayName: Phazon Bomb
+				// Tooltip: ""
+				// Bomb.DisplayName: Mods.MetroidMod.MorphBallAddons.PhazonBomb.Bomb.DisplayName
+			}
+
+			PoisonBomb: {
+				// DisplayName: Poison Bomb
+				// Tooltip: ""
+				// Bomb.DisplayName: Mods.MetroidMod.MorphBallAddons.PoisonBomb.Bomb.DisplayName
+			}
+
+			PowerBomb: {
+				// DisplayName: Power Bomb
+				// Tooltip: ""
+				// PowerBomb.DisplayName: Mods.MetroidMod.MorphBallAddons.PowerBomb.PowerBomb.DisplayName
+				// PowerBombExplosion.DisplayName: Mods.MetroidMod.MorphBallAddons.PowerBomb.PowerBombExplosion.DisplayName
+			}
+
+			PumpkinBomb: {
+				// DisplayName: Pumpkin Bomb
+				// Tooltip: ""
+				// Bomb.DisplayName: Mods.MetroidMod.MorphBallAddons.PumpkinBomb.Bomb.DisplayName
+			}
+
+			ShadowflameBomb: {
+				// DisplayName: Shadowflame Bomb
+				// Tooltip: ""
+				// Bomb.DisplayName: Mods.MetroidMod.MorphBallAddons.ShadowflameBomb.Bomb.DisplayName
+			}
+
+			SolarBomb: {
+				// DisplayName: Solar Bomb
+				// Tooltip: ""
+				// PowerBomb.DisplayName: Mods.MetroidMod.MorphBallAddons.SolarBomb.PowerBomb.DisplayName
+				// PowerBombExplosion.DisplayName: Mods.MetroidMod.MorphBallAddons.SolarBomb.PowerBombExplosion.DisplayName
+			}
+
+			SolarFireBomb: {
+				// DisplayName: Solar Fire Bomb
+				// Tooltip: ""
+				// Bomb.DisplayName: Mods.MetroidMod.MorphBallAddons.SolarFireBomb.Bomb.DisplayName
+			}
+
+			SpiderBall: {
+				// DisplayName: Spider Ball
+				// Tooltip: ""
+			}
+
+			VenomBomb: {
+				// DisplayName: Venom Bomb
+				// Tooltip: ""
+				// Bomb.DisplayName: Mods.MetroidMod.MorphBallAddons.VenomBomb.Bomb.DisplayName
+			}
+
+			VortexBomb: {
+				// DisplayName: Vortex Bomb
+				// Tooltip: ""
+				// PowerBomb.DisplayName: Mods.MetroidMod.MorphBallAddons.VortexBomb.PowerBomb.DisplayName
+				// PowerBombExplosion.DisplayName: Mods.MetroidMod.MorphBallAddons.VortexBomb.PowerBombExplosion.DisplayName
 			}
 		}
 	}

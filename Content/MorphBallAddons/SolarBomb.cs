@@ -4,50 +4,41 @@ using MetroidMod.Common.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace MetroidMod.Content.MorphBallAddons
 {
-	public class SolarBomb : ModMBSpecial
+	public class SolarBomb : ModMorphBallSpecial, IGeneratesOnStatues
 	{
 		public override string ItemTexture => $"{Mod.Name}/Assets/Textures/MBAddons/SolarBomb/SolarBombItem";
 
 		public override string TileTexture => $"{Mod.Name}/Assets/Textures/MBAddons/SolarBomb/SolarBombTile";
 
-		public override string ProjectileTexture => $"{Mod.Name}/Assets/Textures/MBAddons/SolarBomb/SolarBombProjectile";
+		public override string PowerBombProjectileTexture => $"{Mod.Name}/Assets/Textures/MBAddons/SolarBomb/SolarBombProjectile";
 
-		public override string ExplosionTexture => $"{Mod.Name}/Assets/Textures/MBAddons/SolarBomb/SolarBombExplosion";
+		public override string PowerBombExplosionProjectileTexture => $"{Mod.Name}/Assets/Textures/MBAddons/SolarBomb/SolarBombExplosion";
 
-		public override string ExplosionSound => $"{Mod.Name}/Assets/Sounds/SolarBombExplode";
+		public override SoundStyle? ExplosionSound => new SoundStyle($"{Mod.Name}/Assets/Sounds/SolarBombExplode");
 
-		public override bool AddOnlyAddonItem => false;
-
-		public override bool CanGenerateOnChozoStatue() => Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues || NPC.downedAncientCultist;
-
-		public override double GenerationChance() => 1;
-		public override void SetStaticDefaults()
+		public int ChanceToGenerateOnStatue(int x, int y, int statueType, bool chozoRoom)
 		{
-			// DisplayName.SetDefault("Solar Bomb");
-			// ModProjectile.DisplayName.SetDefault("Solar Bomb");
-			// ModExplosionProjectile.DisplayName.SetDefault("Solar Bomb");
-			/* Tooltip.SetDefault("-Press the Power Bomb Key to set off a Solar Bomb (20 second cooldown)\n" +
-			"-Solar Bombs create massive explosions which burn enemies and vacuum in items afterwards\n" +
-			"-Solar Bombs ignore 50% of enemy defense and can deal ~7400 damage total"); */
-			ItemNameLiteral = true;
+			return Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues || NPC.downedAncientCultist ? 1 : 0;
 		}
-		public override void SetItemDefaults(Item item)
+
+		public override void ItemSetDefaults()
 		{
-			item.damage = 15;
-			item.noMelee = true;
-			item.value = Item.buyPrice(0, 3, 0, 0);
-			item.rare = ItemRarityID.LightRed;
+			Item.damage = 15;
+			Item.noMelee = true;
+			Item.value = Item.buyPrice(0, 3, 0, 0);
+			Item.rare = ItemRarityID.LightRed;
 		}
-		public override void SetExplosionProjectileDefaults(Projectile proj)
+		public override void ExplosionDefaults()
 		{
-			proj.width = 640;
-			proj.height = 640;
-			proj.scale = 0.01f;
+			PowerBombExplosionProjectile.Projectile.width = 640;
+			PowerBombExplosionProjectile.Projectile.height = 640;
+			PowerBombExplosionProjectile.Projectile.scale = 0.01f;
 			scale = 0.01f;
 			speed = 4f;
 			vacAlpha = 0f;
@@ -55,7 +46,7 @@ namespace MetroidMod.Content.MorphBallAddons
 		public override void UpdateEquip(Player player)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			mp.PowerBomb(player, ProjectileType, player.GetWeaponDamage(Item), Item);
+			mp.PowerBomb(player, PowerBombExplosionProjectile.ProjectileType, player.GetWeaponDamage(Item), Item);
 		}
 		/*public override bool Kill(int timeLeft)
 		{
@@ -69,9 +60,9 @@ namespace MetroidMod.Content.MorphBallAddons
 
 		private const int width = 640;
 		private const int height = 640;
-		public override void ExplosionAI()
+		public override bool ExplosionLogic()
 		{
-			Projectile P = ExplosionProjectile;
+			Projectile P = PowerBombExplosionProjectile.Projectile;
 
 			P.ai[0]++;
 			if (P.ai[0] > maxDist / 4)
@@ -177,13 +168,14 @@ namespace MetroidMod.Content.MorphBallAddons
 					}
 				}
 			}
+			return false;
 		}
-		public override bool ExplosionPreDraw(ref Color lightColor)
+		public override bool? ExplosionDraw(ref Color lightColor)
 		{
 			Main.spriteBatch.End();
 			Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.TransformationMatrix);
 
-			Projectile P = ExplosionProjectile;
+			Projectile P = PowerBombExplosionProjectile.Projectile;
 			Texture2D tex = Terraria.GameContent.TextureAssets.Projectile[P.type].Value;
 
 			Main.spriteBatch.Draw(tex, P.Center - Main.screenPosition,
@@ -219,9 +211,9 @@ namespace MetroidMod.Content.MorphBallAddons
 			Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.TransformationMatrix);
 			return false;
 		}
-		public override void AddRecipes()
+		public override void ItemAddRecipes()
 		{
-			CreateRecipe(1)
+			GeneratedModItem.CreateRecipe(1)
 				.AddIngredient(ItemID.FragmentSolar, 18)
 				.AddTile(TileID.LunarCraftingStation)
 				//.AddDecraftCondition(Condition.DownedCultist)

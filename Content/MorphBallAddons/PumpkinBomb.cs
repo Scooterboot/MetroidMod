@@ -6,37 +6,30 @@ using Terraria.ModLoader;
 
 namespace MetroidMod.Content.MorphBallAddons
 {
-	public class PumpkinBomb : ModMBWeapon
+	public class PumpkinBomb : ModMorphBallBomb, IGeneratesOnStatues
 	{
 		public override string ItemTexture => $"{Mod.Name}/Assets/Textures/MBAddons/PumpkinBomb/PumpkinBombItem";
 
 		public override string TileTexture => $"{Mod.Name}/Assets/Textures/MBAddons/PumpkinBomb/PumpkinBombTile";
 
-		public override string ProjectileTexture => $"{Mod.Name}/Assets/Textures/MBAddons/PumpkinBomb/PumpkinBombProjectile";
+		public override string BombProjectileTexture => $"{Mod.Name}/Assets/Textures/MBAddons/PumpkinBomb/PumpkinBombProjectile";
 
-		public override bool AddOnlyAddonItem => false;
-
-		public override bool CanGenerateOnChozoStatue() => Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues;
-
-		public override double GenerationChance() => 4;
-
-		public override void SetStaticDefaults()
+		public int ChanceToGenerateOnStatue(int x, int y, int statueType, bool chozoRoom)
 		{
-			// DisplayName.SetDefault("Pumpkin Morph Ball Bombs");
-			// ModProjectile.DisplayName.SetDefault("Pumpkin Morph Ball Bomb");
-			/* Tooltip.SetDefault("-Right click to set off a bomb\n" +
-			"Fires off Jack 'O Lanterns on detonation\n" +
-			"'I took a grenade to the face, dude!'"); */
-			ItemNameLiteral = true;
-		}
-		public override void SetItemDefaults(Item item)
-		{
-			item.damage = 100;
-			item.value = Item.buyPrice(0, 5, 0, 0);
-			item.rare = ItemRarityID.Yellow;
+			return Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues
+				? 4
+				: 0
+				;
 		}
 
-		public override void Kill(Projectile P, int timeLeft, ref int dustType, ref int dustType2, ref float dustScale, ref float dustScale2)
+		public override void ItemSetDefaults()
+		{
+			Item.damage = 100;
+			Item.value = Item.buyPrice(0, 5, 0, 0);
+			Item.rare = ItemRarityID.Yellow;
+		}
+
+		public override void BombKill( ref int dustType, ref int dustType2, ref float dustScale, ref float dustScale2)
 		{
 			dustType = 6;
 			dustType2 = 6;
@@ -47,11 +40,11 @@ namespace MetroidMod.Content.MorphBallAddons
 			{
 				float rot = (float)Angle.ConvertToRadians(angle + (360f / max * i));
 				Vector2 vel = rot.ToRotationVector2() * 5f;
-				Projectile proj = Main.projectile[Projectile.NewProjectile(P.GetSource_FromThis(), P.Center, vel, ProjectileID.JackOLantern, P.damage / max, P.knockBack + 3, P.owner)];
+				Projectile proj = Main.projectile[Projectile.NewProjectile(BombProjectile.Projectile.GetSource_FromThis(), BombProjectile.Projectile.Center, vel, ProjectileID.JackOLantern, BombProjectile.Projectile.damage / max, BombProjectile.Projectile.knockBack + 3, BombProjectile.Projectile.owner)];
 				proj.timeLeft = 60;
 			}
 		}
-		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+		public override void BombOnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			// Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.DirectionTo(target.Center) * 8, ProjectileID.FlamingJack, (int)(damage * 1.5f), knockback + 3, Projectile.owner, target.whoAmI);
 		}

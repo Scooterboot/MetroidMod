@@ -4,17 +4,21 @@ using Terraria.ID;
 
 namespace MetroidMod.Content.MorphBallAddons
 {
-	public class BoostBall : ModMBBoost
+	public class BoostBall : ModMorphBallAddon, IGeneratesOnStatues
 	{
 		public override string ItemTexture => $"{Mod.Name}/Assets/Textures/MBAddons/BoostBall/BoostBallItem";
 
 		public override string TileTexture => $"{Mod.Name}/Assets/Textures/MBAddons/BoostBall/BoostBallTile";
 
-		public override bool AddOnlyAddonItem => false;
+		public override MorphBallAddonSlot AddonSlot => MorphBallAddonSlot.Boost;
 
-		public override bool CanGenerateOnChozoStatue() => true;
-
-		public override double GenerationChance() => WorldGen.drunkWorldGen && Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues ? 20 : 7;
+		public int ChanceToGenerateOnStatue(int x, int y, int statueType, bool chozoRoom)
+		{
+			return WorldGen.drunkWorldGen && Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues
+				? 20
+				: 7
+				;
+		}
 
 		public override void SetStaticDefaults()
 		{
@@ -22,10 +26,10 @@ namespace MetroidMod.Content.MorphBallAddons
 			/* Tooltip.SetDefault("-Hold Boost Ball Key to charge a speed boost\n" +
 			"-Release the key to accelerate in the direction you are moving"); */
 		}
-		public override void SetItemDefaults(Item item)
+		public override void ItemSetDefaults()
 		{
-			item.value = Item.buyPrice(0, 1, 10, 0);
-			item.rare = ItemRarityID.Orange;
+			Item.value = Item.buyPrice(0, 1, 10, 0);
+			Item.rare = ItemRarityID.Orange;
 		}
 
 		public override void UpdateEquip(Player player)
@@ -33,9 +37,9 @@ namespace MetroidMod.Content.MorphBallAddons
 			player.GetModPlayer<MPlayer>().BoostBall(player);
 		}
 
-		public override void AddRecipes()
+		public override void ItemAddRecipes()
 		{
-			CreateRecipe(1)
+			GeneratedModItem.CreateRecipe(1)
 				.AddIngredient<Items.Miscellaneous.ChoziteBar>(8)
 				.AddIngredient(SuitAddons.SuitAddonLoader.GetAddon<SuitAddons.EnergyTank>().ItemType, 1)
 				.AddIngredient(ItemID.Topaz, 2)

@@ -5,6 +5,7 @@ using MetroidMod.Common.Players;
 using MetroidMod.Common.Systems;
 using MetroidMod.Content.Hatches;
 using MetroidMod.Content.Items;
+using MetroidMod.Content.MorphBallAddons;
 using MetroidMod.Content.SuitAddons;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
@@ -120,7 +121,7 @@ namespace MetroidMod
 			//ILHooks.Unload();
 			//BeamLoader.Unload();
 			SuitAddonLoader.Unload();
-			MBAddonLoader.Unload();
+			MorphBallAddonLoader.Unload();
 		}
 
 		#region Calls

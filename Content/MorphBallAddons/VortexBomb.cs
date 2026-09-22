@@ -9,45 +9,38 @@ using Terraria.ModLoader;
 
 namespace MetroidMod.Content.MorphBallAddons
 {
-	public class VortexBomb : ModMBSpecial
+	public class VortexBomb : ModMorphBallSpecial, IGeneratesOnStatues
 	{
 		public override string ItemTexture => $"{Mod.Name}/Assets/Textures/MBAddons/VortexBomb/VortexBombItem";
 
 		public override string TileTexture => $"{Mod.Name}/Assets/Textures/MBAddons/VortexBomb/VortexBombTile";
 
-		public override string ProjectileTexture => $"{Mod.Name}/Assets/Textures/MBAddons/VortexBomb/VortexBombProjectile";
+		public override string PowerBombProjectileTexture => $"{Mod.Name}/Assets/Textures/MBAddons/VortexBomb/VortexBombProjectile";
 
-		public override string ExplosionTexture => $"{Mod.Name}/Assets/Textures/MBAddons/VortexBomb/VortexBombExplosion";
+		public override string PowerBombExplosionProjectileTexture => $"{Mod.Name}/Assets/Textures/MBAddons/VortexBomb/VortexBombExplosion";
 
-		public override bool AddOnlyAddonItem => false;
-
-		public override bool CanGenerateOnChozoStatue() => Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues || NPC.downedAncientCultist;
-
-		public override double GenerationChance() => 1;
-		public override void SetStaticDefaults()
+		public int ChanceToGenerateOnStatue(int x, int y, int statueType, bool chozoRoom)
 		{
-			// DisplayName.SetDefault("Vortex Bomb");
-			// ModProjectile.DisplayName.SetDefault("Vortex Bomb");
-			// ModExplosionProjectile.DisplayName.SetDefault("Vortex Bomb");
-			/* Tooltip.SetDefault("-Press the Power Bomb Key to set off a Vortex Bomb (20 second cooldown)\n" +
-			"-Vortex Bombs create massive explosions which vacuum in foes and items\n" +
-			"-Vortex Bombs can deal ~1400 damage total"); */
-			ItemNameLiteral = true;
+			return Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues || NPC.downedAncientCultist
+				? 1
+				: 0
+				;
 		}
-		public override void SetItemDefaults(Item item)
+
+		public override void ItemSetDefaults()
 		{
-			item.damage = 20;
-			item.noMelee = true;
-			item.value = Item.buyPrice(0, 3, 0, 0);
-			item.rare = ItemRarityID.LightRed;
+			Item.damage = 20;
+			Item.noMelee = true;
+			Item.value = Item.buyPrice(0, 3, 0, 0);
+			Item.rare = ItemRarityID.LightRed;
 		}
-		public override void SetExplosionProjectileDefaults(Projectile proj)
+		public override void ExplosionDefaults()
 		{
-			proj.width = 640;
-			proj.height = 640;
-			proj.scale = 0.01f;
-			proj.extraUpdates = 3;
-			proj.localNPCHitCooldown = 1 * (1 + proj.extraUpdates);
+			PowerBombExplosionProjectile.Projectile.width = 640;
+			PowerBombExplosionProjectile.Projectile.height = 640;
+			PowerBombExplosionProjectile.Projectile.scale = 0.01f;
+			PowerBombExplosionProjectile.Projectile.extraUpdates = 3;
+			PowerBombExplosionProjectile.Projectile.localNPCHitCooldown = 1 * (1 + PowerBombExplosionProjectile.Projectile.extraUpdates);
 			scale = 0.01f;
 			speed = 4f;
 			itemVacSpeed = 5f;
@@ -62,9 +55,9 @@ namespace MetroidMod.Content.MorphBallAddons
 
 		private const int width = 640;
 		private const int height = 640;
-		public override void ExplosionAI()
+		public override bool ExplosionLogic()
 		{
-			Projectile P = ExplosionProjectile;
+			Projectile P = PowerBombExplosionProjectile.Projectile;
 
 			float vacSpeedIncr = 0.05f;
 
@@ -194,11 +187,13 @@ namespace MetroidMod.Content.MorphBallAddons
 					}
 				}
 			}
+
+			return false;
 		}
 
-		public override bool ExplosionPreDraw(ref Color lightColor)
+		public override bool? ExplosionDraw(ref Color lightColor)
 		{
-			Projectile P = ExplosionProjectile;
+			Projectile P = PowerBombExplosionProjectile.Projectile;
 			Texture2D tex = Terraria.GameContent.TextureAssets.Projectile[P.type].Value;
 			if (P.scale > 0f)
 			{
@@ -209,11 +204,11 @@ namespace MetroidMod.Content.MorphBallAddons
 		public override void UpdateEquip(Player player)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			mp.PowerBomb(player, ProjectileType, player.GetWeaponDamage(Item), Item);
+			mp.PowerBomb(player, PowerBombExplosionProjectile.ProjectileType, player.GetWeaponDamage(Item), Item);
 		}
-		public override void AddRecipes()
+		public override void ItemAddRecipes()
 		{
-			CreateRecipe(1)
+			GeneratedModItem.CreateRecipe(1)
 				.AddIngredient(ItemID.FragmentVortex, 18)
 				.AddTile(TileID.LunarCraftingStation)
 				//.AddDecraftCondition(Condition.DownedMoonLord)

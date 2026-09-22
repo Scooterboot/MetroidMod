@@ -4,6 +4,7 @@ using MetroidMod.Common.GlobalItems;
 using MetroidMod.Common.Players;
 using MetroidMod.Common.UI;
 using MetroidMod.Content.Items.Weapons;
+using MetroidMod.Content.MorphBallAddons;
 using MetroidMod.Content.SuitAddons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -258,7 +259,7 @@ namespace MetroidMod.Common.Systems
 						for (int j = 0; j < Main.maxTilesY; j++)
 						{
 							if (!Main.tile[i, j].HasTile) { continue; }
-							if (SuitAddonLoader.IsASuitTile(Main.tile[i, j]) /*|| BeamLoader.IsABeamTile(Main.tile[i, j])*/ || MBAddonLoader.IsAMorphTile(Main.tile[i, j]) || Main.tile[i, j].TileType == ModContent.TileType<Content.Tiles.ItemTile.ChozoStatueOrb>() || Main.tile[i, j].TileType == ModContent.TileType<Content.Tiles.ItemTile.UAExpansionTile>())
+							if (SuitAddonLoader.IsASuitTile(Main.tile[i, j]) /*|| BeamLoader.IsABeamTile(Main.tile[i, j])*/ || MorphBallAddonLoader.IsAMorphTile(Main.tile[i, j]) || Main.tile[i, j].TileType == ModContent.TileType<Content.Tiles.ItemTile.ChozoStatueOrb>() || Main.tile[i, j].TileType == ModContent.TileType<Content.Tiles.ItemTile.UAExpansionTile>())
 							{
 								itemCoords.Add(new Vector2(i, j));
 							}

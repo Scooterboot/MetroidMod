@@ -6,17 +6,19 @@ using Terraria.ModLoader;
 
 namespace MetroidMod.Content.MorphBallAddons
 {
-	public class SpiderBall : ModMBUtility
+	public class SpiderBall : ModMorphBallAddon, IGeneratesOnStatues
 	{
 		public override string ItemTexture => $"{Mod.Name}/Assets/Textures/MBAddons/SpiderBall/SpiderBallItem";
 
 		public override string TileTexture => $"{Mod.Name}/Assets/Textures/MBAddons/SpiderBall/SpiderBallTile";
 
-		public override bool AddOnlyAddonItem => false;
-
-		public override bool CanGenerateOnChozoStatue() => true;
-
-		public override double GenerationChance() => Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues ? 20 : 15;
+		public int ChanceToGenerateOnStatue(int x, int y, int statueType, bool chozoRoom)
+		{
+			return Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues
+				? 20
+				: 15
+				;
+		}
 
 		public override void SetStaticDefaults()
 		{
@@ -25,18 +27,18 @@ namespace MetroidMod.Content.MorphBallAddons
 			"-Allows you to climb on walls and ceilings"); */
 			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<GrappleBeam>();
 		}
-		public override void SetItemDefaults(Item item)
+		public override void ItemSetDefaults()
 		{
-			item.value = Item.buyPrice(0, 0, 90, 0);
-			item.rare = ItemRarityID.Orange;
+			Item.value = Item.buyPrice(0, 0, 90, 0);
+			Item.rare = ItemRarityID.Orange;
 		}
 		public override void UpdateEquip(Player player)
 		{
 			player.GetModPlayer<MPlayer>().SpiderBall(player);
 		}
-		public override void AddRecipes()
+		public override void ItemAddRecipes()
 		{
-			CreateRecipe(1)
+			GeneratedModItem.CreateRecipe(1)
 				.AddIngredient(null, "ChoziteBar", 12)
 				.AddRecipeGroup(MetroidMod.PreHMhooksRecipeID, 1)
 				.AddIngredient(ItemID.Silk, 50)

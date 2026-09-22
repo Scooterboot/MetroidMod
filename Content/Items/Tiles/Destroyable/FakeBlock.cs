@@ -1,6 +1,7 @@
 #region Using directives
 
 using MetroidMod.Common.Systems;
+using MetroidMod.Content.MorphBallAddons;
 using MetroidMod.Content.Tiles.ItemTile;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
@@ -127,7 +128,7 @@ namespace MetroidMod.Content.Items.Tiles.Destroyable
 		{
 			CreateRecipe(20)
 				.AddIngredient<FakeBlock>(20)
-				.AddTile(MBAddonLoader.GetAddon<MorphBallAddons.Bomb>().TileType)
+				.AddTile(MorphBallAddonLoader.GetAddon<MorphBallAddons.Bomb>().TileType)
 				.Register();
 
 		}
@@ -140,7 +141,7 @@ namespace MetroidMod.Content.Items.Tiles.Destroyable
 		{
 			CreateRecipe(20)
 				.AddIngredient<FakeBlock>(20)
-				.AddTile(MBAddonLoader.GetAddon<MorphBallAddons.Bomb>().TileType)
+				.AddTile(MorphBallAddonLoader.GetAddon<MorphBallAddons.Bomb>().TileType)
 				.Register();
 
 		}
@@ -218,7 +219,7 @@ namespace MetroidMod.Content.Items.Tiles.Destroyable
 		{
 			CreateRecipe(20)
 				.AddIngredient<FakeBlock>(20)
-				.AddTile(MBAddonLoader.GetAddon<MorphBallAddons.PowerBomb>().TileType)
+				.AddTile(MorphBallAddonLoader.GetAddon<MorphBallAddons.PowerBomb>().TileType)
 				.Register();
 
 		}

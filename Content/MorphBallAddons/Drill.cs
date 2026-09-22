@@ -4,36 +4,28 @@ using Terraria.ModLoader;
 
 namespace MetroidMod.Content.MorphBallAddons
 {
-	public class Drill : ModMBDrill
+	public class Drill : ModMorphBallAddon
 	{
 		public override string ItemTexture => $"{Mod.Name}/Assets/Textures/MBAddons/Drill/DrillItem";
 
 		public override string TileTexture => $"{Mod.Name}/Assets/Textures/MBAddons/Drill/DrillTile";
 
-		public override bool AddOnlyAddonItem => false;
+		public override MorphBallAddonSlot AddonSlot => MorphBallAddonSlot.Drill;
 
-		public override void SetStaticDefaults()
+		public override void ItemSetDefaults()
 		{
-			// DisplayName.SetDefault("Morph Ball Drill");
-			/* Tooltip.SetDefault("~Left Click while morphed to drill\n" +
-			"uses held pickaxe/drill\n" +
-			//"~60% pickaxe power\n" +
-			//"Can mine Meteorite\n" +
-			string.Format("[c/78BE78:Requires Morph Ball to use]")); */
-			//DrillPower = 1;
-
-			ItemNameLiteral = true;
+			Item.value = Item.buyPrice(0, 1, 50, 0);
+			Item.rare = ItemRarityID.Blue;
 		}
 
-		public override void SetItemDefaults(Item item)
+		public override void UpdateEquip(Terraria.Player player)
 		{
-			item.value = Item.buyPrice(0, 1, 50, 0);
-			item.rare = ItemRarityID.Blue;
+			player.GetModPlayer<Common.Players.MPlayer>().Drill(player);
 		}
 
-		public override void AddRecipes()
+		public override void ItemAddRecipes()
 		{
-			CreateRecipe(1)
+			GeneratedModItem.CreateRecipe(1)
 				.AddIngredient<Items.Miscellaneous.ChoziteBar>(12)
 				.AddTile(TileID.Anvils)
 				.Register();

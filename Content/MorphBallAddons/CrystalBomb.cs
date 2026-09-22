@@ -6,36 +6,23 @@ using Terraria.ModLoader;
 
 namespace MetroidMod.Content.MorphBallAddons
 {
-	public class CrystalBomb : ModMBWeapon
+	public class CrystalBomb : ModMorphBallBomb, IGeneratesOnStatues
 	{
 		public override string ItemTexture => $"{Mod.Name}/Assets/Textures/MBAddons/CrystalBomb/CrystalBombItem";
 
 		public override string TileTexture => $"{Mod.Name}/Assets/Textures/MBAddons/CrystalBomb/CrystalBombTile";
 
-		public override string ProjectileTexture => $"{Mod.Name}/Assets/Textures/MBAddons/CrystalBomb/CrystalBombProjectile";
+		public override string BombProjectileTexture => $"{Mod.Name}/Assets/Textures/MBAddons/CrystalBomb/CrystalBombProjectile";
 
-		public override bool AddOnlyAddonItem => false;
 
-		public override bool CanGenerateOnChozoStatue() => Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues || (NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3);
-
-		public override double GenerationChance() => 1;
-
-		public override void SetStaticDefaults()
+		public override void ItemSetDefaults()
 		{
-			// DisplayName.SetDefault("Crystal Morph Ball Bombs");
-			// ModProjectile.DisplayName.SetDefault("Crystal Morph Ball Bomb");
-			/* Tooltip.SetDefault("-Right click to set off a bomb\n" +
-			"Fires off Crystal shards on detonation"); */
-			ItemNameLiteral = true;
-		}
-		public override void SetItemDefaults(Item item)
-		{
-			item.damage = 69;
-			item.value = Item.buyPrice(0, 3, 0, 0);
-			item.rare = ItemRarityID.LightPurple;
+			Item.damage = 69;
+			Item.value = Item.buyPrice(0, 3, 0, 0);
+			Item.rare = ItemRarityID.LightPurple;
 		}
 
-		public override void Kill(Projectile P, int timeLeft, ref int dustType, ref int dustType2, ref float dustScale, ref float dustScale2)
+		public override void BombKill(ref int dustType, ref int dustType2, ref float dustScale, ref float dustScale2)
 		{
 			dustType = 70;
 			dustScale = 3f;
@@ -49,17 +36,25 @@ namespace MetroidMod.Content.MorphBallAddons
 				//Vector2 vel = Main.rand.NextVector2CircularEdge(5f, 5f);
 				float rot = (float)Angle.ConvertToRadians(angle + (360f / max * i));
 				Vector2 vel = rot.ToRotationVector2() * 10f;
-				Projectile.NewProjectile(P.GetSource_FromThis(), P.Center, vel, ProjectileID.CrystalShard, P.damage / 2, 1, P.owner);
+				Projectile.NewProjectile(BombProjectile.Projectile.GetSource_FromThis(), BombProjectile.Projectile.Center, vel, ProjectileID.CrystalShard, BombProjectile.Projectile.damage / 2, 1, BombProjectile.Projectile.owner);
 			}
 		}
-		public override void AddRecipes()
+		public override void ItemAddRecipes()
 		{
-			CreateRecipe(1)
+			GeneratedModItem.CreateRecipe(1)
 				//.AddRecipeGroup(MBAddonLoader.BombsRecipeGroupID, 1)
 				.AddIngredient(ItemID.HallowedBar, 5)
 				.AddIngredient(ItemID.CrystalShard, 5)
 				.AddTile(TileID.MythrilAnvil)
 				.Register();
+		}
+
+		public int ChanceToGenerateOnStatue(int x, int y, int statueType, bool chozoRoom)
+		{
+			return Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues || (NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3)
+				? 1
+				: 0
+				;
 		}
 	}
 }
