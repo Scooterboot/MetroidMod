@@ -1,4 +1,5 @@
-﻿using MetroidMod.Common.Systems;
+﻿using MetroidMod.Common.Players;
+using MetroidMod.Common.Systems;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -12,6 +13,14 @@ namespace MetroidMod.Content.MorphBallAddons
 		public override string TileTexture => $"{Mod.Name}/Assets/Textures/MBAddons/Bomb/BombTile";
 
 		public override string BombProjectileTexture => $"{Mod.Name}/Assets/Textures/MBAddons/Bomb/BombProjectile";
+
+		public override void UpdateEquip(Player player)
+		{
+			MPlayer mp = player.GetModPlayer<MPlayer>();
+			mp.bombDamage = player.GetWeaponDamage(Item);
+			mp.Bomb(player, BombProjectile.ProjectileType, Item);
+		}
+
 
 		public override void ItemSetDefaults()
 		{

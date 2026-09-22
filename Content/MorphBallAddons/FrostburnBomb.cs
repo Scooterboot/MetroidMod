@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace MetroidMod.Content.MorphBallAddons
 {
-	public class FrostburnBomb : ModMorphBallBomb, IGeneratesOnStatues
+	public class FrostburnBomb : Bomb, IGeneratesOnStatues
 	{
 		public override string ItemTexture => $"{Mod.Name}/Assets/Textures/MBAddons/FrostburnBomb/FrostburnBombItem";
 

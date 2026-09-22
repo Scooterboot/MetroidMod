@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace MetroidMod.Content.MorphBallAddons
 {
-	public class PumpkinBomb : ModMorphBallBomb, IGeneratesOnStatues
+	public class PumpkinBomb : Bomb, IGeneratesOnStatues
 	{
 		public override string ItemTexture => $"{Mod.Name}/Assets/Textures/MBAddons/PumpkinBomb/PumpkinBombItem";
 

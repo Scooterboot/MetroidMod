@@ -283,6 +283,7 @@ namespace MetroidMod.Content.MorphBallAddons
 			BombProjectile = new MorphBallBombProjectile(this);
 			BombProjectile.GeneratedModProjectile = new GeneratedModProjectile(BombProjectile);
 			Mod.AddContent(BombProjectile.GeneratedModProjectile);
+			BombProjectile.ProjectileType = BombProjectile.Projectile.type;
 		}
 
 

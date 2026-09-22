@@ -383,6 +383,8 @@ namespace MetroidMod.Content.MorphBallAddons
 			PowerBombExplosionProjectile.GeneratedModProjectile = new GeneratedModProjectile(PowerBombExplosionProjectile);
 			Mod.AddContent(PowerBombProjectile.GeneratedModProjectile);
 			Mod.AddContent(PowerBombExplosionProjectile.GeneratedModProjectile);
+			PowerBombProjectile.ProjectileType = PowerBombProjectile.Projectile.type;
+			PowerBombExplosionProjectile.ProjectileType = PowerBombExplosionProjectile.Projectile.type;
 		}
 
 		public virtual void ExplosionDefaults()

@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace MetroidMod.Content.MorphBallAddons
 {
-	public class PhazonBomb : ModMorphBallBomb, IGeneratesOnStatues
+	public class PhazonBomb : Bomb, IGeneratesOnStatues
 	{
 		public override string ItemTexture => $"{Mod.Name}/Assets/Textures/MBAddons/PhazonBomb/PhazonBombItem";
 

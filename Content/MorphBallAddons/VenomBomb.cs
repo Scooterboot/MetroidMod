@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace MetroidMod.Content.MorphBallAddons
 {
-	public class VenomBomb : ModMorphBallBomb, IGeneratesOnStatues
+	public class VenomBomb : Bomb, IGeneratesOnStatues
 	{
 		public override string ItemTexture => $"{Mod.Name}/Assets/Textures/MBAddons/VenomBomb/VenomBombItem";
 

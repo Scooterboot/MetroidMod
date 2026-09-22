@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace MetroidMod.Content.MorphBallAddons
 {
-	public class SolarFireBomb : ModMorphBallBomb, IGeneratesOnStatues
+	public class SolarFireBomb : Bomb, IGeneratesOnStatues
 	{
 		public override string ItemTexture => $"{Mod.Name}/Assets/Textures/MBAddons/SolarFireBomb/SolarFireBombItem";
 

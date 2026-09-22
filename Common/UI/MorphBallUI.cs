@@ -1,6 +1,7 @@
 ﻿using System;
 using MetroidMod.Common.Configs;
 using MetroidMod.Common.GlobalItems;
+using MetroidMod.Content.Items;
 using MetroidMod.Content.Items.Accessories;
 using MetroidMod.Content.MorphBallAddons;
 using Microsoft.Xna.Framework;
@@ -143,7 +144,7 @@ namespace MetroidMod.Common.UI
 				if (addonItem.ModItem != null)// && addonItem.ModItem.Mod == MetroidMod.Instance)
 				{
 					//MGlobalItem mItem = addonItem.GetGlobalItem<MGlobalItem>();
-					if (addonItem.GetGlobalItem<MGlobalItem>().AddonType != AddonType.MorphBall || !MorphBallAddonLoader.TryGetAddon(addonItem, out ModMorphBallAddon mbAddon)) { return false; }
+					if (!MorphBallAddonLoader.TryGetAddon(addonItem, out ModMorphBallAddon mbAddon) || !(addonItem.ModItem is GeneratedModItem gmi && gmi.producer is ModMorphBallAddon)) { return false; }
 					return addonItem.type <= 0 || mbAddon.AddonSlot == (MorphBallAddonSlot)morphBallSlotType;
 				}
 				return addonItem.type <= 0;// || (addonItem.ModItem != null && addonItem.ModItem.Mod == MetroidMod.Instance));
