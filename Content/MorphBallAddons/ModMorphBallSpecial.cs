@@ -38,6 +38,9 @@ namespace MetroidMod.Content.MorphBallAddons
 		/// AI field for the Explosion projectile. Return true to trigger default code.
 		/// </summary>
 		bool ExplosionLogic();
+
+		IMorphBallPowerBombAddon Clone(MorphBallPowerBombProjectile newPowerBomb);
+		IMorphBallPowerBombAddon Clone(MorphBallPowerBombExplosionProjectile newExplosion);
 	}
 
 	[Autoload(false)]
@@ -152,6 +155,7 @@ namespace MetroidMod.Content.MorphBallAddons
 		{
 			MorphBallPowerBombProjectile inst = (MorphBallPowerBombProjectile)MemberwiseClone();
 			inst.GeneratedModProjectile = newGeneratedModProjectile;
+			inst.producer = producer.Clone(inst);
 			return inst;
 		}
 	}
@@ -359,6 +363,7 @@ namespace MetroidMod.Content.MorphBallAddons
 		{
 			MorphBallPowerBombExplosionProjectile inst = (MorphBallPowerBombExplosionProjectile)MemberwiseClone();
 			inst.GeneratedModProjectile = newGeneratedModProjectile;
+			inst.producer = producer.Clone(inst);
 			return inst;
 		}
 	}
@@ -403,6 +408,20 @@ namespace MetroidMod.Content.MorphBallAddons
 		public virtual bool ExplosionLogic()
 		{
 			return true;
+		}
+
+		public IMorphBallPowerBombAddon Clone(MorphBallPowerBombProjectile newPowerBomb)
+		{
+			ModMorphBallSpecial inst = (ModMorphBallSpecial)MemberwiseClone();
+			inst.PowerBombProjectile = newPowerBomb;
+			return inst;
+		}
+
+		public IMorphBallPowerBombAddon Clone(MorphBallPowerBombExplosionProjectile newExplosion)
+		{
+			ModMorphBallSpecial inst = (ModMorphBallSpecial)MemberwiseClone();
+			inst.PowerBombExplosionProjectile = newExplosion;
+			return inst;
 		}
 	}
 }

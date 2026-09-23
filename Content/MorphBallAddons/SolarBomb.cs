@@ -20,7 +20,7 @@ namespace MetroidMod.Content.MorphBallAddons
 
 		public override string PowerBombExplosionProjectileTexture => $"{Mod.Name}/Assets/Textures/MBAddons/SolarBomb/SolarBombExplosion";
 
-		public override SoundStyle? ExplosionSound => new SoundStyle($"{Mod.Name}/Assets/Sounds/SolarBombExplode");
+		public override SoundStyle? ExplosionSound => new SoundStyle($"{MetroidMod.Instance.Name}/Assets/Sounds/SolarBombExplode");
 
 		public int ChanceToGenerateOnStatue(int x, int y, int statueType, bool chozoRoom)
 		{
@@ -46,7 +46,7 @@ namespace MetroidMod.Content.MorphBallAddons
 		public override void UpdateEquip(Player player)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			mp.PowerBomb(player, PowerBombExplosionProjectile.ProjectileType, player.GetWeaponDamage(Item), Item);
+			mp.PowerBomb(player, PowerBombProjectile.ProjectileType, player.GetWeaponDamage(Item), Item);
 		}
 		/*public override bool Kill(int timeLeft)
 		{
@@ -168,7 +168,7 @@ namespace MetroidMod.Content.MorphBallAddons
 					}
 				}
 			}
-			return true;
+			return false;
 		}
 		public override bool? ExplosionDraw(ref Color lightColor)
 		{
@@ -176,7 +176,7 @@ namespace MetroidMod.Content.MorphBallAddons
 			Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.TransformationMatrix);
 
 			Projectile P = PowerBombExplosionProjectile.Projectile;
-			Texture2D tex = Terraria.GameContent.TextureAssets.Projectile[P.type].Value;
+			Texture2D tex = ModContent.Request<Texture2D>(PowerBombExplosionProjectileTexture, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 
 			Main.spriteBatch.Draw(tex, P.Center - Main.screenPosition,
 			new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height)),
@@ -196,7 +196,7 @@ namespace MetroidMod.Content.MorphBallAddons
 
 			if (vacAlpha < 1f)
 			{
-				Texture2D tex2 = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/MBAddons/SolarBomb/SolarBombVacuum").Value;
+				Texture2D tex2 = ModContent.Request<Texture2D>($"{Mod.Name}/Assets/Textures/MBAddons/SolarBomb/SolarBombVacuum", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 				float vacScale = 6f * (1f - vacAlpha);
 				Color color = Color.White * (1f - (vacAlpha * 0.5f));
 				color.A = (byte)(255f * vacAlpha);

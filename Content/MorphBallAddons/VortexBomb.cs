@@ -4,6 +4,7 @@ using MetroidMod.Common.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -18,6 +19,8 @@ namespace MetroidMod.Content.MorphBallAddons
 		public override string PowerBombProjectileTexture => $"{Mod.Name}/Assets/Textures/MBAddons/VortexBomb/VortexBombProjectile";
 
 		public override string PowerBombExplosionProjectileTexture => $"{Mod.Name}/Assets/Textures/MBAddons/VortexBomb/VortexBombExplosion";
+
+		public override SoundStyle? ExplosionSound => new SoundStyle($"{MetroidMod.Instance.Name}/Assets/Sounds/VortexBombExplode");
 
 		public int ChanceToGenerateOnStatue(int x, int y, int statueType, bool chozoRoom)
 		{
@@ -188,13 +191,13 @@ namespace MetroidMod.Content.MorphBallAddons
 				}
 			}
 
-			return true;
+			return false;
 		}
 
 		public override bool? ExplosionDraw(ref Color lightColor)
 		{
 			Projectile P = PowerBombExplosionProjectile.Projectile;
-			Texture2D tex = Terraria.GameContent.TextureAssets.Projectile[P.type].Value;
+			Texture2D tex = ModContent.Request<Texture2D>(PowerBombExplosionProjectileTexture, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 			if (P.scale > 0f)
 			{
 				Main.spriteBatch.Draw(tex, P.Center - Main.screenPosition + new Vector2(0f, P.gfxOffY), new Rectangle?(new Rectangle(0, 0, tex.Width, tex.Height)), Color.White, P.rotation, new Vector2(tex.Width / 2, tex.Height / 2), P.scale, SpriteEffects.None, 0f);
@@ -204,7 +207,7 @@ namespace MetroidMod.Content.MorphBallAddons
 		public override void UpdateEquip(Player player)
 		{
 			MPlayer mp = player.GetModPlayer<MPlayer>();
-			mp.PowerBomb(player, PowerBombExplosionProjectile.ProjectileType, player.GetWeaponDamage(Item), Item);
+			mp.PowerBomb(player, PowerBombProjectile.ProjectileType, player.GetWeaponDamage(Item), Item);
 		}
 		public override void ItemAddRecipes()
 		{
