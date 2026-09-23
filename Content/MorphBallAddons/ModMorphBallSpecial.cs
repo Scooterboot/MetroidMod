@@ -13,7 +13,6 @@ using Terraria.ModLoader;
 
 namespace MetroidMod.Content.MorphBallAddons
 {
-	// TODO: write powerbombexplosion
 	public interface IMorphBallPowerBombAddon
 	{
 		Mod Mod { get; }
