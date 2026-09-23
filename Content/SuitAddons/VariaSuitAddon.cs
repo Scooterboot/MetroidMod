@@ -6,7 +6,7 @@ using Terraria.Localization;
 
 namespace MetroidMod.Content.SuitAddons
 {
-	public class VariaSuitAddon : ModSuitUpgrade
+	public class VariaSuitAddon : ModSuitUpgrade, IGeneratesOnStatues
 	{
 		public override string ItemTexture => $"{Mod.Name}/Assets/Textures/SuitAddons/VariaSuit/VariaSuitItem";
 
@@ -20,9 +20,13 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override string ArmorTextureLegs => $"{Mod.Name}/Assets/Textures/SuitAddons/VariaSuit/VariaSuitGreaves_Legs";
 
-		public override bool CanGenerateOnChozoStatue() => NPC.downedBoss2;//Main.UnderworldLayer;
-
-		public override double GenerationChance() => 4;//20;
+		public int ChanceToGenerateOnStatue(int x, int y, int statueType, bool chozoRoom)
+		{
+			return NPC.downedBoss2
+				? 4
+				: 0
+				;
+		}
 
 		//This is where all of the suit addon's stats are stored.
 		//They're outside a method so it can be directly accessed by the localization.

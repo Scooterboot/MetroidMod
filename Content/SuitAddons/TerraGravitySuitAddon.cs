@@ -8,7 +8,7 @@ using Terraria.Localization;
 
 namespace MetroidMod.Content.SuitAddons
 {
-	public class TerraGravitySuitAddon : ModSuitUpgrade
+	public class TerraGravitySuitAddon : ModSuitUpgrade, IGeneratesOnStatues
 	{
 		public override string ItemTexture => $"{Mod.Name}/Assets/Textures/SuitAddons/TerraGravitySuit/TerraGravitySuitItem";
 
@@ -24,9 +24,13 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override string ArmorTextureShouldersGlow => $"{Mod.Name}/Assets/Textures/SuitAddons/TerraGravitySuit/TerraGravitySuitBreastplate_Shoulders_Glow";
 
-		public override bool CanGenerateOnChozoStatue() => Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues || MSystem.bossesDown.HasFlag(MetroidBossDown.downedNightmare);
-
-		public override double GenerationChance() => 4;
+		public int ChanceToGenerateOnStatue(int x, int y, int statueType, bool chozoRoom)
+		{
+			return Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues || MSystem.bossesDown.HasFlag(MetroidBossDown.downedNightmare)
+				? 4
+				: 0
+				;
+		}
 
 		//This is where all of the suit addon's stats are stored.
 		//They're outside a method so it can be directly accessed by the localization.

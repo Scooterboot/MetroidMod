@@ -7,17 +7,21 @@ using Terraria.ModLoader;
 
 namespace MetroidMod.Content.SuitAddons
 {
-	public class ReserveTank : ModSuitAddon, IBreastplateAddon
+	public class ReserveTank : ModSuitAddon, IBreastplateAddon, IGeneratesOnStatues
 	{
 		public override string ItemTexture => $"{Mod.Name}/Assets/Textures/SuitAddons/ReserveTank/ReserveTankItem";
 
 		public override string TileTexture => $"{Mod.Name}/Assets/Textures/SuitAddons/ReserveTank/ReserveTankTile";
 
-		public override bool CanGenerateOnChozoStatue() => true;
-
-		public override double GenerationChance() => Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues ? 20 : 15;
-
 		public BreastplateAddonSlot AddonSlot => BreastplateAddonSlot.Reserve;
+
+		public int ChanceToGenerateOnStatue(int x, int y, int statueType, bool chozoRoom)
+		{
+			return Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues
+				? 20
+				: 15
+				;
+		}
 
 		public override void SetStaticDefaults()
 		{

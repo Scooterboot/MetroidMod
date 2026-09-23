@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace MetroidMod.Content.SuitAddons
 {
-	public class XRayScope : ModVisorAddon
+	public class XRayScope : ModVisorAddon, IGeneratesOnStatues
 	{
 		public override string ItemTexture => $"{Mod.Name}/Assets/Textures/SuitAddons/XRayScope/XRayScopeItem";
 
@@ -19,10 +19,13 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override HelmetAddonSlot AddonSlot => HelmetAddonSlot.AltVision;
 
-
-		public override bool CanGenerateOnChozoStatue() => true;
-
-		public override double GenerationChance() => Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues ? 4 : 5;
+		public int ChanceToGenerateOnStatue(int x, int y, int statueType, bool chozoRoom)
+		{
+			return Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues
+			? 4
+			: 5
+			;
+		}
 
 		public override void ItemSetDefaults()
 		{

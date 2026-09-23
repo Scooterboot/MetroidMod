@@ -27,10 +27,6 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override string OffShoulderTexture => $"{Mod.Name}/Assets/Textures/SuitAddons/HazardShieldSuit/HazardShieldSuitBreastplate_OffShoulder";
 
-		public override bool CanGenerateOnChozoStatue() => false;//WorldGen.drunkWorldGen;
-
-		public override double GenerationChance() => 20;
-
 		//This is where all of the suit addon's stats are stored.
 		//They're outside a method so it can be directly accessed by the localization.
 		//Put in the numbers like they'd be seen on the tooltip. The values are automatically adjusted for the actual stats.

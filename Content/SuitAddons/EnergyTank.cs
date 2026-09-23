@@ -14,11 +14,6 @@ namespace MetroidMod.Content.SuitAddons
 
 		public override string TileTexture => $"{Mod.Name}/Assets/Textures/SuitAddons/EnergyTank/EnergyTankTile";
 
-
-		//public override bool CanGenerateOnChozoStatue() => Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues || NPC.downedBoss2;
-
-		public override double GenerationChance() => 4;
-
         public virtual BreastplateAddonSlot AddonSlot => BreastplateAddonSlot.Energy;
 
 		public override void ItemSetStaticDefaults()
