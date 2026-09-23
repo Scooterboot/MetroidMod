@@ -24,6 +24,8 @@ namespace MetroidMod.Content.MorphBallAddons
 		void BombKill(ref int dustType, ref int dustType2, ref float dustScale, ref float dustScale2);
 		void BombOnHitNPC(NPC target, NPC.HitInfo hit, int damageDone);
 		void BombOnHitPlayer(Player target, Player.HurtInfo info);
+
+		IMorphBallBombAddon Clone(MorphBallBombProjectile newBomb);
 	}
 
 	[Autoload(false)]
@@ -266,6 +268,7 @@ namespace MetroidMod.Content.MorphBallAddons
 		{
 			MorphBallBombProjectile inst = (MorphBallBombProjectile)MemberwiseClone();
 			inst.GeneratedModProjectile = newGeneratedModProjectile;
+			inst.producer = producer.Clone(inst);
 			return inst;
 		}
 	}
@@ -309,5 +312,11 @@ namespace MetroidMod.Content.MorphBallAddons
 			return inst;
 		}
 
+		public IMorphBallBombAddon Clone(MorphBallBombProjectile newBomb)
+		{
+			ModMorphBallBomb inst = (ModMorphBallBomb)MemberwiseClone();
+			inst.BombProjectile = newBomb;
+			return inst;
+		}
 	}
 }
