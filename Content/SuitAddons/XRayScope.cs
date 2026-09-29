@@ -27,6 +27,12 @@ namespace MetroidMod.Content.SuitAddons
 			;
 		}
 
+		public override void Load()
+		{
+			base.Load();
+			Common.Systems.MSystem.ThingsThatGenerateOnStatues.Add(this);
+		}
+
 		public override void ItemSetDefaults()
 		{
 			base.ItemSetDefaults();

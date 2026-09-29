@@ -22,6 +22,12 @@ namespace MetroidMod.Content.MorphBallAddons
 				;
 		}
 
+		public override void Load()
+		{
+			base.Load();
+			Common.Systems.MSystem.ThingsThatGenerateOnStatues.Add(this);
+		}
+
 		public override void ItemSetDefaults()
 		{
 			Item.damage = 100;

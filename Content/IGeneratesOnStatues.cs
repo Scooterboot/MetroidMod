@@ -1,5 +1,8 @@
 namespace MetroidMod.Content
 {
+	/// <summary>
+	/// Extend and feed into <see cref="MSystem.ThingsThatGenerateOnStatues"> to automatically be put into the Orb pool.
+	/// </summary>
 	public interface IGeneratesOnStatues
 	{
 		/// <summary>

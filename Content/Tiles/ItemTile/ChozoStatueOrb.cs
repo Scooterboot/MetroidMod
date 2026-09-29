@@ -34,7 +34,7 @@ namespace MetroidMod.Content.Tiles.ItemTile
 		{
 			if (Main.netMode != NetmodeID.SinglePlayer)
 			{
-				yield return new Item(MSystem.OORB()); //oorb1
+				yield return new Item(MSystem.OORB(i, j, 0)); //oorb1
 			}
 		}
 		public override void AnimateTile(ref int frame, ref int frameCounter)
@@ -92,7 +92,7 @@ namespace MetroidMod.Content.Tiles.ItemTile
 		{
 			if (Main.netMode != NetmodeID.SinglePlayer)
 			{
-				yield return new Item(MSystem.OORB()); //OORB2
+				yield return new Item(MSystem.OORB(i, j, 1)); //OORB2
 			}
 		}
 		public override bool RightClick(int i, int j)
@@ -140,7 +140,7 @@ namespace MetroidMod.Content.Tiles.ItemTile
 		{
 			if (Main.netMode != NetmodeID.SinglePlayer)
 			{
-				yield return new Item(MSystem.OORB()); //oorb3
+				yield return new Item(MSystem.OORB(i, j, 2)); //oorb3
 			}
 		}
 		public override bool RightClick(int i, int j)

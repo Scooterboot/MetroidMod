@@ -41,7 +41,7 @@ namespace MetroidMod.Content.Items.Tiles
 		}
 		public override void RightClick(Player player)
 		{
-			player.QuickSpawnItem(player.GetSource_FromThis(), MSystem.OORB()); //T1
+			player.QuickSpawnItem(player.GetSource_FromThis(), MSystem.OORB((int)player.Center.X, (int)player.Center.Y, 0)); //T1
 																				//Item.NewItem(player.GetSource_FromThis(), player.position, (ushort)MSystem.OrbItem());
 			base.RightClick(player);
 		}
@@ -55,7 +55,7 @@ namespace MetroidMod.Content.Items.Tiles
 		}
 		public override void RightClick(Player player)
 		{
-			player.QuickSpawnItem(player.GetSource_FromThis(), MSystem.OORB());//T2
+			player.QuickSpawnItem(player.GetSource_FromThis(), MSystem.OORB((int)player.Center.X, (int)player.Center.Y, 1));//T2
 																			   //Item.NewItem(player.GetSource_FromThis(), player.position, (ushort)MSystem.OrbItem());
 																			   //RightClick(player);
 		}
@@ -71,7 +71,7 @@ namespace MetroidMod.Content.Items.Tiles
 		}
 		public override void RightClick(Player player)
 		{
-			player.QuickSpawnItem(player.GetSource_FromThis(), MSystem.OORB());//T3
+			player.QuickSpawnItem(player.GetSource_FromThis(), MSystem.OORB((int)player.Center.X, (int)player.Center.Y, 2));//T3
 																			   //Item.NewItem(player.GetSource_FromThis(), player.position, (ushort)MSystem.OrbItem());
 																			   //base.RightClick(player);
 		}

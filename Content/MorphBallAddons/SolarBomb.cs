@@ -27,6 +27,12 @@ namespace MetroidMod.Content.MorphBallAddons
 			return Common.Configs.MConfigMain.Instance.drunkWorldHasDrunkStatues || NPC.downedAncientCultist ? 1 : 0;
 		}
 
+		public override void Load()
+		{
+			base.Load();
+			Common.Systems.MSystem.ThingsThatGenerateOnStatues.Add(this);
+		}
+
 		public override void ItemSetDefaults()
 		{
 			Item.damage = 15;
