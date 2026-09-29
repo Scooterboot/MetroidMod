@@ -1099,211 +1099,6 @@ Mods: {
 					''' */
 			}
 
-			###################################
-			# -----[[Morph Ball Addons]]----- #
-			###################################
-			
-			# Bombs
-			
-			BombAddon: {
-				// DisplayName: Morph Ball Bombs
-				/* Tooltip:
-					'''
-					{$CommonItemTooltip.IsMorphAddon}Weapon
-					Press the bomb keybind to set a bomb
-					''' */
-			}
-
-			PoisonBombAddon: {
-				// DisplayName: Poison Morph Ball Bombs
-				/* Tooltip:
-					'''
-					{$CommonItemTooltip.IsMorphAddon}Weapon
-					Press the bomb keybind to set a bomb
-					Inflicts Poison
-					''' */
-			}
-
-			FireBombAddon: {
-				// DisplayName: Fire Morph Ball Bombs
-				/* Tooltip:
-					'''
-					{$CommonItemTooltip.IsMorphAddon}Weapon
-					Press the bomb keybind to set a bomb
-					Sets targets on fire
-					''' */
-			}
-
-			FrostburnBombAddon: {
-				// DisplayName: Frostburn Morph Ball Bombs
-				/* Tooltip:
-					'''
-					{$CommonItemTooltip.IsMorphAddon}Weapon
-					Press the bomb keybind to set a bomb
-					Inflicts Frostburn
-					''' */
-			}
-
-			ShadowflameBombAddon: {
-				// DisplayName: Shadowflame Morph Ball Bombs
-				/* Tooltip:
-					'''
-					{$CommonItemTooltip.IsMorphAddon}Weapon
-					Press the bomb keybind to set a bomb
-					Inflicts Shadowflame
-					''' */
-			}
-
-			CursedFlameBombAddon: {
-				// DisplayName: Cursed Flame Morph Ball Bombs
-				/* Tooltip:
-					'''
-					{$CommonItemTooltip.IsMorphAddon}Weapon
-					Press the bomb keybind to set a bomb
-					Inflicts Cursed Inferno
-					''' */
-			}
-
-			IchorBombAddon: {
-				// DisplayName: Ichor Morph Ball Bombs
-				/* Tooltip:
-					'''
-					{$CommonItemTooltip.IsMorphAddon}Weapon
-					Press the bomb keybind to set a bomb
-					Inflicts Ichor
-					''' */
-			}
-
-			CrystalBombAddon: {
-				// DisplayName: Crystal Morph Ball Bombs
-				/* Tooltip:
-					'''
-					{$CommonItemTooltip.IsMorphAddon}Weapon
-					Press the bomb keybind to set a bomb
-					Fires off crystal shards on detonation
-					''' */
-			}
-
-			VenomBombAddon: {
-				// DisplayName: Venom Morph Ball Bombs
-				/* Tooltip:
-					'''
-					{$CommonItemTooltip.IsMorphAddon}Weapon
-					Press the bomb keybind to set a bomb
-					Inflicts Acid Venom
-					''' */
-			}
-
-			PhazonBombAddon: {
-				// DisplayName: Phazon Morph Ball Bombs
-				/* Tooltip:
-					'''
-					{$CommonItemTooltip.IsMorphAddon}Weapon
-					Press the bomb keybind to set a bomb
-					Inflicts Phazon Exposure
-					''' */
-			}
-
-			PumpkinBombAddon: {
-				// DisplayName: Pumpkin Morph Ball Bombs
-				/* Tooltip:
-					'''
-					{$CommonItemTooltip.IsMorphAddon}Weapon
-					Press the bomb keybind to set a bomb
-					Fires off Jack 'O Lanterns on detonation
-					'I took a grenade to the face, dude!'
-					''' */
-			}
-
-			BetsyBombAddon: {
-				// DisplayName: Betsy Morph Ball Bombs
-				/* Tooltip:
-					'''
-					{$CommonItemTooltip.IsMorphAddon}Weapon
-					Press the bomb keybind to set a bomb
-					Explodes in defense reducing miasma that also sets enemies on fire
-					''' */
-			}
-
-			SolarFireBombAddon: {
-				// DisplayName: Solar Fire Morph Ball Bombs
-				/* Tooltip:
-					'''
-					{$CommonItemTooltip.IsMorphAddon}Weapon
-					Press the bomb keybind to set a bomb
-					Burns foes with the fury of the sun
-					''' */
-			}
-
-			# Utility
-			
-			SpiderBallAddon: {
-				// DisplayName: Spider Ball
-				/* Tooltip:
-					'''
-					{$CommonItemTooltip.IsMorphAddon}Utility
-					Press the Spider Ball Key to activate Spider Ball
-					Allows you to climb on walls and ceilings
-					''' */
-			}
-
-			# Boost
-			
-			BoostBallAddon: {
-				// DisplayName: Boost Ball
-				/* Tooltip:
-					'''
-					{$CommonItemTooltip.IsMorphAddon}Boost
-					Hold Boost Ball Key to charge a speed boost
-					Release the key to accelerate in the direction you are moving
-					''' */
-			}
-
-			# Drill
-			
-			DrillAddon: {
-				// DisplayName: Morph Drill
-				/* Tooltip:
-					'''
-					{$CommonItemTooltip.IsMorphAddon}Drill
-					Left Click while morphed to drill
-					matches the highest Pickaxe Power you possess
-					[c/78BE78:Requires Morph Ball to use]
-					''' */
-			}
-
-			# Special
-			
-			PowerBombAddon: {
-				// DisplayName: Power Bomb
-				/* Tooltip:
-					'''
-					{$CommonItemTooltip.IsMorphAddon}Special
-					Press the Power Bomb Key to deploy
-					Creates a large explosion that pulls items to its center
-					''' */
-			}
-
-			VortexBombAddon: {
-				// DisplayName: Vortex Bomb
-				/* Tooltip:
-					'''
-					{$CommonItemTooltip.IsMorphAddon}Special
-					Press the Power Bomb Key to deploy
-					Creates a massive explosion that pulls enemies and items to its center
-					''' */
-			}
-
-			SolarBombAddon: {
-				// DisplayName: Solar Bomb
-				/* Tooltip:
-					'''
-					{$CommonItemTooltip.IsMorphAddon}Special
-					Press the Power Bomb Key to deploy
-					Creates a massive explosion that incinerates enemies and pulls items to its center
-					''' */
-			}
-
 			#############################
 			# -----[[Accessories]]----- #
 			#############################
@@ -4076,26 +3871,6 @@ Mods: {
 			// SolarLaserShot.DisplayName: Solar Flare
 			// SolarLaserFlareShot.DisplayName: Solar Flare
 			// SolarLaserFlameTrail.DisplayName: Solar Flare Afterburn
-			#Morph Ball
-			// BombProjectile.DisplayName: Morph Ball Bomb
-			// PoisonBombProjectile.DisplayName: Poison Bomb
-			// FireBombProjectile.DisplayName: Fire Bomb
-			// ShadowflameBombProjectile.DisplayName: Shadowflame Bomb
-			// FrostburnBombProjectile.DisplayName: Frostburn Bomb
-			// CursedFlameBombProjectile.DisplayName: Cursed Flame Bomb
-			// IchorBombProjectile.DisplayName: Ichor Bomb
-			// CrystalBombProjectile.DisplayName: Crystal Bomb
-			// VenomBombProjectile.DisplayName: Venom Bomb
-			// PhazonBombProjectile.DisplayName: Phazon Bomb
-			// PumpkinBombProjectile.DisplayName: Pumpkin Bomb
-			// BetsyBombProjectile.DisplayName: Betsy Bomb
-			// SolarFireBombProjectile.DisplayName: Solar Fire Bomb
-			// SolarBombExplosion.DisplayName: Solar Bomb
-			// SolarBombProjectile.DisplayName: Solar Bomb
-			// VortexBombExplosion.DisplayName: Vortex Bomb
-			// VortexBombProjectile.DisplayName: Vortex Bomb
-			// PowerBombExplosion.DisplayName: Power Bomb
-			// PowerBombProjectile.DisplayName: Power Bomb
 			#Accessory Projectiles
 			// SpeedBoost.DisplayName: Speed Boost
 			// SpeedBall.DisplayName: Speed Ball
@@ -5525,118 +5300,224 @@ Mods: {
 		}
 
 		MorphBallAddons: {
-			BetsyBomb: {
-				// DisplayName: Betsy Bomb
-				// Tooltip: ""
-				// Bomb.DisplayName: Mods.MetroidMod.MorphBallAddons.BetsyBomb.Bomb.DisplayName
-			}
-
+			# Bombs
+			
 			Bomb: {
-				// DisplayName: Bomb
-				// Tooltip: ""
-				// Bomb.DisplayName: Mods.MetroidMod.MorphBallAddons.Bomb.Bomb.DisplayName
-			}
-
-			BoostBall: {
-				// DisplayName: Boost Ball
-				// Tooltip: ""
-			}
-
-			CrystalBomb: {
-				// DisplayName: Crystal Bomb
-				// Tooltip: ""
-				// Bomb.DisplayName: Mods.MetroidMod.MorphBallAddons.CrystalBomb.Bomb.DisplayName
-			}
-
-			CursedFlameBomb: {
-				// DisplayName: Cursed Flame Bomb
-				// Tooltip: ""
-				// Bomb.DisplayName: Mods.MetroidMod.MorphBallAddons.CursedFlameBomb.Bomb.DisplayName
-			}
-
-			Drill: {
-				// DisplayName: Drill
-				// Tooltip: ""
-			}
-
-			FireBomb: {
-				// DisplayName: Fire Bomb
-				// Tooltip: ""
-				// Bomb.DisplayName: Mods.MetroidMod.MorphBallAddons.FireBomb.Bomb.DisplayName
-			}
-
-			FrostburnBomb: {
-				// DisplayName: Frostburn Bomb
-				// Tooltip: ""
-				// Bomb.DisplayName: Mods.MetroidMod.MorphBallAddons.FrostburnBomb.Bomb.DisplayName
-			}
-
-			IchorBomb: {
-				// DisplayName: Ichor Bomb
-				// Tooltip: ""
-				// Bomb.DisplayName: Mods.MetroidMod.MorphBallAddons.IchorBomb.Bomb.DisplayName
-			}
-
-			PhazonBomb: {
-				// DisplayName: Phazon Bomb
-				// Tooltip: ""
-				// Bomb.DisplayName: Mods.MetroidMod.MorphBallAddons.PhazonBomb.Bomb.DisplayName
+				// DisplayName: Morph Ball Bombs
+				/* Tooltip:
+					'''
+					{$CommonItemTooltip.IsMorphAddon}Weapon
+					Press the bomb keybind to set a bomb
+					''' */
+				// Bomb.DisplayName: Bomb
 			}
 
 			PoisonBomb: {
-				// DisplayName: Poison Bomb
-				// Tooltip: ""
-				// Bomb.DisplayName: Mods.MetroidMod.MorphBallAddons.PoisonBomb.Bomb.DisplayName
+				// DisplayName: Poison Morph Ball Bombs
+				/* Tooltip:
+					'''
+					{$CommonItemTooltip.IsMorphAddon}Weapon
+					Press the bomb keybind to set a bomb
+					Inflicts Poison
+					''' */
+				// Bomb.DisplayName: Poison Bomb
 			}
 
-			PowerBomb: {
-				// DisplayName: Power Bomb
-				// Tooltip: ""
-				// PowerBomb.DisplayName: Mods.MetroidMod.MorphBallAddons.PowerBomb.PowerBomb.DisplayName
-				// PowerBombExplosion.DisplayName: Mods.MetroidMod.MorphBallAddons.PowerBomb.PowerBombExplosion.DisplayName
+			FireBomb: {
+				// DisplayName: Fire Morph Ball Bombs
+				/* Tooltip:
+					'''
+					{$CommonItemTooltip.IsMorphAddon}Weapon
+					Press the bomb keybind to set a bomb
+					Sets targets on fire
+					''' */
+				// Bomb.DisplayName: Fire Morph Ball
 			}
 
-			PumpkinBomb: {
-				// DisplayName: Pumpkin Bomb
-				// Tooltip: ""
-				// Bomb.DisplayName: Mods.MetroidMod.MorphBallAddons.PumpkinBomb.Bomb.DisplayName
+			FrostburnBomb: {
+				// DisplayName: Frostburn Morph Ball Bombs
+				/* Tooltip:
+					'''
+					{$CommonItemTooltip.IsMorphAddon}Weapon
+					Press the bomb keybind to set a bomb
+					Inflicts Frostburn
+					''' */
+				// Bomb.DisplayName: Frostburn Bomb
 			}
 
 			ShadowflameBomb: {
-				// DisplayName: Shadowflame Bomb
-				// Tooltip: ""
-				// Bomb.DisplayName: Mods.MetroidMod.MorphBallAddons.ShadowflameBomb.Bomb.DisplayName
+				// DisplayName: Shadowflame Morph Ball Bombs
+				/* Tooltip:
+					'''
+					{$CommonItemTooltip.IsMorphAddon}Weapon
+					Press the bomb keybind to set a bomb
+					Inflicts Shadowflame
+					''' */
+				// Bomb.DisplayName: Shadowflame Bomb
 			}
 
-			SolarBomb: {
-				// DisplayName: Solar Bomb
-				// Tooltip: ""
-				// PowerBomb.DisplayName: Mods.MetroidMod.MorphBallAddons.SolarBomb.PowerBomb.DisplayName
-				// PowerBombExplosion.DisplayName: Mods.MetroidMod.MorphBallAddons.SolarBomb.PowerBombExplosion.DisplayName
+			CursedFlameBomb: {
+				// DisplayName: Cursed Flame Morph Ball Bombs
+				/* Tooltip:
+					'''
+					{$CommonItemTooltip.IsMorphAddon}Weapon
+					Press the bomb keybind to set a bomb
+					Inflicts Cursed Inferno
+					''' */
+				// Bomb.DisplayName: Cursed Flame Bomb
 			}
 
-			SolarFireBomb: {
-				// DisplayName: Solar Fire Bomb
-				// Tooltip: ""
-				// Bomb.DisplayName: Mods.MetroidMod.MorphBallAddons.SolarFireBomb.Bomb.DisplayName
+			IchorBomb: {
+				// DisplayName: Ichor Morph Ball Bombs
+				/* Tooltip:
+					'''
+					{$CommonItemTooltip.IsMorphAddon}Weapon
+					Press the bomb keybind to set a bomb
+					Inflicts Ichor
+					''' */
+				// Bomb.DisplayName: Ichor Bomb
 			}
 
-			SpiderBall: {
-				// DisplayName: Spider Ball
-				// Tooltip: ""
+			CrystalBomb: {
+				// DisplayName: Crystal Morph Ball Bombs
+				/* Tooltip:
+					'''
+					{$CommonItemTooltip.IsMorphAddon}Weapon
+					Press the bomb keybind to set a bomb
+					Fires off crystal shards on detonation
+					''' */
+				// Bomb.DisplayName: Crystal Bomb
 			}
 
 			VenomBomb: {
-				// DisplayName: Venom Bomb
-				// Tooltip: ""
-				// Bomb.DisplayName: Mods.MetroidMod.MorphBallAddons.VenomBomb.Bomb.DisplayName
+				// DisplayName: Venom Morph Ball Bombs
+				/* Tooltip:
+					'''
+					{$CommonItemTooltip.IsMorphAddon}Weapon
+					Press the bomb keybind to set a bomb
+					Inflicts Acid Venom
+					''' */
+				// Bomb.DisplayName: Venom Bomb
+			}
+
+			PhazonBomb: {
+				// DisplayName: Phazon Morph Ball Bombs
+				/* Tooltip:
+					'''
+					{$CommonItemTooltip.IsMorphAddon}Weapon
+					Press the bomb keybind to set a bomb
+					Inflicts Phazon Exposure
+					''' */
+				// Bomb.DisplayName: Phazon Bomb
+			}
+
+			PumpkinBomb: {
+				// DisplayName: Pumpkin Morph Ball Bombs
+				/* Tooltip:
+					'''
+					{$CommonItemTooltip.IsMorphAddon}Weapon
+					Press the bomb keybind to set a bomb
+					Fires off Jack 'O Lanterns on detonation
+					'I took a grenade to the face, dude!'
+					''' */
+				// Bomb.DisplayName: Pumpkin Bomb
+			}
+
+			BetsyBomb: {
+				// DisplayName: Betsy Morph Ball Bombs
+				/* Tooltip:
+					'''
+					{$CommonItemTooltip.IsMorphAddon}Weapon
+					Press the bomb keybind to set a bomb
+					Explodes in defense reducing miasma that also sets enemies on fire
+					''' */
+				// Bomb.DisplayName: Betsy Bomb
+			}
+
+			SolarFireBomb: {
+				// DisplayName: Solar Fire Morph Ball Bombs
+				/* Tooltip:
+					'''
+					{$CommonItemTooltip.IsMorphAddon}Weapon
+					Press the bomb keybind to set a bomb
+					Burns foes with the fury of the sun
+					''' */
+				// Bomb.DisplayName: Solar Fire Bomb
+			}
+
+			# Utility
+			
+			SpiderBall: {
+				// DisplayName: Spider Ball
+				/* Tooltip:
+					'''
+					{$CommonItemTooltip.IsMorphAddon}Utility
+					Press the Spider Ball Key to activate Spider Ball
+					Allows you to climb on walls and ceilings
+					''' */
+			}
+
+			# Boost
+			
+			BoostBall: {
+				// DisplayName: Boost Ball
+				/* Tooltip:
+					'''
+					{$CommonItemTooltip.IsMorphAddon}Boost
+					Hold Boost Ball Key to charge a speed boost
+					Release the key to accelerate in the direction you are moving
+					''' */
+			}
+
+			# Drill
+			
+			Drill: {
+				// DisplayName: Morph Drill
+				/* Tooltip:
+					'''
+					{$CommonItemTooltip.IsMorphAddon}Drill
+					Left Click while morphed to drill
+					matches the highest Pickaxe Power you possess
+					[c/78BE78:Requires Morph Ball to use]
+					''' */
+			}
+
+			# Special
+			
+			PowerBomb: {
+				// DisplayName: Power Bomb
+				/* Tooltip:
+					'''
+					{$CommonItemTooltip.IsMorphAddon}Special
+					Press the Power Bomb Key to deploy
+					Creates a large explosion that pulls items to its center
+					''' */
+				// PowerBomb.DisplayName: Power Bomb
+				// PowerBombExplosion.DisplayName: Power Bomb
 			}
 
 			VortexBomb: {
 				// DisplayName: Vortex Bomb
-				// Tooltip: ""
-				// PowerBomb.DisplayName: Mods.MetroidMod.MorphBallAddons.VortexBomb.PowerBomb.DisplayName
-				// PowerBombExplosion.DisplayName: Mods.MetroidMod.MorphBallAddons.VortexBomb.PowerBombExplosion.DisplayName
+				/* Tooltip:
+					'''
+					{$CommonItemTooltip.IsMorphAddon}Special
+					Press the Power Bomb Key to deploy
+					Creates a massive explosion that pulls enemies and items to its center
+					''' */
+				// PowerBomb.DisplayName: Vortex Bomb
+				// PowerBombExplosion.DisplayName: Vortex Bomb
+			}
+
+			SolarBomb: {
+				// DisplayName: Solar Bomb
+				/* Tooltip:
+					'''
+					{$CommonItemTooltip.IsMorphAddon}Special
+					Press the Power Bomb Key to deploy
+					Creates a massive explosion that incinerates enemies and pulls items to its center
+					''' */
+				// PowerBomb.DisplayName: Solar Bomb
+				// PowerBombExplosion.DisplayName: Solar Bomb
 			}
 		}
 	}
