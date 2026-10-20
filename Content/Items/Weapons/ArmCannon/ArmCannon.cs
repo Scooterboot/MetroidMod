@@ -11,7 +11,7 @@ namespace MetroidMod.Content.Items.Weapons.ArmCannon
 			get {
 				if (beamAddons == null)
 				{
-					beamAddons = new Item[5];
+					beamAddons = new Item[6];
 					for (int i = 0; i < beamAddons.Length; ++i)
 					{
 						beamAddons[i] = new Item();

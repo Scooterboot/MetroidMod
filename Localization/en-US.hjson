@@ -86,6 +86,16 @@ Mods: {
 			PhazonBeamEnabled: Enables the use of Phazon Beam
 		}
 
+		UILabelling: {
+			ACTitle: ARM CANNON
+			ACAmmoTitle: A M M O
+			UALabel: BEAM
+			MissileLabel: MISSILE
+			PSTitle: POWER SUIT
+			ReserveLabel: RESERVE
+			MBTitle: MORPH BALL
+		}
+
 		Dialogue: {
 			ChozoGhost: {
 				StandardDialogue1: Greetings, {0}! How may I aid you?

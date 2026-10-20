@@ -21,6 +21,7 @@ namespace MetroidMod.Common.Systems
 	internal class MUISystem : ModSystem
 	{
 		public static MUISystem Instance { get; private set; }
+		internal static UserInterface acUserInterface;
 		internal static UserInterface mbUserInterface;
 		internal static UserInterface suitUserInterface;
 		internal static UserInterface helmetUserInterface;
@@ -31,6 +32,7 @@ namespace MetroidMod.Common.Systems
 		internal static ChoziteDualtoolUI choziteDualtoolUI;
 
 		// bri'ish innit?
+		internal bool isACInit = false;
 		internal bool isMBInit = false;
 		internal bool isSUInit = false;
 		internal bool isHELMInit = false;
@@ -48,6 +50,7 @@ namespace MetroidMod.Common.Systems
 			if (!Main.dedServ)
 			{
 				//addonsUI = new UI.AddonsUI();
+				acUserInterface = new UserInterface();
 				mbUserInterface = new UserInterface();
 				suitUserInterface = new UserInterface();
 				helmetUserInterface = new UserInterface();
@@ -81,6 +84,7 @@ namespace MetroidMod.Common.Systems
 
 		public override void Unload()
 		{
+			acUserInterface = null;
 			mbUserInterface = null;
 			suitUserInterface = null;
 			helmetUserInterface = null;
@@ -128,6 +132,11 @@ namespace MetroidMod.Common.Systems
 				mbUserInterface.SetState(new UI.MorphBallUI());
 				isMBInit = true;
 			}
+			if (!isACInit)
+			{
+				acUserInterface.SetState(new UI.ArmCannonUI());
+				isACInit = true;
+			}
 			if (visorUserInterface != null && UI.VisorSelectUI.Visible)
 			{
 				visorUserInterface.Update(gameTime);
@@ -155,6 +164,10 @@ namespace MetroidMod.Common.Systems
 			if (mbUserInterface != null && UI.MorphBallUI.Visible)
 			{
 				mbUserInterface.Update(gameTime);
+			}
+			if (acUserInterface != null && UI.ArmCannonUI.Visible)
+			{
+				acUserInterface.Update(gameTime);
 			}
 		}
 
@@ -339,6 +352,23 @@ namespace MetroidMod.Common.Systems
 			int index = layers.FindIndex((GameInterfaceLayer layer) => layer.Name.Equals("Vanilla: Mouse Text"));
 			if (index != -1)
 			{
+				layers.Insert(index, new LegacyGameInterfaceLayer(
+					"MetroidMod: Arm Cannon UI",
+					delegate {
+						if (UI.ArmCannonUI.Visible)
+						{
+							if (Main.hasFocus)
+							{
+								acUserInterface.Recalculate();
+								acUserInterface.Draw(Main.spriteBatch, Main._drawInterfaceGameTime);
+							}
+							;
+						}
+
+						return true;
+					},
+					InterfaceScaleType.UI)
+				);
 				layers.Insert(index, new LegacyGameInterfaceLayer(
 					"MetroidMod: Morph Ball UI",
 					delegate {
