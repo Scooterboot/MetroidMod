@@ -9,7 +9,7 @@ using MetroidMod.Content.Items.Tiles;
 using MetroidMod.Content.Items.Tiles.Destroyable;
 using MetroidMod.Content.Items.Tools;
 using MetroidMod.Content.Items.Vanity;
-using MetroidMod.Content.Items.Weapons;
+using MetroidMod.Content.Items.Weapons.ArmCannon;
 using MetroidMod.Content.Pets;
 using MetroidMod.Content.SuitAddons;
 using MetroidMod.ID;

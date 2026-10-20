@@ -1,6 +1,7 @@
 ﻿using System;
 using MetroidMod.Common.GlobalItems;
-using MetroidMod.Content.Items.Weapons;
+using MetroidMod.Content.ArmCannonAddons;
+using MetroidMod.Content.Items.Weapons.ArmCannon;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -24,10 +25,10 @@ namespace MetroidMod.Common.UI
 	{
 		//Let it be known that I have zero clue what I'm doing        -Z
 		/// <summary>
-		/// The <see cref="ArmCannon"/> the UI is currently accessing.
+		/// The <see cref="IArmCannon"/> the UI is currently accessing.
 		/// </summary>
-		private ArmCannon target;
-		public static bool Visible => Main.playerInventory && Main.LocalPlayer.chest == -1 && (Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].type == ModContent.ItemType<ArmCannon>());
+		private IArmCannon target;
+		public static bool Visible => Main.playerInventory && Main.LocalPlayer.chest == -1 && (Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem is IArmCannon);
 
 		private UIDraggableBase baseBoard;
 		private ArmCannonPanel armCannonPanel;
@@ -108,17 +109,17 @@ namespace MetroidMod.Common.UI
 			armCannonPanel.Update(gameTime);
 			if (Visible)
 			{
-				target = (ArmCannon)Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem;
+				target = (IArmCannon)Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem;
 				debugInfo.SetText("CHOZO UNIVERSAL WEAPONS PLATFORM\nv0.8.0.1\nDEVELOPER MODE\nSLOT INFO:"
-								  + "\nPrimary (charge): " + target.BeamAddonAccess[0].Name
-								  + "\nAbility (ice): " + target.BeamAddonAccess[1].Name
-								  + "\nIon (wave): " + target.BeamAddonAccess[2].Name
-								  + "\nSpread (spazer): " + target.BeamAddonAccess[3].Name
-								  + "\nSecondary (plasma): " + target.BeamAddonAccess[4].Name
-								  + "\nAmmo (ua): " + target.BeamAddonAccess[5].Name
-								  + "\nCurrent Holdfire: Slot " + target.HoldFireSlot
+								  + "\nPrimary (charge): " + target.BeamAddons[0].Name
+								  + "\nAbility (ice): " + target.BeamAddons[1].Name
+								  + "\nIon (wave): " + target.BeamAddons[2].Name
+								  + "\nSpread (spazer): " + target.BeamAddons[3].Name
+								  + "\nSecondary (plasma): " + target.BeamAddons[4].Name
+								  + "\nAmmo (ua): " + target.BeamAddons[5].Name
+								//   + "\nCurrent Holdfire: Slot " + target.HoldFireSlot
 								  + "\nHolding fire? " + Main.LocalPlayer.controlUseItem
-								  + "\nVisual Dinners: [" + target.VisualDinners[0] + ", " + target.VisualDinners[1] + ", " + target.VisualDinners[2] + ", " + target.VisualDinners[3] + "]"
+								//   + "\nVisual Dinners: [" + target.VisualDinners[0] + ", " + target.VisualDinners[1] + ", " + target.VisualDinners[2] + ", " + target.VisualDinners[3] + "]"
 								  );
 			}
 		}
@@ -150,7 +151,7 @@ namespace MetroidMod.Common.UI
 		/// <summary>
 		/// The Arm Cannon this instance of the UI affects.
 		/// </summary>
-		private ArmCannon target;
+		private IArmCannon target;
 
 		//The exact coordinate positions of every addon slot in the UI.
 		public Vector2[] slotPositions = new Vector2[BeamAddonSlotID.Count + MissileAddonSlotID.Count]
@@ -285,17 +286,17 @@ namespace MetroidMod.Common.UI
 			{
 				Main.LocalPlayer.mouseInterface = true;
 			}
-			target = (ArmCannon)Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem;
+			target = (IArmCannon)Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem;
 			MGlobalItem ac = (Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem]).GetGlobalItem<MGlobalItem>();
 			for (int i = 0; i < addonSlots.Length; ++i)
 			{
 				if (i < BeamAddonSlotID.Count)
 				{
-					addonSlots[i].ItemRead = target.BeamAddonAccess[i];
+					addonSlots[i].ItemRead = target.BeamAddons[i];
 				}
 				else
 				{
-					addonSlots[i].ItemRead = target.MissileAddonAccess[i - BeamAddonSlotID.Count];
+					addonSlots[i].ItemRead = target.MissileAddons[i - BeamAddonSlotID.Count];
 				}
 			}
 
@@ -373,6 +374,8 @@ namespace MetroidMod.Common.UI
 		}
 		public override void LeftMouseDown(UIMouseEvent evt)
 		{
+			return; // TODO: WRITE METHODS
+			/*
 			Player player = Main.LocalPlayer;
 			//This part does the calculation for if you clicking an item slot has an effect on its contents
 			//this is gonna be real long and nesty, brace yourself
@@ -383,7 +386,7 @@ namespace MetroidMod.Common.UI
 				if (isBeam == true)
 				{
 					MetroidMod.Instance.Logger.Info("It's a beam addon slot");
-					ModBeamAddon heldItem = BeamAddonLoader.GetAddon(Main.mouseItem);
+					ModBeamAddon heldItem = ArmCannonAddonLoader.GetAddon(Main.mouseItem);
 					if (heldItem != null)
 					{
 						MetroidMod.Instance.Logger.Info("The held item IS a beam addon!\nThe addon in question: " + heldItem);
@@ -404,7 +407,7 @@ namespace MetroidMod.Common.UI
 				}
 				else
 				{
-					ModMissileAddon heldItem = MissileAddonLoader.GetAddon(Main.mouseItem);
+					ModMissileAddon heldItem = ArmCannonAddonLoader.GetAddon(Main.mouseItem);
 					if (heldItem != null)
 					{
 						MetroidMod.Instance.Logger.Info("It's a missile addon slot");
@@ -431,11 +434,14 @@ namespace MetroidMod.Common.UI
 					SlotMagic(false);
 				}
 			}
+			*/
 		}
 
 		public override void DarkMagic(Item ItemWrite, bool StackAttack)
 		{
-			ArmCannon target = (ArmCannon)Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem;
+			return; // TODO: WRITE METHODS
+			/*
+			IArmCannon target = (IArmCannon)Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem;
 			//Takes the action attempted through SlotMagic and applies the effect to the addon array.
 			if (StackAttack) //Player tried to stack stuff
 			{
@@ -448,8 +454,8 @@ namespace MetroidMod.Common.UI
 					}
 					else
 					{
-						if (isBeam) { target.BeamAddonAccess[slotType].stack += ItemWrite.stack; target.ArrayUpdate(); }
-						else { target.MissileAddonAccess[slotType].stack += ItemWrite.stack; target.ArrayUpdate(); }
+						if (isBeam) { target.BeamAddons[slotType].stack += ItemWrite.stack; target.ArrayUpdate(); }
+						else { target.MissileAddons[slotType].stack += ItemWrite.stack; target.ArrayUpdate(); }
 					}
 				}
 			}
@@ -459,29 +465,30 @@ namespace MetroidMod.Common.UI
 				{
 					if (isArray) //Is it a quick-change menu?
 					{
-						if (isBeam) { target.ChargeQuickSwapAccess[slotType].TurnToAir(); target.ArrayUpdate(); }
-						else { target.ComboQuickChangeAccess[slotType].TurnToAir(); target.ArrayUpdate(); }
+						if (isBeam) { target.ChargeBeamHotswap[slotType].TurnToAir(); target.ArrayUpdate(); }
+						else { target.MissileChargeHotswap[slotType].TurnToAir(); target.ArrayUpdate(); }
 					}
 					else
 					{
-						if (isBeam) { target.BeamAddonAccess[slotType].TurnToAir(); target.ArrayUpdate(); }
-						else { target.MissileAddonAccess[slotType].TurnToAir(); target.ArrayUpdate(); }
+						if (isBeam) { target.BeamAddons[slotType].TurnToAir(); target.ArrayUpdate(); }
+						else { target.MissileAddons[slotType].TurnToAir(); target.ArrayUpdate(); }
 					}
 				}
 				else
 				{
 					if (isArray)
 					{
-						if (isBeam) { target.ChargeQuickSwapAccess[slotType] = ItemWrite; target.ArrayUpdate(); }
-						else { target.ComboQuickChangeAccess[slotType] = ItemWrite; target.ArrayUpdate(); }
+						if (isBeam) { target.ChargeBeamHotswap[slotType] = ItemWrite; target.ArrayUpdate(); }
+						else { target.MissileChargeHotswap[slotType] = ItemWrite; target.ArrayUpdate(); }
 					}
 					else
 					{
-						if (isBeam) { target.BeamAddonAccess[slotType] = ItemWrite; MetroidMod.Instance.Logger.Info("Addon inserted"); target.ArrayUpdate(); }
-						else { target.MissileAddonAccess[slotType] = ItemWrite; target.ArrayUpdate(); }
+						if (isBeam) { target.BeamAddons[slotType] = ItemWrite; MetroidMod.Instance.Logger.Info("Addon inserted"); target.ArrayUpdate(); }
+						else { target.MissileAddons[slotType] = ItemWrite; target.ArrayUpdate(); }
 					}
 				}
 			}
+			*/
 		}
 	}
 

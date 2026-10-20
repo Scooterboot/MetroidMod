@@ -41,7 +41,7 @@ namespace MetroidMod.Content.Items
 			c.EmitDelegate<Func<bool, Item, bool>>((stackCheck, item) =>
 			{
 				if (item.type == ModContent.ItemType<MorphBall>() ||
-					item.type == ModContent.ItemType<ArmCannon>())
+					item.ModItem is Content.Items.Weapons.ArmCannon.IArmCannon)
 				{
 					return false;
 				}

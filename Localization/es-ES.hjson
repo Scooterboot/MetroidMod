@@ -369,6 +369,7 @@ Mods: {
 			// BoostBallTile.MapEntry: Boost Ball Tile
 			// BombTile.MapEntry: Bomb Tile
 			// BetsyBombTile.MapEntry: Betsy Bomb Tile
+			// MissileExpansion2Tile.MapEntry: Missile Expansion2 Tile
 		}
 
 		Buffs: {
@@ -5525,6 +5526,13 @@ Mods: {
 					''' */
 				// PowerBomb.DisplayName: Solar Bomb
 				// PowerBombExplosion.DisplayName: Solar Bomb
+			}
+		}
+
+		ArmCannonAddons: {
+			MissileExpansion2: {
+				// DisplayName: Missile Expansion2
+				// Tooltip: ""
 			}
 		}
 	}

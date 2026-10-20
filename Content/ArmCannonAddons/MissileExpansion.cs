@@ -3,7 +3,7 @@ using Terraria.ID;
 
 namespace MetroidMod.Content.ArmCannonAddons
 {
-	public class MissileExpansion : ModArmCannonAddon
+	public class MissileExpansion2 : ModArmCannonAddon
 	{
 		public override string ItemTexture => $"{Mod.Name}/Content/Items/Tiles/MissileExpansion";
 

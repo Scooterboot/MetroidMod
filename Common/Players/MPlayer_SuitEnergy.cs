@@ -139,7 +139,7 @@ namespace MetroidMod.Common.Players
 			}
 			for (int i = 0; i < Player.inventory.Length; i++)
 			{
-				if (Player.inventory[i].type == ModContent.ItemType<Content.Items.Weapons.ArmCannon>())
+				if (Player.inventory[i].ModItem is Content.Items.Weapons.ArmCannon.IArmCannon)
 				{
 					MGlobalItem mi = Player.inventory[i].GetGlobalItem<MGlobalItem>();
 

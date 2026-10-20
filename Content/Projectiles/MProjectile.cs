@@ -5,10 +5,6 @@ using MetroidMod.Common.Systems;
 using MetroidMod.Content.Buffs;
 using MetroidMod.Content.DamageClasses;
 using MetroidMod.Content.Items.Weapons;
-using MetroidMod.Content.Projectiles.Imperialist;
-using MetroidMod.Content.Projectiles.Judicator;
-using MetroidMod.Content.Projectiles.ShockCoil;
-using MetroidMod.Content.Projectiles.VoltDriver;
 using MetroidMod.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -34,26 +30,6 @@ namespace MetroidMod.Content.Projectiles
 		public bool Luminite = false;
 		public bool DiffBeam = false;
 
-		public override void OnSpawn(IEntitySource source)
-		{
-			if (source is EntitySource_Parent parent && parent.Entity is Player player && (player.HeldItem.type == ModContent.ItemType<ArmCannon>()))
-			{
-
-				if (player.HeldItem.ModItem is ArmCannon hold2)
-				{
-					MPlayer mp = player.GetModPlayer<MPlayer>();
-					shot = hold2.shotEffect.ToString();
-					if (hold2.LuminiteActive || (hold2.DiffusionActive && mp.PrimeHunter))
-					{
-						Luminite = true;
-					}
-					if ((hold2.DiffusionActive || mp.PrimeHunter) && !hold2.LuminiteActive)
-					{
-						DiffBeam = true;
-					}
-				}
-			}
-		}
 		public override void SetDefaults()
 		{
 			Projectile.aiStyle = -1;
@@ -128,7 +104,7 @@ namespace MetroidMod.Content.Projectiles
 			{
 				if ((Projectile.Name.Contains("Plasma") && Projectile.Name.Contains("Red")) || shot.Contains("plasmared"))
 				{
-					if (Projectile.Name.Contains("Ice") || shot.Contains("ice") || Projectile.type == ModContent.ProjectileType<JudicatorChargeShot>() || Projectile.type == ModContent.ProjectileType<JudicatorShot>())
+					if (Projectile.Name.Contains("Ice") || shot.Contains("ice"))
 					{
 						if (Projectile.Name.Contains("V2") || shot.Contains("V2"))
 						{
@@ -211,7 +187,7 @@ namespace MetroidMod.Content.Projectiles
 			Projectile.oldRot[0] = Projectile.rotation;
 
 
-			if (Projectile.Name.Contains("Ice") || shot.Contains("ice") || (Projectile.Name.Contains("Missile") && Projectile.Name.Contains("Stardust")) || (shot.Contains("ice") && shot.Contains("stardust")) || Projectile.type == ModContent.ProjectileType<JudicatorChargeShot>() || Projectile.type == ModContent.ProjectileType<JudicatorShot>())
+			if (Projectile.Name.Contains("Ice") || shot.Contains("ice") || (Projectile.Name.Contains("Missile") && Projectile.Name.Contains("Stardust")) || (shot.Contains("ice") && shot.Contains("stardust")))
 			{
 				Projectile.coldDamage = true;
 			}
@@ -349,10 +325,7 @@ namespace MetroidMod.Content.Projectiles
 				{
 					shift = amplitude * (float)Math.Sin(t - t2) * i;
 				}
-				if (P.type != ModContent.ProjectileType<ImperialistShot>()) //Move pos along the standard path
-				{
-					pos += P.velocity;
-				}
+				pos += P.velocity;
 				float rot = (float)Math.Atan2(P.velocity.Y, P.velocity.X);
 				//Apply final offset values
 				P.position.X = pos.X + ((float)Math.Cos(rot + MathHelper.PiOver2) * shift);
@@ -360,7 +333,7 @@ namespace MetroidMod.Content.Projectiles
 
 				#region waveDepth grabbing and running WaveCollide
 				//Basically just a whole friggin thing to find how far wave can go through blocks
-				if ((!P.tileCollide && !P.Name.Contains("Hyper")) || P.type == ModContent.ProjectileType<ImperialistShot>() || P.type == ModContent.ProjectileType<JudicatorChargeShot>())
+				if ((!P.tileCollide && !P.Name.Contains("Hyper")))
 				{
 					waveDepth = 4; //wave alone
 					if (P.Name.Contains("Spazer") || shot.Contains("spazer"))
@@ -407,14 +380,6 @@ namespace MetroidMod.Content.Projectiles
 							waveDepth += 2; //add 2 extra if you're using v3 addons
 						}
 					}
-					if (P.type == ModContent.ProjectileType<VoltDriverShot>())
-					{
-						waveDepth /= 2; //halve it if it's voltdriver
-					}
-					if (P.type == ModContent.ProjectileType<VoltDriverChargeShot>())
-					{
-						waveDepth = (int)(waveDepth * (Luminite ? 1.5f : 2)); //multiply it if it's a volt charge shot though????
-					}
 					WaveCollide(P, waveDepth); //run WaveCollide
 				}
 				#endregion
@@ -438,7 +403,7 @@ namespace MetroidMod.Content.Projectiles
 			{
 				d--;
 			}
-			if (d >= depth && P.type != ModContent.ProjectileType<ShockCoilShot>() && P.type != ModContent.ProjectileType<ImperialistShot>())
+			if (d >= depth)
 			{
 				P.Kill();
 			}

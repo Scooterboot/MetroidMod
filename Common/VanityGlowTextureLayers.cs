@@ -233,7 +233,7 @@ namespace MetroidMod.Common
 					}
 
 					bool holdingCannon = drawPlayer.inventory[drawPlayer.selectedItem].type == ModContent.ItemType<Content.Items.Tools.NovaLaserDrill>() ||
-										 drawPlayer.inventory[drawPlayer.selectedItem].type == ModContent.ItemType<Content.Items.Weapons.ArmCannon>();
+										 drawPlayer.inventory[drawPlayer.selectedItem].ModItem is Content.Items.Weapons.ArmCannon.IArmCannon;
 					if (!holdingCannon)
 					{
 						MPlayer.DrawTexture(ref drawInfo, tex, drawPlayer, frame, rot, pos, origin, drawPlayer.GetImmuneAlphaPure(VanityGlowTexture.glowColor(drawInfo.colorArmorBody, shader), drawInfo.shadow), shader);

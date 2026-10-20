@@ -27,7 +27,7 @@ namespace MetroidMod.Content.Buffs
 			bool flag2 = false;
 			for (int i = 0; i < player.inventory.Length; i++)
 			{
-				if (player.inventory[i].type == ModContent.ItemType<Items.Weapons.ArmCannon>())
+				if (player.inventory[i].ModItem is Content.Items.Weapons.ArmCannon.IArmCannon)
 				{
 					MGlobalItem mi = player.inventory[i].GetGlobalItem<MGlobalItem>();
 					flag = true;

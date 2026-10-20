@@ -246,7 +246,7 @@ namespace MetroidMod.Common
 		public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
 			=> drawInfo.drawPlayer.body == MPlayer.GetBreastplate(drawInfo.drawPlayer) && base.GetDefaultVisibility(drawInfo) &&
 			!(drawInfo.drawPlayer.inventory[drawInfo.drawPlayer.selectedItem].type == ModContent.ItemType<Content.Items.Tools.NovaLaserDrill>() ||
-			drawInfo.drawPlayer.inventory[drawInfo.drawPlayer.selectedItem].type == ModContent.ItemType<Content.Items.Weapons.ArmCannon>());
+			drawInfo.drawPlayer.inventory[drawInfo.drawPlayer.selectedItem].ModItem is Content.Items.Weapons.ArmCannon.IArmCannon);
 
 		public override DrawDataInfo GetData(PlayerDrawSet info)
 		{

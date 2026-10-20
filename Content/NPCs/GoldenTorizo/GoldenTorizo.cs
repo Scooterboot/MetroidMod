@@ -685,7 +685,8 @@ namespace MetroidMod.Content.NPCs.GoldenTorizo
 					Rectangle projRect = P.Hitbox;
 					if (projRect.Intersects(NPC.Hitbox) || projRect.Intersects(Head.Hitbox) || projRect.Intersects(Body.Hitbox) || projRect.Intersects(LHand.Hitbox) || projRect.Intersects(RHand.Hitbox))
 					{
-						if (!Main.projectile[i].hostile && (P.type == ModContent.ProjectileType<Projectiles.missiles.SuperMissileShot>() || P.type == ModContent.ProjectileType<Projectiles.missiles.IceSuperMissileShot>() || P.type == ModContent.ProjectileType<Projectiles.missiles.NebulaMissileShot>() || P.type == ModContent.ProjectileType<Projectiles.missiles.StardustMissileShot>()))
+						// TODO: GT now deflects everything. FIX! - Armi
+						if (!Main.projectile[i].hostile/* && (P.type == ModContent.ProjectileType<Projectiles.missiles.SuperMissileShot>() || P.type == ModContent.ProjectileType<Projectiles.missiles.IceSuperMissileShot>() || P.type == ModContent.ProjectileType<Projectiles.missiles.NebulaMissileShot>() || P.type == ModContent.ProjectileType<Projectiles.missiles.StardustMissileShot>()) */)
 						{
 							// Set ownership
 							Main.projectile[i].hostile = true;

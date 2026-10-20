@@ -48,6 +48,17 @@ namespace MetroidMod.Content.ArmCannonAddons
 			ArmCannonAddonLoader.addons.Add(this);
 		}
 
+		public override void Load()
+		{
+			GeneratedModItem = new GeneratedModItem(this);
+			GeneratedModTile = new GeneratedModTile(this);
+			Mod.AddContent(GeneratedModItem);
+			Mod.AddContent(GeneratedModTile);
+			ItemType = GeneratedModItem.Type;
+			TileType = GeneratedModTile.Type;
+		}
+
+
 		public virtual void ItemAddRecipes()
 		{
 			
