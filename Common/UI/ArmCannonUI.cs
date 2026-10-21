@@ -126,7 +126,6 @@ namespace MetroidMod.Common.UI
 	}
 	public class ArmCannonPanel : UIPanelTileBackground
 	{
-
 		//The various lines and patterns drawn on top of the panel.
 		private UIImage panelLines;
 		/// <summary>
@@ -152,6 +151,10 @@ namespace MetroidMod.Common.UI
 		/// The Arm Cannon this instance of the UI affects.
 		/// </summary>
 		private IArmCannon target;
+		/// <summary>
+		/// The old value of <see cref="target"/>
+		/// </summary>
+		private IArmCannon oldTarget;
 
 		//The exact coordinate positions of every addon slot in the UI.
 		public Vector2[] slotPositions = new Vector2[BeamAddonSlotID.Count + MissileAddonSlotID.Count]
@@ -288,6 +291,15 @@ namespace MetroidMod.Common.UI
 			}
 			target = (IArmCannon)Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem].ModItem;
 			MGlobalItem ac = (Main.LocalPlayer.inventory[Main.LocalPlayer.MetroidPlayer().selectedItem]).GetGlobalItem<MGlobalItem>();
+
+			// update positions and stuffs first
+			if (target != oldTarget)
+			{
+				UpdateReadConfiguration(target.UIConfiguration);
+				MetroidMod.Instance.Logger.Info("Updating Arm Cannon UI configuration!");
+			}
+
+			// now update items
 			for (int i = 0; i < addonSlots.Length; ++i)
 			{
 				if (i < BeamAddonSlotID.Count)
@@ -332,6 +344,25 @@ namespace MetroidMod.Common.UI
 				info[5].TextColor = info[3].TextColor = Color.Gray;
 			}
 			else { info[5].TextColor = info[3].TextColor = Color.White; }
+			
+			oldTarget = target;
+		}
+
+		private void UpdateReadConfiguration(IArmCannon.ArmCannonUIConfig configuration)
+		{
+			panelLines.SetImage(configuration.Lines);
+			panelWireframe.SetImage(configuration.Wireframe);
+			Vector2[] newSlotPositions = [.. configuration.BeamLocations, .. configuration.MissileLocations];
+			if (slotPositions != newSlotPositions)
+			{
+				slotPositions = newSlotPositions;
+
+				for (int i = 0; i < addonSlots.Length; ++i)
+				{
+					addonSlots[i].Top.Pixels = slotPositions[i].Y;
+					addonSlots[i].Left.Pixels = slotPositions[i].X;
+				}
+			}
 		}
 	}
 	public class UIHidable : UIElement
